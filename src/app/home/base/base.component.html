@@ -1,1 +1,25 @@
-<p>base works!</p>
+<div class="container-scroller">
+
+    <app-header></app-header>
+
+
+    <div class="container-fluid page-body-wrapper" style="padding-left:0px !important;">
+
+        <app-sidebar></app-sidebar>
+
+        <div class="main-panel fondoGris">
+
+            <div id="auxTextoClienteMobile" class="container-fluid d-flex justify-content-end w-100">
+                <span class="orange font-weight-bold">@infoCliente.Nombre</span>
+            </div>
+            <div class="content-wrapper-custom d-flex justify-content-center p-0 " style="padding: 0.1rem 1.04rem !important;">
+
+                <router-outlet></router-outlet>
+
+            </div>
+        </div>
+        
+
+    </div>
+
+</div>

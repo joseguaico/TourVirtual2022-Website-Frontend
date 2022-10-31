@@ -10,6 +10,7 @@ export class BaseComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    document.querySelector('body')?.classList.remove('login-background');
   }
 
 }

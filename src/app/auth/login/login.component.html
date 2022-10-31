@@ -2,15 +2,15 @@
 <div class="auth-form-light text-center py-5 px-4 px-sm-5 card-block">
 
     <div class="brand-logo justify-content-center">
-        <img src="assets/images/logo-menu-512.png" alt="logo">
+        <img src="assets/images/logo-menu.png" alt="logo">
     </div>
     <h4 class="text-black">Iniciar sesión para acceder</h4>
 
-    <form class="form-horizontal form-simple mt-3" method="post">
+    <form [formGroup]="this.formularioLogin" autocomplete="off" (ngSubmit)="this.guardar()" class="form-horizontal form-simple mt-3">
 
         <fieldset class="my-validation-sumary">
             <div class="col-xs-12 text-center" style=" text-align: center;">
-                @ViewData["ErrorLogin"]
+                <!-- @ViewData["ErrorLogin"] -->
             </div>
         </fieldset>
 
@@ -18,15 +18,31 @@
             <div class="form-control-position grey align-items-center input-icon">
                 <i class="icon-head gray"></i>
             </div>
-            <input asp-for="@Model.Username" type="text" class="form-control border-gray form-control-lg input-lg" placeholder="Email" />
-            <span asp-validation-for="@Model.Username" class="validation-feedback" style="text-align: left;"></span>
+            <input type="text" 
+                class="form-control border-gray form-control-lg input-lg" 
+                placeholder="Email"
+                formControlName="email" 
+                (keydown.space)="$event.preventDefault();"
+                [class.input-validation-error]="this.campoNoValido('email')" />
+                <span id="spnEmailUsuario" style="font-size:75%; color: red; " *ngIf="this.campoNoValido('email')">
+                    {{this.formularioLogin.controls['email'].errors | inputValidationEmail}}
+                </span>
         </fieldset>
         <fieldset class="form-group position-relative has-icon-left row">
             <div class="form-control-position grey align-items-center input-icon">
                 <i class="icon-key3 gray"></i>
             </div>
-            <input asp-for="@Model.Password" type="password" class="form-control border-gray form-control-lg input-lg" placeholder="Contraseña" />
-            <span asp-validation-for="@Model.Password" class="validation-feedback" style="text-align: left;"></span>
+            <input type="password" 
+                class="form-control border-gray form-control-lg input-lg"
+                placeholder="Contraseña"
+                maxlength="110"
+                formControlName="password"
+                (keydown.space)="$event.preventDefault();"
+                [class.input-validation-error]="this.campoNoValido('password')"
+                />
+            <span id="spnPassword" style="font-size:75%; color: red;"  *ngIf="this.campoNoValido('password')">
+                Campo obligatorio
+              </span>
         </fieldset>
         <fieldset class="form-group position-relative has-icon-left row">
             <button type="submit" class="btn btn-outline-blue border-gray"><i class="icon-unlock2"></i> Iniciar sesi&oacute;n</button>

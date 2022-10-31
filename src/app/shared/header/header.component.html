@@ -1,1 +1,38 @@
-<p>header works!</p>
+<nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+
+    <div class="navbar-brand-wrapper d-flex justify-content-center">
+        <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100 navbar-aux" style="margin-left:25% !important;">
+            <a class="navbar-brand brand-logo navbar-aux navbar-aux-left" href="#" onclick="return false;"><img src="assets/images/logo-menu.png" alt="logo" /></a>
+            <a class="navbar-brand brand-logo-mini navbar-aux" href="#" onclick="return false;">
+                <img src="assets/images/logo-menu.png" alt="logo" style="width: 30px !important; height: 30px !important;" />
+            </a>
+            <button class="navbar-toggler navbar-toggler align-self-center navbar-aux" type="button" onclick="return false;">
+                <span class="navbar-aux"><img src="assets/images/logo-menu.png" alt="logo" style="width: 40px !important; height: 40px !important;" /></span>
+            </button>
+        </div>
+    </div>
+    <div class="navbar-menu-wrapper d-flex justify-content-end">
+        <ul id="auxTextoClienteDesktop" class="navbar-nav navbar-nav-left w-100">
+            <li class="nav-item d-flex justify-content-start">
+                <span class="orange font-weight-bold">@infoCliente.Nombre</span>
+            </li>
+        </ul>
+        <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item nav-profile" style=" margin-right: 0px !important;">
+                <a class="nav-link d-flex" id="profileDropdown">
+                    <img src="assets/template/images/avatar.jpg" alt="profile" style="visibility: hidden;" />
+                    <div class="d-flex flex-column valign-top">
+                        <span id="spnUsuario" class="nav-profile-name" style="margin-left: 0.8rem !important;">{{this.usuarioService.usuario!.nombreFull}}</span>
+                        <span class="text-center blue" style="margin-left: 0.8rem !important; font-size: 0.8rem !important;">{{this.usuarioService.usuario!.rol | titlecase }}</span>
+                    </div>
+
+                </a>
+            </li>
+        </ul>
+
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="mdi mdi-menu">
+            </span>
+        </button>
+    </div>
+</nav>

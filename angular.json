@@ -13,6 +13,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "sweetalert2"
+            ],
             "outputPath": "dist/tour-virtual-web-app",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -29,7 +32,8 @@
               "src/assets/template/app-assets/fonts/icomoon.css",
               "src/assets/template/app-assets/css/app.css",
               "src/assets/template/app-assets/css/colors.css",
-              "src/assets/template/css/style.css"
+              "src/assets/template/css/style.css",
+              "src/assets/template/css/menu.css"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",

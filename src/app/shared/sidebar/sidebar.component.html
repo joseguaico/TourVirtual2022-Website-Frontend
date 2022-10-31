@@ -1,1 +1,19 @@
-<p>sidebar works!</p>
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+    
+        <li class="nav-item" title="@menu.Texto" *ngFor="let m of this.menuService.menu">
+            <a [routerLink]="m.url"  class="nav-link @menu.ClassBorder">
+                <img class="@menu.ClassImagen" src="assets/images/{{m.imagen}}" style="width: 30px !important; height: 30px !important;" />
+                <span class="@menu.ClassTexto ml-2">{{m.titulo}}</span>
+            </a>
+        </li>
+        <li class="nav-item" title="Salir del sistema">
+            <a (click)="salir()" class="nav-link @menuExit.ClassBorder">
+                <img class="assets/images/salir.png" src="assets/images/salir.png" alt="Salir del sistema"
+                     style="width: 30px !important; height: 30px !important;" />
+                <span class="@menuExit.ClassTexto ml-2">Salir</span>
+            </a>
+        </li>
+
+    </ul>
+</nav>
