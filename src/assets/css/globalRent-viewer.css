@@ -1,0 +1,46 @@
+﻿.viewerCustom {
+    min-height: 600px !important;
+    height: 600px !important;
+}
+
+
+
+@media (max-width: 1000px) {
+    .viewerCustom {
+        min-height: 550px !important;
+        height: 550px !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .viewerCustom {
+        min-height: 500px !important;
+        height: 500px !important;
+    }
+}
+
+@media (max-width: 800px) {
+    .viewerCustom {
+        min-height: 450px !important;
+        height: 450px !important;
+    }
+}
+
+@media (max-width: 500px) {
+    .viewerCustom {
+        min-height: 400px !important;
+        height: 400px !important;
+    }
+}
+@media (max-width: 400px) {
+    .viewerCustom {
+        min-height: 320px !important;
+        height: 320px !important;
+    }
+}
+@media (max-width: 300px) {
+    .viewerCustom {
+        min-height: 200px !important;
+        height: 200px !important;
+    }
+}

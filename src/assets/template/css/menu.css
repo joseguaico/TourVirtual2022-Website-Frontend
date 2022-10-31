@@ -1,0 +1,110 @@
+﻿
+.menuBase {
+    width: 35px !important;
+    height: 39px !important;
+    padding: 0px !important;
+    margin: 0px !important;
+}
+.menuBaseActivo {
+    width: 35px !important;
+    height: 39px !important;
+    padding: 0px !important;
+    margin: 0px !important;  
+}
+.menuBorderActivo {
+    border-left: solid 4px #ffbd66;
+}
+
+.navbar-aux,
+.navbar-aux hover,
+.navbar-aux a,
+.navbar-aux a:hover {
+    cursor: pointer !important;
+}
+
+
+#auxTextoClienteMobile {
+    background: #ffffff;
+    padding: 4px;
+    border: 1px solid #e3e3e3;
+    justify-content:flex-start;
+    display: none !important;
+}
+
+@media (max-width: 476px) {
+    #auxTextoClienteMobile {
+        display: block !important;
+        text-align: center !important;
+        border-left: 0 !important;
+        border-right: 0 !important;
+        border-top: 0 !important;
+    }
+    #auxTextoClienteDesktop {
+        display: none !important;
+    }
+}
+
+
+    @media (min-width: 576px) {
+
+        .textoMenu {
+            /*color: #c9c9c9 !important;*/
+        }
+
+            .textoMenu:hover {
+                /*color: #000914 !important;*/
+                color: #d09525 !important;
+            }
+
+        .textoMenuActivo {
+            color: #000000 !important;
+        }
+
+            .textoMenuActivo:hover {
+                color: #d09525 !important;
+            }
+
+        #auxTextoClienteMobile {
+            display: none !important;
+        }
+    }
+
+    @media (min-width: 991px) {
+        .navbar-aux-left {
+            display: none;
+        }
+
+        #auxTextoClienteMobile {
+            display: none !important;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .textoMenu,
+        .textoMenu:hover,
+        .textoMenuActivo,
+        .textoMenuActivo:hover {
+            color: transparent !important;
+            display: none;
+        }
+
+        #auxTextoClienteMobile {
+            display: none !important;
+        }
+    }
+
+
+    @media (min-width: 1200px) {
+        .textoMenu,
+        .textoMenu:hover,
+        .textoMenuActivo,
+        .textoMenuActivo:hover {
+            color: transparent !important;
+            display: none;
+        }
+
+        #auxTextoClienteMobile {
+            display: none !important;
+        }
+    }
+

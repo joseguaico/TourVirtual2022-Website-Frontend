@@ -1,0 +1,35 @@
+﻿input[type="text"],
+input[type="password"] {
+    margin: 0px !important;
+}
+
+.row {
+    margin: 25px !important;
+}
+
+.input-icon {
+    margin-top: 0.4em;
+}
+
+.auth form .form-group .form-control, .auth form .form-group .dataTables_wrapper select, .dataTables_wrapper .auth form .form-group select {
+    line-height: 1.45;
+    border-radius: 0.27rem !important;
+}
+
+.btn {
+    border-radius: 0.1875rem !important;
+    border-color: black;
+}
+
+.login-background {
+    background: linear-gradient(rgba(29, 43, 54, 0.75), rgba(29, 43, 54, 0.75)), url(../Template/backgrounds/background.jpg) center center !important;
+    background-size: cover;
+    /* Here's the same styles we applied to our content-div earlier */
+    color: white;
+    align-items: center;
+    justify-content: center;
+}
+
+.orange-alternative {
+    color: #c48f17;
+}

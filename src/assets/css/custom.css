@@ -1,0 +1,315 @@
+﻿.cBtn_ControlCargaIm360 {
+    width: 30px;
+    height: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+    .cBtn_ControlCargaIm360:hover {
+        width: 30px;
+        height: 30px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-color: #FFCE54;
+        color: #FFF !important;
+    }
+
+.cBtn_ControlCargaIm360Disabled {
+    width: 30px;
+    height: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-color: #e8eff4;
+}
+
+    .cBtn_ControlCargaIm360Disabled:hover {
+        width: 30px;
+        height: 30px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-color: #e8eff4;
+        cursor: default !important;
+    }
+
+.btnInfo360Disabled {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-color: #e8eff4 !important;
+}
+
+    .btnInfo360Disabled:hover {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-color: #e8eff4;
+        cursor: default !important;
+    }
+
+
+
+.cBGColor_Blanco {
+    background-color: #FFF;
+}
+
+.cBtn_DragCtrl {
+    background-image: url('../app-files/general/btn_move.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 65%;
+    left: 0px;
+    top: -25px;
+    width: 30px !important;
+    height: 30px !important;
+}
+
+    .cBtn_DragCtrl:hover {
+        opacity: 0.5;
+    }
+
+    .cBtn_DragCtrl:active {
+        opacity: 0.5;
+        width: 150px;
+        height: 150px;
+        /*left: -75px;
+        top: -110px;*/
+        background-size: 100%;
+    }
+
+.cBtn_RemoverPin {
+    background-image: url('../app-files/general/btn_delete.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 65%;
+    left: 30px;
+    top: -1px;
+    width: 30px !important;
+    height: 30px !important;
+    z-index: 8;
+}
+
+    .cBtn_RemoverPin:hover {
+        opacity: 0.7;
+    }
+
+    .cBtn_RemoverPin:active {
+        opacity: 0.5;
+        width: 150px;
+        height: 150px;
+        left: -75px;
+        top: -110px;
+        background-size: 15%;
+    }
+
+.d-row-custom {
+    min-width: 100%;
+}
+
+#btnUploadPlano {
+    color: black;
+    font-weight: 700 !important;
+}
+
+    #btnUploadPlano:hover {
+        color: black !important;
+        font-weight: 700 !important;
+    }
+
+#btnRemovePlano {
+    color: black;
+    font-weight: 800 !important;
+}
+
+    #btnRemovePlano:hover {
+        color: black !important;
+        font-weight: 800 !important;
+    }
+
+.cBtn_Ok {
+    background-image: url('../app-files/general/btn_ok.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 65%;
+}
+
+    .cBtn_Ok:hover {
+        opacity: 0.5;
+    }
+
+
+
+.cPin {
+    background-image: url('../app-files/general/ico_pinBig.png');
+    width: 30px !important;
+    height: 30px !important;
+    left: -15px !important;
+    top: -30px !important;
+    background-position: center 7px !important;
+    background-repeat: no-repeat !important;
+    background-size: 60% !important;
+}
+
+.cPinAtras {
+    background-color: rgba(0,0,0,0.25) !important;
+    width: 50px !important;
+    height: 50px !important;
+    /*left: -25px !important;
+    top: -37px !important;*/
+    left: -9px !important;
+    top: -9px !important;
+}
+
+.cPinNameText {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    font-size: 9px !important;
+    /*line-height: 25px !important;*/
+    line-height: 10px !important;
+    font-weight: 400 !important;
+    width: 88px !important;
+    /*height: 25px !important;*/
+    height: auto;
+    color: #fefefe;
+    background-color: #313131 !important;
+    padding-top: 2.5px !important;
+    padding-bottom: 2.5px !important;
+}
+
+.cPinNameNoText {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    font-size: 9px !important;
+    /*line-height: 25px !important;*/
+    line-height: 10px !important;
+    font-weight: 400 !important;
+    width: 88px !important;
+    /*height: 25px !important;*/
+    height: auto;
+    color: #fefefe;
+    background-color: #313131 !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+
+.cInputPinName {
+    padding-left: 6px !important;
+    padding-right: 25px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    border: none !important;
+    color: #fefefe !important;
+    font-size: 9px !important;
+    line-height: 25px !important;
+    font-weight: 400 !important;
+    /*width: 69px !important;*/
+    width: 100% !important;
+    /*height: 25px !important;*/
+    min-height: 25px !important;
+    max-height: 100px !important;
+    height: auto;
+    background-color: #313131 !important;
+}
+
+    .cInputPinName::placeholder {
+        color: #fefefe;
+        opacity: 0.5; /* Firefox */
+    }
+
+    .cInputPinName:-ms-input-placeholder {
+        color: #fefefe;
+        opacity: 0.5;
+    }
+
+    .cInputPinName::-ms-input-placeholder {
+        color: #fefefe;
+        opacity: 0.5;
+    }
+
+
+.cCuadranteAspectRatio {
+}
+
+    .cCuadranteAspectRatio::before {
+        content: "";
+        float: left;
+        padding-bottom: 56.25%;
+    }
+
+    .cCuadranteAspectRatio::after {
+        clear: left;
+        content: " ";
+        display: table;
+    }
+
+
+@media screen and (min-width: 1074px) {
+
+    .cCuadranteAspectRatio::before {
+        padding-bottom: 56.25%;
+    }
+}
+
+@media screen and (min-width: 960px) and (max-width:1073px) {
+
+    .cCuadranteObra {
+        width: 50%;
+    }
+
+    .cCuadranteAspectRatio::before {
+        padding-bottom: 56.25%;
+    }
+}
+
+@media screen and (min-width: 640px) and (max-width:959px) {
+
+    .cCuadranteAspectRatio::before {
+        padding-bottom: 80.25%;
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width:639px) {
+
+    .cCuadranteObra {
+        width: 100%;
+    }
+
+    .cCuadranteAspectRatio::before {
+        padding-bottom: 56.25%;
+    }
+}
+
+@media screen and (min-width: 321px) and (max-width:479px) {
+
+    .cCuadranteObra {
+        width: 100%;
+    }
+
+    .cCuadranteAspectRatio::before {
+        padding-bottom: 90.25%;
+    }
+}
+
+@media screen and (max-width:320px) {
+
+    .cCuadranteObra {
+        width: 100%;
+    }
+
+    .cCuadranteAspectRatio::before {
+        padding-bottom: 90.25%;
+    }
+}
+
+
+.border-gray-05 {
+    border: solid 0.5px gray !important;
+}

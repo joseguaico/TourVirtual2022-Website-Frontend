@@ -1,0 +1,390 @@
+﻿/* Icono hotspots normal (info) */
+.pnlm-hotspot-base.pnlm-hotspot.pnlm-sprite {
+    background-image: url('hsp-icons/marker_blue2.png') !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 85%;
+    width: 40px;
+    height: 40px;
+}
+
+/* Icono hotspots normal con escena */
+.pnlm-hotspot-base.pnlm-hotspot.pnlm-sprite-scene {
+    background-image: url('hsp-icons/right_1024.png') !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 85%;
+    width: 40px;
+    height: 40px;
+}
+
+/* Icono para Agregar*/
+.custom-tooltip-add {
+    background-image: url('hsp-icons/marker_green2.png') !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 85%;
+    width: 40px !important;
+    height: 40px !important;
+}
+    .custom-tooltip-add span {
+        visibility: hidden;
+        position: absolute;
+        border-radius: 3px;
+        /*background-color: #fff;*/
+        color: #000;
+        text-align: center;
+        max-width: 200px;
+        padding: 5px 10px;
+        /*margin-left: -220px;*/
+        cursor: default;
+        opacity: 1;
+        top: -5px;
+    }
+    .custom-tooltip-add:hover span {
+        visibility: visible;
+    }
+
+/* Icono para Editar*/
+.custom-tooltip-edit {
+    background-image: url('hsp-icons/marker_edit.png') !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 85%;
+    width: 40px !important;
+    height: 40px !important;
+}
+
+    .custom-tooltip-edit span {
+        visibility: hidden;
+        position: absolute;
+        border-radius: 3px;
+        /*background-color: #fff;*/
+        color: #000;
+        text-align: center;
+        max-width: 200px;
+        padding: 5px 10px;
+        /*margin-left: -220px;*/
+        cursor: default;
+        opacity: 1;
+        top: -5px;
+    }
+
+    .custom-tooltip-edit:hover span {
+        visibility: visible;
+    }
+
+.tooltipOptions {
+    /*width: 98px;*/
+    width: 65px;
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.7);
+    margin-left: -30px;
+}
+
+
+/* Container tooltip hotspots*/
+#hotSpotAgregarContenedor {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: stretch;
+    margin-top: -31px;
+    border: solid 1px #2c2929;
+    background-color: white;
+    padding: 1px;
+}
+
+.btn-guardar {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 26px;
+    height: 26px;
+    padding: 1px;
+    margin: 1px;
+}
+
+    .btn-guardar:hover {
+        cursor: pointer !important;
+    }
+
+.btn-cancelar {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 26px;
+    height: 26px;
+    padding: 1px;
+    margin: 1px;
+}
+
+    .btn-cancelar:hover {
+        cursor: pointer !important;
+    }
+
+/* Opción agregar hotspot*/
+.control-add-container {
+    margin-top: 4px;
+    background-color: #fff;
+    border: solid 1px black;
+    border-radius: 3px;
+    cursor: pointer;
+    z-index: 2;
+    -webkit-transform: translateZ(9999px);
+    transform: translateZ(9999px);
+    position: absolute;
+    top: 0;
+    right: 4px;
+    z-index: 2;
+    padding: 0px;
+    text-align: center;
+    width: 26px;
+    height: 26px;
+}
+    .control-add-container:hover {
+        border: 1px solid black;
+        cursor: pointer;
+        background-color: #e5e5e5 !important;
+    }
+    .control-add-container div label {
+        cursor: pointer;
+        margin-left: 2px;
+    }
+
+
+/* Opción mover hotspot */
+.control-move-container {
+    margin-top: 33px;
+    background-color: #fff;
+    border: solid 1px black;
+    border-radius: 3px;
+    cursor: pointer;
+    z-index: 2;
+    -webkit-transform: translateZ(9999px);
+    transform: translateZ(9999px);
+    position: absolute;
+    top: 12;
+    right: 4px;
+    z-index: 2;
+    padding: 0px;
+    text-align: center;
+    width: 26px;
+    height: 26px;
+}
+    .control-move-container:hover {
+        border: 1px solid black;
+        cursor: pointer;
+        background-color: #e5e5e5 !important;
+    }
+    .control-move-container div label {
+        cursor: pointer;
+        margin-left: 2px;
+    }
+
+/* Opción borrar hotspot*/
+.control-del-container {
+    margin-top: 62.5px;
+    background-color: #fff;
+    border: solid 1px black;
+    border-radius: 3px;
+    cursor: pointer;
+    z-index: 2;
+    -webkit-transform: translateZ(9999px);
+    transform: translateZ(9999px);
+    position: absolute;
+    top: 12;
+    right: 4px;
+    z-index: 2;
+    padding: 0px;
+    text-align: center;
+    width: 26px;
+    height: 26px;
+}
+    .control-del-container:hover {
+        border: 1px solid black;
+        cursor: pointer;
+        background-color: #e5e5e5 !important;
+    }
+    .control-del-container div label {
+        cursor: pointer;
+        margin-left: 2px;
+    }
+
+.control-buttons-HSP-activo {
+    background-color: #ffc107 !important;
+    border: solid 1px black !important;
+}
+
+.control-buttons-HSP-Inactivo {
+    background-color: gray !important;
+    border: solid 1px black !important;
+    cursor: default !important;
+}
+
+    .control-buttons-HSP-Inactivo:hover {
+        background-color: gray !important;
+        border: solid 1px black !important;
+        cursor: default !important;
+    }
+
+
+
+.tooltipBase {
+    /*width: 98px;*/
+    /*width: 68px;*/
+    width: 26px;
+    display: flex;
+    flex-direction: column;
+    /*height: 30px;*/
+    height: 55px;
+    position: absolute;
+    /*margin-left: -38px;*/
+    /*margin-left: -20px;*/
+    margin-left: 0px;
+    /*margin-top: -35px;*/
+    margin-top: -50px;
+    border-radius: 0px;
+    box-sizing: content-box;
+    padding-bottom: 25px;
+    background-color: transparent;
+    opacity: 0;
+}
+
+    .tooltipBase:hover {
+        /*border: solid 2px red;*/
+        opacity: 1;
+    }
+
+
+.tooltipOptions {
+    /*width: 98px;*/
+    width: 65px;
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.7);
+    margin-left: -30px;
+}
+
+.tooltipOptionsLight {
+    /*width: 98px;*/
+    width: 68px;
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    justify-content: center;
+    background-color: rgba(255,255,255,0.7);
+    margin-left: -30px;
+}
+
+.tooltipBaseEdit {
+    width: 26px;
+    display: flex;
+    flex-direction: column;
+    height: 55px;
+    position: absolute;
+    margin-left: 0px;
+    margin-top: -18px;
+    border-radius: 0px;
+    box-sizing: content-box;
+    padding-bottom: 20px;
+    background-color: transparent;
+    opacity: 0;
+}
+
+    .tooltipBaseEdit:hover {
+        opacity: 1;
+    }
+
+
+@media (max-width: 800px) {
+
+    /* Icono hotspots normal (info) */
+    .pnlm-hotspot-base.pnlm-hotspot.pnlm-sprite {
+        background-image: url('hsp-icons/marker_blue2.png') !important;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 85%;
+        width: 35px !important;
+        height: 35px !important;
+    }
+
+    /* Icono hotspots normal con escena */
+    .pnlm-hotspot-base.pnlm-hotspot.pnlm-sprite-scene {
+        background-image: url('hsp-icons/right_1024.png') !important;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 85%;
+        width: 35px !important;
+        height: 35px !important;
+    }
+
+    /* Icono para Agregar*/
+    .custom-tooltip-add {
+        background-image: url('hsp-icons/marker_green2.png') !important;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 85%;
+        width: 35px !important;
+        height: 35px !important;
+    }
+    /* Icono para Editar*/
+    .custom-tooltip-edit {
+        background-image: url('hsp-icons/marker_edit.png') !important;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 85%;
+        width: 35px !important;
+        height: 35px !important;
+    }
+}
+
+
+@media (max-width: 450px) {
+
+    /* Icono hotspots normal (info) */
+    .pnlm-hotspot-base.pnlm-hotspot.pnlm-sprite {
+        background-image: url('hsp-icons/marker_blue2.png') !important;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 85%;
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+    /* Icono hotspots normal con escena */
+    .pnlm-hotspot-base.pnlm-hotspot.pnlm-sprite-scene {
+        background-image: url('hsp-icons/right_1024.png') !important;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 85%;
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+    /* Icono para Agregar*/
+    .custom-tooltip-add {
+        background-image: url('hsp-icons/marker_green2.png') !important;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 85%;
+        width: 30px !important;
+        height: 30px !important;
+    }
+    /* Icono para Editar*/
+    .custom-tooltip-edit {
+        background-image: url('hsp-icons/marker_edit.png') !important;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 85%;
+        width: 30px !important;
+        height: 30px !important;
+    }
+}

@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+.login-background {
+    background: linear-gradient(rgba(29, 43, 54, 0.75), rgba(29, 43, 54, 0.75)), url("~src/assets/template/backgrounds/background.jpg") center center !important;
+    background-size: cover;
+    /* Here's the same styles we applied to our content-div earlier */
+    color: white;
+    align-items: center;
+    justify-content: center;
+}

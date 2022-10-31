@@ -1,0 +1,192 @@
+﻿.contenedorRowFlex {
+    padding-top: 0.3em;
+    padding-top: 0.3em;
+}
+
+label {
+    font-size: 0.875rem;
+    margin-bottom: .5rem;
+    line-height: 1.3rem;
+    font-weight: bold;
+    color: dimgray !important;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    padding: 1.25rem;
+    padding: 1em !important;
+}
+
+select.form-control {
+    outline: none;
+    color: #5a5a5a !important;
+}
+
+.col-Busqueda {
+    flex-basis: 40%;
+    margin: 1px !important;
+}
+
+.col-Busqueda-buttons {
+    flex-basis: 20%;
+    vertical-align: bottom;
+    justify-content: flex-start;
+    align-content: flex-start;
+    margin: 1px !important;
+}
+
+.col-Busqueda-dates {
+    flex-basis: 15%;
+    width: 15% !important;
+    margin: 1px !important;
+}
+
+
+.row-container-busqueda {
+}
+
+.form-control-ddl-sm {
+    line-height: 1.45;
+    border-radius: 0.27rem !important;
+    border: solid 1px gray !important;
+    outline-color: transparent !important;
+    color: #212529 !important;
+}
+
+.validation-Dates-summary {
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+}
+
+    .validation-Dates-summary p {
+        color: red;
+        width: 100%;
+        text-align: center !important;
+        display: flex;
+        justify-content: center;
+    }
+
+@media (max-width: 991px) {
+    .col-Busqueda {
+        flex-basis: 35%;
+        width: 35% !important;
+        flex-direction: column !important;
+        margin: 1px !important;
+    }
+
+        .col-Busqueda label {
+            /*text-align: left !important;
+            justify-content: flex-start !important;*/
+        }
+
+    .lblAuxBusqueda {
+    }
+
+    .card {
+        width: 100% !important;
+    }
+
+    .col-Busqueda-buttons {
+        flex-basis: 20%;
+        vertical-align: bottom;
+        justify-content: flex-start;
+        align-content: flex-start;
+        flex-direction: column !important;
+        display: flex !important;
+        margin: 1px !important;
+    }
+
+    .row-container-busqueda {
+        display: flex;
+        flex-direction: row !important;
+    }
+}
+
+@media (max-width: 651px) {
+    .contenedorRowFlex {
+        flex-wrap: wrap;
+    }
+
+    .lblAuxBusqueda {
+        display: none !important;
+    }
+
+    .row-container-busqueda {
+        display: flex;
+        flex-direction: column !important;
+    }
+
+    .col-Busqueda {
+        flex-basis: 100%;
+        width: 100% !important;
+        flex-direction: row;
+        margin: 0px;
+    }
+    .col-Busqueda-dates {
+        flex-basis: 100%;
+        width: 100% !important;
+        flex-direction: row;
+        margin: 0px;
+    }
+
+
+
+    .col-Busqueda-buttons {
+        flex-basis: 100%;
+        vertical-align: bottom;
+        justify-content: flex-start;
+        align-content: flex-start;
+        flex-direction: column !important;
+        flex-direction: row;
+        margin: 0px;
+    }
+
+
+    .celda {
+        margin: 0px !important;
+        padding-bottom: 0px !important;
+        padding-top: 0px !important;
+        width: 100% !important;
+        flex-basis: 100% !important;
+        display: flex !important;
+        word-wrap: break-word !important;
+        word-break: break-all !important;
+    }
+
+    .celda-Texto {
+        margin-bottom: 0;
+        flex-basis: 45% !important;
+        width: 45% !important;
+        padding-top: 0.3em !important;
+        word-wrap: break-word !important;
+        word-break: break-all !important;
+    }
+
+    .celda-Contenido {
+        flex-basis: 55% !important;
+        width: 55% !important;
+        word-wrap: break-word !important;
+        word-break: break-all !important;
+    }
+
+        .celda-Contenido p {
+            display: inline;
+            top: -0.5em;
+            vertical-align: text-top;
+            font-weight: normal;
+            word-wrap: break-word !important;
+            word-break: break-all !important;
+        }
+
+    .textAuxSpacing {
+        height: 5px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .textAuxSpacing {
+        height: 5px !important;
+    }
+}

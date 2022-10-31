@@ -1,0 +1,167 @@
+﻿/*********************************
+* Slideshow Styling
+*********************************/
+.slideshow {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 7px;
+    position: relative;
+    overflow: hidden;
+    background-color: rgba(0,0,0,.7) !important;
+}
+
+   
+.img-wrapper {
+    min-width: 100%;
+    min-height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    overflow: hidden;
+    z-index: 8;
+    background-size: cover;
+    background-position: center center;
+}
+
+#slideshow .img-wrapper.active {
+    z-index: 10;
+}
+
+#slideshow .img-wrapper.last-active {
+    z-index: 9;
+}
+
+.prev, .next {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 3%;
+    min-width: 40px;
+    height: 48px;
+    padding: 46px 1%;
+    color: #999999;
+    cursor: pointer;   
+}
+
+.prev {
+    float: left;
+}
+
+.next {
+    float: right;
+}
+
+    .prev:hover, .next:hover {
+        color: #555555;
+    }
+
+ul.thumbs {
+    position: absolute;
+    top: 0;
+    left: 5%;
+    right: 5%;
+    /*height: 140px;*/
+    height: 100px;
+    padding: 0;
+    margin: 0 5%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    box-sizing: content-box !important;
+}
+
+.thumb {
+    display: inline-block;
+    /* width: 120px;
+    height: 120px;
+    margin: 10px;*/
+    width: 110px;
+    height: 80px;
+    margin: 10px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center center;
+    cursor: pointer;
+    box-sizing: content-box !important;
+    position: relative;
+    top: -10px !important;
+}
+
+    .thumb:first-of-type {
+        margin-left: 0px;
+    }
+
+    .thumb.active {
+        width: 110px;
+        height: 80px;
+        border: 5px solid #F6BB42;
+        top: -5px !important;
+    }
+
+
+.pnlm-render-container-FULL {
+    cursor: inherit;
+    position: absolute;
+    height: calc(100vh - 100px);
+    width: 100%;
+}
+.pnlm-ui-FULL {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    height: calc(100vh - 100px);
+}
+
+.thumbPanel-FULL {
+    width: 100%;
+    background-color: rgba(0,0,0,1) !important;
+    height: 100px;
+    position: absolute;
+    bottom: 0px;
+}
+
+.slideshow-FULL {
+    width: 100%;
+    height: 100px;
+    max-height: 100px;
+    min-height: 100px;
+    padding-bottom: 0px;
+    position: absolute;
+    bottom: 0px;
+    overflow: hidden;
+    background-color: rgba(0,0,0, 1) !important;
+    box-sizing: content-box !important;
+}
+
+.prev-FULL, .next-FULL {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 3%;
+    min-width: 40px;
+    height: 48px;
+   /* padding: 40px 1%;*/
+    color: #999999;
+    cursor: pointer;
+    box-sizing: content-box !important;
+    height: 95px !important;
+}
+
+.prev-FULL {
+    float: left;
+    box-sizing: content-box !important;
+}
+
+.next-FULL {
+    float: right;
+    box-sizing: content-box !important;
+}
+
+    .prev-FULL:hover, .next-FULL:hover {
+        color: #555555;
+        box-sizing: content-box !important;
+    }
