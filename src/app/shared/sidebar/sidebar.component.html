@@ -2,7 +2,7 @@
     <ul class="nav">
     
         <li class="nav-item" [title]="m.titulo" *ngFor="let m of this.menuService.menu">
-            <a [routerLink]="m.url"  class="nav-link" routerLinkActive="menuBorderActivo">
+            <a (click)="reroute(m.url)"  class="nav-link" routerLinkActive="menuBorderActivo">
                 <img class="menuBase" src="assets/images/{{m.imagen}}" style="width: 30px !important; height: 30px !important;" />
                 <span class="textoMenu ml-2">{{m.titulo}}</span>
             </a>
