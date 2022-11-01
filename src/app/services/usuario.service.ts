@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { LoginForm } from '../interfaces/loginForm.interface';
 import { Menu } from '../interfaces/menu.interface';
 import { Usuario } from '../models/model.class';
+import { StorageService } from './storage.service';
 
 const baseUrl: string = environment.baseUrl;
 
@@ -19,16 +20,17 @@ export class UsuarioService {
   public usuario: Usuario | undefined;
 
   constructor(private http: HttpClient,
-    private router: Router    
+    private router: Router,
+    private storage: StorageService  
   ) { }
 
-  get token(): string {
-    return localStorage.getItem('token') || '';
-  }
+  // get token(): string {
+  //   return localStorage.getItem('token') || '';
+  // }
 
-  get refreshToken(): string {
-    return localStorage.getItem('refresh-token') || '';
-  }
+  // get refreshToken(): string {
+  //   return localStorage.getItem('refresh-token') || '';
+  // }
 
   get uid(): string {
     return this.usuario!.uid || '';
@@ -38,6 +40,7 @@ export class UsuarioService {
     return this.usuario!.rol!;
   }
 
+  /*
   get headers(){
     return {
       headers: {
@@ -45,12 +48,14 @@ export class UsuarioService {
       }
     }
   }
+
+  */
   
-  guardarLocalStorage(token: string, refreshToken: string, menu: Menu[]){
-    localStorage.setItem('token', token);
-    localStorage.setItem('refresh-token', refreshToken);
-    localStorage.setItem('menu', JSON.stringify(menu));
-  }
+  // guardarLocalStorage(token: string, refreshToken: string, menu: Menu[]){
+  //   localStorage.setItem('token', token);
+  //   localStorage.setItem('refresh-token', refreshToken);
+  //   localStorage.setItem('menu', JSON.stringify(menu));
+  // }
 
   login(formData: LoginForm) {
     return this.http.post(`${baseUrl}/account/login`, formData)
@@ -64,7 +69,9 @@ export class UsuarioService {
     
             this.usuario = usuario;
   
-            this.guardarLocalStorage(resp.datos.token, resp.datos.refreshToken, menu);
+            this.storage.guardarDatos(resp.datos.token, resp.datos.refreshToken, menu);
+
+            //this.guardarLocalStorage(resp.datos.token, resp.datos.refreshToken, menu);
           }
         })
       );
@@ -87,8 +94,8 @@ export class UsuarioService {
     //console.log('Headers: ', this.headers);
 
     const body = {
-      'AccessToken': this.token,
-      'RefreshToken': this.refreshToken
+      'AccessToken': this.storage.getToken(),
+      'RefreshToken': this.storage.getRefreshToken()
     };
 
     console.log(body);
@@ -103,7 +110,8 @@ export class UsuarioService {
         const usuario = new Usuario(uid, email, nombres, apellidos, bloqueado, rol.toUpperCase());
 
         this.usuario = usuario;
-        this.guardarLocalStorage(resp.datos.token, resp.datos.refreshToken, menu);
+        //this.guardarLocalStorage(resp.datos.token, resp.datos.refreshToken, menu);
+        this.storage.guardarDatos(resp.datos.token, resp.datos.refreshToken, menu);
 
         return true;
       }),
