@@ -29,17 +29,21 @@
               "src/styles.css",
               "./node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
               "./node_modules/@fortawesome/fontawesome-free/css/solid.min.css",
-              "src/assets/template/app-assets/fonts/icomoon.css",
-              "src/assets/template/app-assets/css/app.css",
-              "src/assets/template/app-assets/css/colors.css",
+              "./node_modules/@fortawesome/fontawesome-free/css/regular.min.css",
+              "src/assets/template/app-assets/css/bootstrap-extended.css",
+              "src/assets/template/vendors/mdi/css/materialdesignicons.min.css",             
               "src/assets/template/css/style.css",
-              "src/assets/template/css/menu.css"
+              "src/assets/template/css/menu.css",
+              "src/assets/template/app-assets/fonts/icomoon.css",
+              "src/assets/template/app-assets/css/colors.css",
+              "src/assets/template/app-assets/css/app.css"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "src/assets/template/js/template.js",
-              "src/assets/template/js/hoverable-collapse.js"
+              "src/assets/template/js/hoverable-collapse.js",
+              "src/assets/template/js/off-canvas.js"
             ]
           },
           "configurations": {

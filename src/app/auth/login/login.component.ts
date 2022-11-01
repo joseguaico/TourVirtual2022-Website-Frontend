@@ -32,7 +32,6 @@ export class LoginComponent {
 
       if (this.formularioLogin.invalid){
         return this.formularioLogin.markAllAsTouched();
-        return;
       }
   
       let formData: any = new FormData();
@@ -42,7 +41,7 @@ export class LoginComponent {
       this.cargando = true;
       this.usuarioService.login(formData).subscribe((resp: any) =>  {
   
-        console.log('RESP Login: ', resp);
+        //console.log('RESP Login: ', resp);
   
         if (resp.error === false){
   

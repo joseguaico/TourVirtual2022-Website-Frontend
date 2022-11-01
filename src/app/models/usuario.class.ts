@@ -7,6 +7,7 @@ export class Usuario {
         public apellidos: string,
         public bloqueado: boolean,
         public rol: 'ADMINISTRADOR' | 'CORREDOR',
+        public empresa: string
     ){}
 
 
