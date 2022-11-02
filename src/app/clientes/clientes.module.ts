@@ -6,17 +6,22 @@ import { ClientesRoutingModule } from './clientes-routing.routing';
 import { BaseClientesComponent } from './base-clientes/base-clientes.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CrearClienteComponent } from './crear-cliente/crear-cliente.component';
 
 @NgModule({
   declarations: [
     BusquedaClientesComponent,
-    BaseClientesComponent
+    BaseClientesComponent,
+    CrearClienteComponent
   ],
   imports: [
     CommonModule,
     ClientesRoutingModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ClientesModule { }

@@ -1,0 +1,110 @@
+<!-- Contenedor general -->
+<div class="row justify-content-center w-100">
+
+    <!-- Titulo -->
+    <div class="col-lg-12 d-flex flex-row">
+        <i class="fas fa-angle-double-right fa-sm blue" style="position: relative; top: 10px; margin-right: 3px;"></i>
+        <p class="mb-md-0 font-weight-bold justify-content-start blue w-100">Crear propiedad</p>
+    </div>
+
+    <div *ngIf="this.mostrarPanelAdmin" class="d-flex w-100">
+        <!-- Selección del cliente-->
+        <div id="divCliente" class="card w-100 mt-2 p-2 flex-xl-shrink-1 justify-content-center flex-column" style="width: 100% !important; margin-bottom: 0 !important;">
+
+            <div class="d-flex justify-content-center" style="width: 100% !important;">
+                <label class="text-black w-100">Cliente</label>
+            </div>
+            <div class="d-flex justify-content-center row-container-busqueda" style="width: 100% !important;">
+                <div class="m-0 col-Busqueda" style="flex-basis: 90%;">                        
+                    <select id="ddlCliente" class="form-control form-control-sm form-control-ddl-sm" style="height: 30px !important;">
+                        <option value="0">Seleccione cliente</option>
+                    </select>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center row-container-busqueda" style="width: 100% !important;">
+                <span id="spnInfoPropiedadesDisp" style="font-size: small;"></span>
+            </div>
+
+        </div>
+    </div>
+
+    
+    <div id="divDetalle" class="card w-100 mt-2 p-2 flex-xl-shrink-1 justify-content-center flex-column" style="width: 100% !important; margin-bottom: 0 !important; padding-bottom:0px !important; @displayInicial">
+
+        <div id="divInfoCorredor" class="d-flex justify-content-center flex-column alert pt-1 pb-0 mb-0" style="width: 100% !important; text-align: center;">
+            <span id="spnInfoCorredorUsado" style="font-size: small;">@spnInfoCorredorUsado</span>
+            <span id="spnInfoCorredorSinCupo" style="font-size: small;">@spnInfoCorredorSinCupo</span>
+        </div>
+
+        <div *ngIf="this.mostrarPanelCliente && this.cupoDisponible > 0">
+        
+            <div id="divContenedorForm" style="width: 100% !important;">
+
+                <div class="d-flex justify-content-center" style="width: 100% !important;">
+                    <label class="text-black w-100">Detalle propiedad</label>
+                </div>
+
+                <form id="formCrearProp" [formGroup]="this.formCrear"
+                      data-ajax="true" data-ajax-method="post" data-ajax-complete="completed" method="post">
+
+                    <div class="edicion-container d-flex flex-column justify-content-center pl-3 pr-3 pb-2 pt-1">
+
+                        <div class="m-0">
+                            <label class="text-black mb-0">Titulo</label>
+                            <input id="txtTitulo" name="txtTitulo" type="text" class="form-control form-control-sm  w-100" placeholder="Título" maxlength="800">
+                        </div>
+                        <div class="m-0">
+                            <label class="text-black mb-0">Descripción</label>
+                            <input id="txtDescripcion" name="txtDescripcion" type="text" class="form-control form-control-sm  w-100" placeholder="Descripción" maxlength="2000">
+                        </div>
+                        <div class="m-0">
+                            <label class="text-black mb-0 mt-1">Dirección</label>
+                            <input id="txtDireccion" name="txtDireccion" type="text" class="form-control form-control-sm  w-100" placeholder="Dirección" maxlength="500">
+                        </div>
+                        <div class="m-0">
+                            <label class="text-black mb-0 mt-1">Habitaciones</label>
+                            <input id="txtHabitaciones" name="txtHabitaciones" onkeypress="javascript:return isNumberKey(event);"
+                                   class="form-control form-control-sm" placeholder="" maxlength="2">
+                        </div>
+                        <div class="m-0">
+                            <label class="text-black mb-0 mt-1">Baños</label>
+                            <input id="txtBanos" name="txtBanos" onkeypress="javascript: return isNumberKey(event);" class="form-control form-control-sm"
+                                   placeholder="" maxlength="2">
+                        </div>
+                        <div class="m-0">
+                            <label class="text-black mb-0 mt-1">Región</label>
+                            <select id="ddlRegiones"
+                                    onchange="javascript:cargarComunas();" class="form-control form-control-sm form-control-ddl-sm w-100">
+                                <option value="0">Seleccione región</option>
+                            </select>
+
+                        </div>
+                        <div class="m-0">
+                            <label class="text-black mb-0 mt-1">Comuna</label>
+                            <select id="ddlComunas" class="form-control form-control-sm form-control-ddl-sm w-100">
+                                <option value="0">Seleccione comuna</option>
+                            </select>
+
+                        </div>
+                        <div id="divValidationInfo" class="m-0 input-validation-error" style="text-align: center;">
+
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button id="btnGuardar" type="submit" class="btn btn-sm btn-sm-custom btn-warning" style=" margin-right: 2em !important; margin-bottom: 1em !important;">
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+</div>

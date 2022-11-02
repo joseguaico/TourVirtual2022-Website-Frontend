@@ -45,7 +45,7 @@ export class LoginComponent {
   
         if (resp.error === false){
   
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('propiedades');
           return;
          
         }

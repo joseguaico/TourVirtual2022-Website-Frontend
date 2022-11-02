@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BusquedaUsuariosComponent } from './busqueda-usuarios/busqueda-usuarios.component';
+import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 
 const routes: Routes = [
   {
@@ -8,6 +9,9 @@ const routes: Routes = [
   },
   {
     path: '', redirectTo: 'busqueda', pathMatch: 'full'
+  },
+  {
+    path: 'crear-usuario', component: CrearUsuarioComponent
   }
 ];
 

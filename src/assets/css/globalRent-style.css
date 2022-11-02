@@ -48,7 +48,9 @@
     height: 2.57em !important;
     width: 7em;
     margin: 1px !important;
-    border: solid 1px black !important;
+    /* border: solid 1px black !important; */
+    border-radius: 0.27rem !important;
+    border-color: gray !important;
 }
    /* .btn-sm-custom:hover {
         background-color: lightgray !important;

@@ -7,19 +7,24 @@ import { BusquedaPropiedadesComponent } from './busqueda-propiedades/busqueda-pr
 import { BasePropiedadesComponent } from './base-propiedades/base-propiedades.component';
 import { PropiedadesRoutingModule } from './propiedades-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CrearPropiedadComponent } from './crear-propiedad/crear-propiedad.component';
 
 
 @NgModule({
   declarations: [
     BusquedaPropiedadesComponent,
-    BasePropiedadesComponent
+    BasePropiedadesComponent,
+    CrearPropiedadComponent
   ],
   imports: [
     CommonModule,
     PropiedadesRoutingModule,
     HttpClientModule,
     RouterModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class PropiedadesModule { }

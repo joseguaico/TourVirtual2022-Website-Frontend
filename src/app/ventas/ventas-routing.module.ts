@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { BusquedaVentasComponent } from './busqueda-ventas/busqueda-ventas.component';
+import { CrearVentaComponent } from './crear-venta/crear-venta.component';
 
 const routes: Routes = [
   {
@@ -9,6 +10,9 @@ const routes: Routes = [
   },
   {
     path: '', redirectTo: 'busqueda', pathMatch: 'full'
+  },
+  {
+    path: 'crear-venta', component: CrearVentaComponent
   }
 ];
 

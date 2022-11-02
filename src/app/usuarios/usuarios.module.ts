@@ -8,20 +8,23 @@ import { BusquedaUsuariosComponent } from './busqueda-usuarios/busqueda-usuarios
 import { UsuariosRoutingModule } from './usuarios-routing.module';
 
 import { SharedModule } from '../shared/shared.module';
-
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 
 @NgModule({
   declarations: [
     BaseUsuariosComponent,
-    BusquedaUsuariosComponent
+    BusquedaUsuariosComponent,
+    CrearUsuarioComponent
   ],
   imports: [
     CommonModule,
     UsuariosRoutingModule,
     HttpClientModule,
     RouterModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class UsuariosModule { }

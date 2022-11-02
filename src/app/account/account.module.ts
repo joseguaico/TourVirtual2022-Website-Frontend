@@ -7,6 +7,7 @@ import { BaseAccountComponent } from './base-account/base-account.component';
 import { EditarDatosComponent } from './editar-datos/editar-datos.component';
 import { AccountRoutingModule } from './account-routing.routing';
 import { SharedModule } from '../shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,9 @@ import { SharedModule } from '../shared/shared.module';
     HttpClientModule,
     RouterModule,
     AccountRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AccountModule { }

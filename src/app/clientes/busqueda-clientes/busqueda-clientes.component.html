@@ -1,1 +1,62 @@
-<p>busqueda-clientes works!</p>
+<div class=" row justify-content-center w-100">
+
+    <!-- Titulo -->
+    <div class="col-lg-12 d-flex flex-row">
+        <i class="fas fa-angle-double-right fa-sm blue" style="position: relative; top: 10px; margin-right: 3px;"></i>
+        <p class="mb-md-0 font-weight-bold justify-content-start blue w-100">Clientes</p>
+    </div>
+
+    <!-- Filtros de búsqueda -->
+    <div class="row w-100 mt-0 justify-content-center">
+
+        <form id="formBuscarClientes" [formGroup]="this.formBusqueda" class="form-inline" method="post" style="width: 100% !important;">
+
+            <div class="d-flex justify-content-center row-container-busqueda" style="width: 100% !important;">
+                <div class="m-0 col-Busqueda">
+                    <label class="text-black">Nombre completo</label>
+                    <input id="txtNombresBusqueda" 
+                        type="text" 
+                        class="form-control form-control-sm w-100" 
+                        placeholder="Nombre completo"
+                        formControlName="nombres">
+                </div>
+                <div class="m-0 col-Busqueda">
+                    <label class="text-black">Email</label>
+                    <input id="txtEmailBusqueda" 
+                        type="text" 
+                        class="form-control form-control-sm w-100" 
+                        placeholder="Email"
+                        formControlName="email">
+                </div>
+                <div class="m-0 col-Busqueda-buttons">
+                    <label class="text-black textAuxSpacing">&nbsp;</label>
+                    <div class="flex-row" style=" display: flex !important;">
+                        <button id="btnBuscar" type="submit" class="btn btn-sm btn-sm-custom" (click)="this.buscarClick();">Buscar</button>
+                        <a class="btn btn-sm btn-sm-custom btn-warning" (click)="this.crearClick();">Crear</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- Grid principal -->
+    <div class="row w-100 justify-content-center p-0">
+
+        <div id="rowLoading" class="w-100" style="display: none;">
+            <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline;" />
+            <p id="textInfoEnvio" style="display: inline;">Actualizando...</p>
+        </div>
+
+        <div id="gridBusquedaContainer" class="card w-100 ml-0 mt-2 p-0 flex-xl-shrink-1">
+
+        </div>
+
+    </div>
+
+
+
+</div>

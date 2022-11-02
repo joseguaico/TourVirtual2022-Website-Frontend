@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-busqueda-ventas',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BusquedaVentasComponent implements OnInit {
 
-  constructor() { }
+  formBusqueda: FormGroup = this.fb.group({
+    cliente: ['',],
+    desde: ['',],
+    hasta: ['',],
+    creadoPor: ['',]
+  });
+
+
+  constructor(public fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  
+  crearClick(){
+    this.router.navigate(['ventas/crear-venta'])
+  }
+
+  buscarClick(){
+    // TODO: Agregar service para obtener clientes desde la API.
+  }
 }

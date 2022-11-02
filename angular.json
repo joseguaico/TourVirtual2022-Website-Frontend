@@ -36,7 +36,11 @@
               "src/assets/template/css/menu.css",
               "src/assets/template/app-assets/fonts/icomoon.css",
               "src/assets/template/app-assets/css/colors.css",
-              "src/assets/template/app-assets/css/app.css"
+              "src/assets/template/app-assets/css/app.css",
+              "src/assets/css/base.css",
+              "src/assets/css/globalRent-busquedas.css",
+              "src/assets/css/globalRent-round-buttons.css",
+              "src/assets/css/globalRent-style.css"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
