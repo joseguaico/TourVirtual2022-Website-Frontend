@@ -8,12 +8,14 @@ import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CrearClienteComponent } from './crear-cliente/crear-cliente.component';
+import { EditarClienteComponent } from './editar-cliente/editar-cliente.component';
 
 @NgModule({
   declarations: [
     BusquedaClientesComponent,
     BaseClientesComponent,
-    CrearClienteComponent
+    CrearClienteComponent,
+    EditarClienteComponent
   ],
   imports: [
     CommonModule,

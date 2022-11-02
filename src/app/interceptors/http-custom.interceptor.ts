@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 
 import { StorageService } from '../services/storage.service';
 
@@ -27,6 +27,12 @@ export class HttpCustomInterceptor implements HttpInterceptor {
   private addTokenHeader(request: HttpRequest<any>, token: string){
     return request.clone({ headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token)});
   }
+
+  private handle401Error(request: HttpRequest<any>, next: HttpHandler){
+    
+  }
+
+
 }
 
 export const AuthInterceptorProviders = [

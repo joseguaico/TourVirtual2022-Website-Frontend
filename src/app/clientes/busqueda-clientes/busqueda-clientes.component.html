@@ -46,17 +46,86 @@
     <!-- Grid principal -->
     <div class="row w-100 justify-content-center p-0">
 
-        <div id="rowLoading" class="w-100" style="display: none;">
+        <div id="rowLoading" class="w-100" *ngIf="this.cargando">
             <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline;" />
             <p id="textInfoEnvio" style="display: inline;">Actualizando...</p>
         </div>
 
         <div id="gridBusquedaContainer" class="card w-100 ml-0 mt-2 p-0 flex-xl-shrink-1">
 
+            <div class="card-body ml-0 contenedorRowFlex border-grey" style="@cssLastRow" *ngIf="this.clientes.length > 0">
+
+                <div *ngFor="let cli of this.clientes" class="d-flex flex-row customFlex-100 pb-0 contenedorRowFlex" style="border-bottom: 0px !important;">
+                    <div class="p-1 celda" style="flex-basis: 10%;">
+                        <p class="celda-Texto text-muted font-weight-bold small ">Código</p>
+                        <div class="p-0 celda-Contenido">
+                            <p class="text-muted small pr-1" style="word-break: break-all !important;">{{cli.id}}</p>
+                        </div>
+                    </div>
+                    <div class="p-1 celda" style="flex-basis: 20%;">
+                        <p class=" celda-Texto text-muted font-weight-bold small">Cliente</p>
+                        <div class="p-0 celda-Contenido text-break">
+                            <p class="text-muted small">{{cli.nombre}}</p>
+                        </div>
+                    </div>
+                    <div class="p-1 celda" style="flex-basis: 20%;">
+                        <p class=" celda-Texto text-muted font-weight-bold small">Email</p>
+                        <div class="p-0 celda-Contenido text-break">
+                            <p class="text-muted small">{{cli.email}}</p>
+                        </div>
+                    </div>
+                    <div class="p-1 celda" style="flex-basis: 10%;">
+                        <p class="celda-Texto text-muted font-weight-bold small">Ventas</p>
+                        <div class="p-0 celda-Contenido">
+                            <p class="text-muted small">{{cli.ventasCount}}</p>
+                        </div>
+                    </div>
+                    <div class="p-1 celda" style="flex-basis: 10%;">
+                        <p class="celda-Texto text-muted font-weight-bold small">Propiedades</p>
+                        <div class="p-0 celda-Contenido">
+                            <p class="text-muted small">{{cli.cantidadPropiedades}} de {{cli.cupoPropiedades}} </p>
+                        </div>
+                    </div>
+                    <div class="p-1 celda" style="flex-basis: 10%;">
+                        <p class="celda-Texto text-muted font-weight-bold small">Fotos</p>
+                        <div class="p-0 celda-Contenido">
+                            <p class="text-muted small">{{cli.cantidadFotos}} de {{cli.cupoFotos}}</p>
+                        </div>
+                    </div>
+                    <div class="p-1 celda" style="flex-basis: 10%;">
+                        <p class="celda-Texto text-muted font-weight-bold small">Pagos</p>
+                        <div class="p-0 celda-Contenido">
+                            <p class="text-muted small">$ {{cli.valorPagos | number:'':'es'}} </p>
+                        </div>
+                    </div>
+                    <div class="p-1 celda" style="flex-basis: 10%;">
+                        <p class="celda-Texto text-muted font-weight-bold small">Estado</p>
+                        <div class="p-0 celda-Contenido">
+                            <p class="text-muted small">{{cli.estado}}</p>
+                        </div>
+                    </div>
+                    <div class="p-1 celda" style="flex-basis: 10%;">
+                        <p class="celda-Texto text-muted font-weight-bold small">Opciones</p>
+                        <div class="p-0 d-flex flex-row celda-Contenido rounded-buttons-icons">
+                            <a title="Ver el detalle de este cliente" (click)="this.verDetalle()"><i class="fas fa-info fa-sm"></i></a>
+                          
+                                <a title="Cambiar a estado 'Vigente'" *ngIf="cli.estado === 'suspendido'" 
+                                    (click)="this.cambiarEstado()" ><i class="fas fa-user-slash fa-sm"></i>
+                                </a>
+                                <a title="Cambiar a estado 'Suspendido'" *ngIf="cli.estado === 'vigente'" 
+                                    (click)="this.cambiarEstado()" ><i class="fas fa-user-slash fa-sm"></i></a>
+    
+                            <a title="Editar este cliente" (click)="this.editar()"><i class="fas fa-pencil-alt fa-sm"></i></a>
+                            <a title="Eliminar este cliente" (click)="this.eliminar()"><i class="fas fa-times fa-sm"></i></a>
+                        </div>
+                    </div>
+    
+                </div>
+    
+            </div>
+
         </div>
 
     </div>
-
-
 
 </div>
