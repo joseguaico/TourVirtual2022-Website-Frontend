@@ -9,7 +9,7 @@
     
     <div class="w-100">
     
-        <form [formGroup]="this.formCrear">
+        <form [formGroup]="this.formCrear" (submit)="this.guardar()">
 
             <!-- Selección del cliente-->
             <div id="divCliente" class="card w-100 mt-2 p-2 flex-xl-shrink-1 justify-content-center flex-column" style="width: 100% !important; margin-bottom: 0 !important;">
@@ -19,15 +19,24 @@
                 </div>
                 <div class="d-flex justify-content-center row-container-busqueda" style="width: 100% !important;">
                     <div class="m-0 col-Busqueda" style="flex-basis: 90%;">
-                        <select id="ddlCliente" class="form-control form-control-sm form-control-ddl-sm" style="height: 30px !important;">
-                            <option value="0">Seleccione cliente</option>
+                        <select id="ddlCliente" 
+                            class="form-control form-control-sm form-control-ddl-sm" style="height: 30px !important;"
+                            formControlName="cliente"
+                            [class.input-validation-error]="this.campoNoValido('cliente')">
+                            <option value="">Seleccione cliente</option>
+                            <option *ngFor="let cli of this.clientes" [value]="cli.idx">{{cli.nombre}}</option>
                         </select>
+
+                        <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('cliente')">
+                            campo obligatorio
+                        </span>
                     </div>
                 </div>
 
             </div>
         
-            <div id="divDetalle" class="card w-100 mt-2 p-2 flex-xl-shrink-1 justify-content-center flex-column" style="width: 100% !important; margin-bottom: 0 !important; padding-bottom:0px !important;">
+            <div id="divDetalle" class="card w-100 mt-2 p-2 flex-xl-shrink-1 justify-content-center flex-column" 
+                style="width: 100% !important; margin-bottom: 0 !important; padding-bottom:0px !important;">
                 <div class="d-flex justify-content-center" style="width: 100% !important;">
                     <label class="text-black w-100">Detalle venta</label>
                 </div>
@@ -36,28 +45,69 @@
 
                     <div class="m-0">
                         <label class="text-black mb-0 mt-1">Cantidad propiedades</label>
-                        <input id="txtCantidadProp" name="txtCantidadProp" onkeypress="javascript:return isNumberKey(event);"
-                                class="form-control form-control-sm" placeholder="" maxlength="4">
+                        <input id="txtCantidadProp" digitOnly type="text"
+                            name="txtCantidadProp"
+                            class="form-control form-control-sm" 
+                            placeholder="" 
+                            maxlength="4"
+                            formControlName="cantidadPropiedades"
+                            [class.input-validation-error]="this.campoNoValido('cantidadPropiedades')">
+
+                        <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('cantidadPropiedades')">
+                            campo obligatorio
+                        </span>
                     </div>
                     <div class="m-0">
                         <label class="text-black mb-0 mt-1">Cantidad Fotos</label>
-                        <input id="txtCantidadFotos" name="txtCantidadFotos" onkeypress="javascript:return isNumberKey(event);"
-                                class="form-control form-control-sm" placeholder="" maxlength="4">
+                        <input id="txtCantidadFotos" digitOnly
+                            name="txtCantidadFotos"
+                            class="form-control form-control-sm" 
+                            placeholder="" 
+                            maxlength="4"
+                            formControlName="cantidadFotos"
+                            [class.input-validation-error]="this.campoNoValido('cantidadFotos')">
+
+                        <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('cantidadFotos')">
+                            campo obligatorio
+                        </span>
                     </div>
                     <div class="m-0">
                         <label class="text-black mb-0 mt-1">Tipo servicio</label>
-                        <select id="ddlTiposServicio" class="form-control form-control-sm form-control-ddl-sm w-100">
-                            <option value="0">Seleccione un tipo servicio</option>
+                        <select id="ddlTiposServicio" 
+                            class="form-control form-control-sm form-control-ddl-sm w-100"
+                            formControlName="tipoServicio"
+                            [class.input-validation-error]="this.campoNoValido('tipoServicio')">
+                            <option value="">Seleccione un tipo servicio</option>
+                            <option *ngFor="let ts of this.tiposServicio" [value]="ts.id" >{{ts.descripcion}}</option>
                         </select>
+
+                        <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('tipoServicio')">
+                            campo obligatorio
+                        </span>
+
                     </div>
                     <div class="m-0">
                         <label class="text-black mb-0 mt-1">Monto venta</label>
-                        <input id="txtMontoVenta" name="txtMontoVenta" onkeypress="javascript:return isNumberKey(event);"
-                                class="form-control form-control-sm" placeholder="" maxlength="10">
+                        <input id="txtMontoVenta" name="txtMontoVenta" digitOnly
+                            class="form-control form-control-sm" 
+                            placeholder="" 
+                            maxlength="10"
+                            formControlName="montoVenta"
+                            [class.input-validation-error]="this.campoNoValido('montoVenta')">
+                        
+                        <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('montoVenta')">
+                            campo obligatorio
+                        </span>
                     </div>
                     <div class="m-0">
                         <label class="text-black mb-0 mt-1">Comentario</label>
-                        <input id="txtComentario" name="txtComentario" type="text" class="form-control form-control-sm  w-100" placeholder="Comentario" maxlength="2000">
+                        <input id="txtComentario" 
+                            name="txtComentario" 
+                            type="text" 
+                            class="form-control form-control-sm w-100" 
+                            placeholder="Comentario" 
+                            maxlength="2000"
+                           >
                     </div>
                     <div class="m-0">
                         <label class="text-black mb-0 mt-1">Comprobante pago</label>

@@ -16,12 +16,25 @@ const baseUrl: string = environment.baseUrl;
 })
 export class UsuarioService {
 
-  public usuario: Usuario | undefined;
+  //public usuario: Usuario | undefined;
+
+  private _usuario: Usuario | undefined;
+
+  public get usuario(){
+
+    return this.storage.getUsuario()!;
+
+  }
+
 
   constructor(private http: HttpClient,
     private router: Router,
     private storage: StorageService  
-  ) { }
+  ) { 
+
+    console.log("constructor de UsuarioService...");
+
+  }
 
   get uid(): string {
     return this.usuario!.uid || '';
@@ -46,9 +59,9 @@ export class UsuarioService {
             const {uid, email, nombres, apellidos, rol, bloqueado,  menu, empresa } = resp.datos;
             const usuario = new Usuario(uid, email, nombres, apellidos, bloqueado, rol.toUpperCase(), empresa);
     
-            this.usuario = usuario;
+            //this.usuario = usuario;
   
-            this.storage.guardarDatos(resp.datos.token, resp.datos.refreshToken, menu);
+            this.storage.guardarDatos(resp.datos.token, resp.datos.refreshToken, menu, usuario);
           }
         })
       );
@@ -79,8 +92,8 @@ export class UsuarioService {
         const {uid, email, nombres, apellidos, rol, bloqueado,  menu, empresa } = resp.datos;
         const usuario = new Usuario(uid, email, nombres, apellidos, bloqueado, rol.toUpperCase(), empresa);
 
-        this.usuario = usuario;
-        this.storage.guardarDatos(resp.datos.token, resp.datos.refreshToken, menu);
+        //this.usuario = usuario;
+        this.storage.guardarDatos(resp.datos.token, resp.datos.refreshToken, menu, usuario);
 
         return true;
       }),

@@ -14,32 +14,70 @@
                 <label class="text-black w-100">Detalle cliente</label>
             </div>
 
-            <form id="formCrearCliente" [formGroup]="this.formCrear" 
-                data-ajax="true" data-ajax-method="post" data-ajax-complete="completed" method="post">
+            <form id="formCrearCliente" [formGroup]="this.formCrear" (submit)="this.guardar()" >
 
                 <div class="edicion-container d-flex flex-column justify-content-center pl-3 pr-3 pb-2 pt-1">
 
                     <div class="m-0">
                         <label class="text-black mb-0">Nombre cliente</label>
-                        <input id="txtNombreCliente" name="txtNombreCliente" type="text" asp-for="@Model.NombreCliente"
-                            class="form-control form-control-sm" placeholder="">
+                        <input id="txtNombreCliente" 
+                            name="txtNombreCliente" 
+                            type="text"
+                            class="form-control form-control-sm" 
+                            placeholder=""
+                            formControlName="nombre"
+                            [class.input-validation-error]="this.campoNoValido('nombre')">
+
+                        <span id="spnNombreInvalido" class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('nombre')">
+                            campo obligatorio
+                        </span>
 
                     </div>
                     <div class="m-0">
                         <label class="text-black mb-0 mt-1">Email</label>
-                        <input id="txtEmail" name="txtEmail" type="text"
-                            class="form-control form-control-sm" placeholder="" onkeyup="javascript:validarEmail();" onchange="javascript:validarEmail();">
-                        <span id="spnEmailInvalido" class="validation-feedback" style="text-align: left;"></span>
+                        <input id="txtEmail" 
+                            name="txtEmail" 
+                            type="text"
+                            class="form-control form-control-sm" 
+                            placeholder="" 
+                            formControlName="email"
+                            (keydown.space)="$event.preventDefault();"
+                            [class.input-validation-error]="this.campoNoValido('email')">
+
+                        <span id="spnEmailInvalido" class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('email')">
+                            {{this.formCrear.controls['email'].errors | inputValidationEmail}}
+                        </span>
+
                     </div>
                     <div class="m-0">
                         <label class="text-black mb-0 mt-1">Nombre contacto</label>
-                        <input id="txtNombreContacto" name="txtNombreContacto" type="text" asp-for="@Model.NombreContacto"
-                            class="form-control form-control-sm" placeholder="">
+                        <input id="txtNombreContacto"
+                            name="txtNombreContacto" 
+                            type="text"
+                            class="form-control form-control-sm" 
+                            placeholder=""
+                            formControlName="nombreContacto"
+                            [class.input-validation-error]="this.campoNoValido('nombreContacto')">
+
+                        <span id="spnNombreContactoInvalido" class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('nombreContacto')">
+                            campo obligatorio
+                        </span>
+
                     </div>
                     <div class="m-0">
                         <label class="text-black mb-0 mt-1">Teléfonos contacto</label>
-                        <input id="txtTelefonosContacto" name="txtTelefonosContacto" type="text" asp-for="@Model.TelefonosContacto"
-                            class="form-control form-control-sm" placeholder="">
+                        <input id="txtTelefonosContacto" 
+                            name="txtTelefonosContacto" 
+                            type="text"
+                            class="form-control form-control-sm" 
+                            placeholder=""
+                            formControlName="telefonosContacto"
+                            [class.input-validation-error]="this.campoNoValido('telefonosContacto')">
+
+                        <span id="spnTelefonosContactoInvalido" class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('telefonosContacto')">
+                            campo obligatorio
+                        </span>
+
                     </div>
                     <div id="divValidationInfo" class="m-0 input-validation-error" style="text-align: center;">
                     </div>

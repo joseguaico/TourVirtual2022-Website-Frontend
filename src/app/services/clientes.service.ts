@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Cliente } from '../interfaces/cliente.interface';
 import { DescargaClientesWithCount } from '../interfaces/descargaClientesWithCount.interface';
 
 const baseUrl: string = environment.baseUrl;
@@ -21,7 +22,10 @@ export class ClientesService {
       .set('pageSize', pageSize);
 
     return this.http.get<DescargaClientesWithCount>(`${baseUrl}/Clientes/GetWithCountAllPaged`, { params });
+  }
 
+  obtenerClientes(){
+    return this.http.get<Cliente>(`${baseUrl}/Clientes/GetWithCountAllPaged`);
   }
 
 

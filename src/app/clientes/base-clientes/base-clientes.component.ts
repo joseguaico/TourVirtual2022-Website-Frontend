@@ -18,6 +18,9 @@ export class BaseClientesComponent implements OnInit {
    }
 
   ngOnInit(): void {
+
+    console.log('ON Init BaseClientes. ', this.usuarioService);
+
     document.querySelector('body')?.classList.remove('login-background');
     initTemplate();
     initOffCanvas();
