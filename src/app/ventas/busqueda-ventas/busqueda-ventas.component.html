@@ -74,14 +74,83 @@
     <!-- Grid principal -->
     <div class="row w-100 justify-content-center p-0">
 
-        <div id="rowLoading" class="w-100" style="display:none;">
+        <div id="rowLoading" class="w-100" *ngIf="this.cargando">
             <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline;" />
             <p id="textInfoEnvio" style="display: inline;">Actualizando...</p>
         </div>
     
         <div id="gridBusquedaContainer" class="card w-100 ml-0 mt-2 p-0 flex-xl-shrink-1">
-    
 
+            <div *ngFor="let vt of this.ventas" 
+                class="card-body ml-0 contenedorRowFlex border-grey"
+                style="@cssLastRow">
+
+                <div class="d-flex flex-row customFlex-100 pb-0 contenedorRowFlex" style="border-bottom: 0px !important;">
+                    <div class="p-1 celda" style="flex-basis: 10%;">
+                        <p class="celda-Texto text-muted font-weight-bold small ">Código</p>
+                        <div class="p-0 celda-Contenido">
+                            <p id="_email_@aux_currentRow" class="text-muted small pr-1" style="word-break: break-all !important;">{{vt.id}}</p>
+                        </div>
+                    </div>
+                    <div class="p-1 celda" style="flex-basis: 25%;">
+                        <p class=" celda-Texto text-muted font-weight-bold small">Cliente</p>
+                        <div class="p-0 celda-Contenido">
+                            <p id="_nombres_@aux_currentRow" class="text-muted small">{{vt.cliente}}</p>
+                        </div>
+                    </div>
+                    <div class="p-1 celda" style="flex-basis: 20%;">
+                        <p class="celda-Texto text-muted font-weight-bold small">Fecha</p>
+                        <div class="p-0 celda-Contenido">
+                            <p class="text-muted small">{{vt.fechaVenta}}</p>
+                        </div>
+                    </div>
+                    <div class="p-1 celda" style="flex-basis: 10%;">
+                        <p class="celda-Texto text-muted font-weight-bold small">Propiedades</p>
+                        <div id="_seciones_@aux_currentRow" class="p-0 celda-Contenido">
+                            <p class="text-muted small">{{vt.propiedades}}</p>
+                        </div>
+                    </div>
+                    <div class="p-1 celda" style="flex-basis: 10%;">
+                        <p class="celda-Texto text-muted font-weight-bold small">Fotos</p>
+                        <div id="_seciones_@aux_currentRow" class="p-0 celda-Contenido">
+                            <p class="text-muted small">{{vt.fotos}}</p>
+                        </div>
+                    </div>
+                    <div class="p-1 celda" style="flex-basis: 20%;">
+                        <p class="celda-Texto text-muted font-weight-bold small">Servicio</p>
+                        <div id="_seciones_@aux_currentRow" class="p-0 celda-Contenido">
+                            <p class="text-muted small">{{vt.tipoServicio}}</p>
+                        </div>
+                    </div>
+                    <div class="p-1 celda" style="flex-basis: 15%;">
+                        <p class="celda-Texto text-muted font-weight-bold small">Opciones</p>
+                        <div class="p-0 d-flex flex-row celda-Contenido rounded-buttons-icons">
+
+                            <div *ngIf="vt.extension === '.pdf'">
+                                <a title="Ver el comprobante de esta venta"
+                                    target="_blank"><i class="far fa-file-pdf fa-sm"></i></a>
+                            </div>
+
+                            <div *ngIf="vt.extension === '.jpeg' || vt.extension === '.jpg' || vt.extension === '.png'">
+                                <a title="Ver el comprobante de esta venta"
+                                    asp-route-codigo="@v.IdVenta" target="_blank"><i class="far fa-file-image fa-sm"></i></a>
+                            </div>
+    
+                            <div *ngIf="vt.extension === '.doc' || vt.extension === '.docx'">
+                                <a title="Ver el comprobante de esta venta" asp-controller="ventas" asp-action="ComprobanteWord"
+                                asp-route-codigo="@v.IdVenta" target="_blank"><i class="far fa-file-word fa-sm"></i></a>
+                            </div>
+
+                            <a href="#" title="Ver el detalle de esta venta" onclick="javascript:setVerVenta('@v.IdVenta');"><i class="fas fa-info fa-sm"></i></a>
+                            <a title="Editar este venta" sp-route-codigo="@v.IdVenta"><i class="fas fa-pencil-alt fa-sm"></i></a>
+    
+                            <a href="#" title="Eliminar este venta"><i class="fas fa-times fa-sm"></i></a>
+                        </div>
+                    </div>
+    
+                </div>
+    
+            </div>
     
         </div>
     </div>
