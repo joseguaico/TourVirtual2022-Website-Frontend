@@ -61,7 +61,7 @@ export class UsuarioService {
     this.router.navigateByUrl('/auth/login');
   }
 
-  validarToken(){
+  refreshToken(){
 
     const body = {
       'AccessToken': this.storage.getToken(),
@@ -74,6 +74,8 @@ export class UsuarioService {
 
       map((resp: any) => {
        
+        console.log("RESP Validar token: ", resp);
+
         const {uid, email, nombres, apellidos, rol, bloqueado,  menu, empresa } = resp.datos;
         const usuario = new Usuario(uid, email, nombres, apellidos, bloqueado, rol.toUpperCase(), empresa);
 
