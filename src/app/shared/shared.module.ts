@@ -7,13 +7,15 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { InputValidationEmailPipe } from './pipes/input-validation-email.pipe';
 import { RouterModule } from '@angular/router';
 import { DigitOnlyDirective } from './directives/digit-only.directive';
+import { MenubarComponent } from './menubar/menubar.component';
 
 @NgModule({
   declarations: [
     InputValidationEmailPipe,
     HeaderComponent,
     SidebarComponent,
-    DigitOnlyDirective
+    DigitOnlyDirective,
+    MenubarComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { DigitOnlyDirective } from './directives/digit-only.directive';
     InputValidationEmailPipe,
     HeaderComponent,
     SidebarComponent,
-    DigitOnlyDirective
+    DigitOnlyDirective,
+    MenubarComponent
   ]
 })
 export class SharedModule { }

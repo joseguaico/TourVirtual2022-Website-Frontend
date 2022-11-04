@@ -12,6 +12,8 @@ export class StorageService {
   private MENU_KEY = 'menu';
   private USUARIO_KEY = 'usuario';
 
+  private MENU_STATUS = 'menu-status';
+
   constructor() { }
 
   public guardarToken(token: string){
@@ -34,17 +36,15 @@ export class StorageService {
     localStorage.setItem(this.USUARIO_KEY, JSON.stringify(usuario));
   }
 
-  // public guardarDatos(token: string, refreshToken: string, menu: Menu[]){
-  //   this.guardarToken(token);
-  //   this.guardarRefreshToken(refreshToken);
-  //   this.guardarMenu(menu);
-  // }
-
   public guardarDatos(token: string, refreshToken: string, menu: Menu[], usuario: Usuario){
     this.guardarToken(token);
     this.guardarRefreshToken(refreshToken);
     this.guardarMenu(menu);
     this.guardarUsuario(usuario);
+  }
+
+  public guardarMenuStatus(status: string){
+    localStorage.setItem(this.MENU_STATUS, status);
   }
 
   public getToken(): string {
@@ -65,6 +65,11 @@ export class StorageService {
   public getUsuario(): Usuario | undefined {
     let usuario = JSON.parse(localStorage.getItem(this.USUARIO_KEY)!);
     return usuario;
+  }
+
+  public getMenuStatus(): string {
+    let status = localStorage.getItem(this.MENU_STATUS);
+    return status ??  '';
   }
 
   public limpiarDatos(){

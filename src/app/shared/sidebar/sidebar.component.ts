@@ -76,6 +76,9 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
     initHoverableCollapse();
   }
 
+  onNavbarToggleClick(){
+    console.log('ON NavbarToggle click');
+  }
 
   salir(){
     this.usuarioService.logout();

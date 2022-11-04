@@ -1,0 +1,95 @@
+<div class="container-scroller">
+
+    <!-- HEADER -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+
+        <div class="navbar-brand-wrapper d-flex justify-content-center cursor-default">
+            <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100 navbar-aux cursor-default"
+            style="margin-left:25% !important; cursor: default !important;">
+                <a class="navbar-brand brand-logo navbar-aux navbar-aux-left cursor-default" href="#" onclick="return false;">
+                    <img src="assets/images/logo-menu.png" alt="logo" class="cursor-default" />
+                </a>
+                <a class="navbar-brand brand-logo-mini navbar-aux cursor-default" onclick="return false;" style="cursor: default !important;">
+                    <img src="assets/images/logo-menu.png" alt="logo" style="width: 30px !important; height: 30px !important;" class="cursor-default" />
+                </a>
+                <button class="navbar-toggler navbar-toggler align-self-center navbar-aux cursor-default" type="button" onclick="return false;">
+                    <span class="navbar-aux cursor-default">
+                        <img src="assets/images/logo-menu.png" alt="logo" style="width: 40px !important; height: 40px !important;" class="cursor-default" /></span>
+                </button>
+            </div>
+        </div>
+        <div class="navbar-menu-wrapper d-flex justify-content-end">
+            <ul id="auxTextoClienteDesktop" class="navbar-nav navbar-nav-left w-100">
+                <li class="nav-item d-flex justify-content-start">
+                    <span class="orange font-weight-bold">{{this.usuarioService.empresa}}</span>
+                </li>
+            </ul>
+            <ul class="navbar-nav navbar-nav-right">
+                <li class="nav-item nav-profile" style=" margin-right: 0px !important;">
+                    <a class="nav-link d-flex" id="profileDropdown">
+                        <img src="assets/template/images/avatar.jpg" alt="profile" style="visibility: hidden;" />
+                        <div class="d-flex flex-column valign-top">
+                            <span id="spnUsuario" class="nav-profile-name" style="margin-left: 0.8rem !important;">{{this.usuarioService.usuario!.nombreFull}}</span>
+                            <span class="text-center blue" style="margin-left: 0.8rem !important; font-size: 0.8rem !important;">{{this.usuarioService.usuario!.rol | titlecase }}</span>
+                        </div>
+
+                    </a>
+                </li>
+            </ul>
+
+            <button id="navBarToggle" 
+                class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" 
+                type="button" 
+                data-toggle="offcanvas"
+                (click)="this.onNavbarToggleClick()">
+                <span class="mdi mdi-menu">
+                </span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container-fluid page-body-wrapper" style="padding-left:0px !important;">
+        
+        <!-- SIDEBAR -->
+        <nav id="sidebar" class="sidebar sidebar-offcanvas" style="margin-top: -5px;" [class.active]="this.menuStatus === 'active'">
+            <ul class="nav">
+            
+                <li class="nav-item" [title]="m.titulo" *ngFor="let m of this.menuService.menu">
+                    <a (click)="reroute(m.url)"  class="nav-link" routerLinkActive="menuBorderActivo">
+                        <img class="menuBase" src="assets/images/{{m.imagen}}" style="width: 30px !important; height: 30px !important;" />
+                        <span class="textoMenu ml-2">{{m.titulo}}</span>
+                    </a>
+                </li>
+                <li class="nav-item" title="Salir del sistema">
+                    <a (click)="salir()" class="nav-link @menuExit.ClassBorder">
+                        <img class="assets/images/salir.png" src="assets/images/salir.png" alt="Salir del sistema"
+                            style="width: 30px !important; height: 30px !important;" />
+                        <span class="textoMenu ml-2">Salir</span>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+
+
+        <div class="main-panel fondoGris">
+
+            <div id="auxTextoClienteMobile" class="container-fluid d-flex justify-content-end w-100">
+                <span class="orange font-weight-bold">{{this.usuarioService.empresa}}</span>
+            </div>
+            <div class="content-wrapper-custom d-flex justify-content-center p-0  container-fluid" style="padding: 0.1rem 1.04rem !important;">
+
+                <router-outlet></router-outlet>
+
+            </div>
+        </div>
+        
+
+    </div>
+
+</div> 
+    
+    
+    
+  
+
