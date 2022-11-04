@@ -7,12 +7,17 @@ import { StorageService } from './storage.service';
 })
 export class MenuService {
 
-  public menu: Menu[] = [];
+  private _menu: Menu[] = [];
+
+  public get menu(){
+    return this._menu;
+  }
+
 
   constructor(private storage: StorageService){}
   
   cargarMenu(){
-    this.menu = this.storage.getMenu();
+    this._menu = this.storage.getMenu();
   }
 
 }

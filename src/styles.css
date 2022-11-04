@@ -8,3 +8,23 @@
     align-items: center;
     justify-content: center;
 }
+
+.auth-link {
+    font-size: 0.875rem;
+    text-decoration: none;
+    color: #000 !important;
+}
+
+.auth-link:hover {
+    color: initial;
+    text-decoration: none;
+    color: #2196F3 !important;
+}
+
+.pointer{
+    cursor: pointer !important;
+}
+
+.cursor-default{
+    cursor: default !important;
+}

@@ -1,5 +1,6 @@
 const initTemplate = () => {
   'use strict';
+
   $(function() {
 
     var body = $('body');
@@ -43,8 +44,6 @@ const initTemplate = () => {
       }
     }
 
-    
-
     var current = location.pathname.split("/").slice(-1)[0].replace(/^\/|\/$/g, '');
     $('.nav li a', sidebar).each(function () {
         var $this = $(this);
@@ -71,4 +70,5 @@ const initTemplate = () => {
 };
 
 //export default initTemplate;
-initTemplate();
+//initTemplate();
+//checkInitStatus();

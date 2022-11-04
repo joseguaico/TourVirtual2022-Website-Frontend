@@ -24,23 +24,23 @@
                     </div>
                     <div class="m-0 col-Busqueda-dates">
                         <label class="text-black">Desde</label>
-                        <input id="dtFechaInicioAdm" input asp-for="@Model.DesdeBusquedaAdm" type="text" name="DesdeBusquedaAdm" placeholder="desde"
-                               class="form-control form-control-sm w-100"
-                               onkeyup="javascript:valFechaInicioAdm();"
-                               onchange="javascript:valFechaInicioAdm();"
-                               maxlength="10"
-                               style="padding-right:0px!important; text-align: center;"
-                               formControlName="desde" />
+                        <input id="dtFechaInicioAdm" 
+                            type="date" name="DesdeBusquedaAdm" placeholder="desde"
+                            class="form-control form-control-sm w-100"
+                            maxlength="10"
+                            style="padding-right:0px!important; text-align: center;"
+                            formControlName="desde"
+                            (keydown)="$event.preventDefault();" />
                     </div>
                     <div class="m-0 col-Busqueda-dates">
                         <label class="text-black">Hasta</label>
-                        <input id="dtFechaFinAdm" input asp-for="@Model.HastaBusquedaAdm" type="text" name="HastaBusquedaAdm" placeholder="hasta"
-                               class="form-control form-control-sm w-100"
-                               onkeyup="javascript:valFechaFinAdm();"
-                               onchange="javascript:valFechaFinAdm();"
-                               maxlength="10"
-                               style="padding-right:0px!important; text-align: center;"
-                               formControlName="hasta" />
+                        <input id="dtFechaFinAdm" 
+                            type="date" name="HastaBusquedaAdm" placeholder="hasta"
+                            class="form-control form-control-sm w-100"
+                            maxlength="10"
+                            style="padding-right:0px!important; text-align: center;"
+                            formControlName="hasta"
+                            (keydown)="$event.preventDefault();"  />
                     </div>
                     <div class="m-0 col-Busqueda">
                         <label class="text-black">Creado por</label>
@@ -62,12 +62,11 @@
 
             </form>
 
-            <div id="rowValidacion" class="row w-100 validation-feedback validation-Dates-summary">
-
+            <div id="rowValidacion" class="row w-100 validation-feedback validation-Dates-summary" *ngIf="this.textoValidacionFecha.length > 0">
+                {{this.textoValidacionFecha}}
             </div>
 
         </div>
-
 
     </div>
 
@@ -76,7 +75,7 @@
 
         <div id="rowLoading" class="w-100" *ngIf="this.cargando">
             <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline;" />
-            <p id="textInfoEnvio" style="display: inline;">Actualizando...</p>
+            <p id="textInfoEnvio" style="display: inline;" class="ml-2">Actualizando...</p>
         </div>
     
         <div id="gridBusquedaContainer" class="card w-100 ml-0 mt-2 p-0 flex-xl-shrink-1">
@@ -153,6 +152,11 @@
             </div>
     
         </div>
+
+        <div class="d-flex p-1 m-1 justify-content-center" *ngIf="this.textoRespuestaBusqueda.length > 0">
+            {{this.textoRespuestaBusqueda}}
+        </div>
+
     </div>
 
 </div>

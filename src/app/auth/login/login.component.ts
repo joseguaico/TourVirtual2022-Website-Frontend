@@ -19,6 +19,8 @@ export class LoginComponent {
   });
 
   cargando: boolean = false;
+  ingresando: boolean = false;
+  textoError: string = "";
 
   constructor(private formBuilder: FormBuilder,
     private usuarioService: UsuarioService,
@@ -39,27 +41,37 @@ export class LoginComponent {
       formData.append('password', this.formularioLogin.controls['password'].value.trim());
   
       this.cargando = true;
+      this.textoError = '';
+      this.formularioLogin.disable();
       this.usuarioService.login(formData).subscribe((resp: any) =>  {
   
         //console.log('RESP Login: ', resp);
   
         if (resp.error === false){
   
+          this.ingresando = true;
+          this.textoError = '';
+
           this.router.navigateByUrl('propiedades');
           return;
          
         }
         else {
-          Swal.fire({ title: 'Login', text: resp.message, icon: 'error'});
+          //Swal.fire({ title: 'Login', text: resp.message, icon: 'error'});
+          this.textoError = resp.message;
+          this.formularioLogin.enable();
         }
   
         this.cargando = false;
   
       },
       err => {
-        console.warn('Error_ :', err)
+        //console.warn('Error:', err)
         this.cargando = false;
-          Swal.fire({ title: 'Login', text: err.message, icon: 'error'});
+          //Swal.fire({ title: 'Login', text: err.message, icon: 'error'});
+          //this.textoError = err.message;
+          this.textoError = 'Se produjo un error en la comunicación con el servidor';
+          this.formularioLogin.enable();
       });
   
     }

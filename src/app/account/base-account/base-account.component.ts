@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { UsuarioService } from 'src/app/services/usuario.service';
 
-declare function initTemplate():void;
-declare function initOffCanvas():void;
-declare function initHoverableCollapse():void;
+// declare function initTemplate():void;
+// declare function initOffCanvas():void;
+// declare function initHoverableCollapse():void;
 
 @Component({
   selector: 'app-base-account',
@@ -19,8 +19,8 @@ export class BaseAccountComponent implements OnInit {
 
   ngOnInit(): void {
     document.querySelector('body')?.classList.remove('login-background');
-    initTemplate();
-    initOffCanvas();
-    initHoverableCollapse();
+    // initTemplate();
+    // initOffCanvas();
+    // initHoverableCollapse();
   }
 }

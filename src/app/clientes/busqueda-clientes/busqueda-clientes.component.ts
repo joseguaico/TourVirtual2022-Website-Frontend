@@ -23,6 +23,7 @@ export class BusquedaClientesComponent implements OnInit {
   private pageNumber: number = 1;
   private pageSize: number = 10;
   public cargando = false;
+  public textoRespuestaBusqueda = '';
 
   constructor(public fb: FormBuilder,
     private router: Router,
@@ -52,11 +53,15 @@ export class BusquedaClientesComponent implements OnInit {
 
         this.clientes = resp.datos;
         this.cargando = false;
+      this.textoRespuestaBusqueda = this.clientes.length === 0 ? 'No se encontraron datos' : '';
 
-      }, err => {
+      },
+      (err: any) => {
 
-        console.warn(err);
+        const {message, error} = err.error;
         this.cargando = false;
+        this.textoRespuestaBusqueda = message;
+        this.clientes = [];
       });
   }
 

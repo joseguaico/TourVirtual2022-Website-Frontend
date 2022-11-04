@@ -10,7 +10,7 @@
 
         <fieldset class="my-validation-sumary">
             <div class="col-xs-12 text-center" style=" text-align: center;">
-                <!-- @ViewData["ErrorLogin"] -->
+                {{this.textoError}}
             </div>
         </fieldset>
 
@@ -44,16 +44,26 @@
                 Campo obligatorio
               </span>
         </fieldset>
-        <fieldset class="form-group position-relative has-icon-left row">
+        <fieldset class="form-group position-relative has-icon-left row" *ngIf="!this.cargando">
             <button type="submit" class="btn btn-outline-blue border-gray"><i class="icon-unlock2"></i> Iniciar sesi&oacute;n</button>
         </fieldset>
+        <div *ngIf="this.cargando">
+            <img alt="Enviando..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline;" />
+            <p id="textInfoEnvio" style="display: inline;" class="ml-1 black">Enviando...</p>
+        </div>
+        <div *ngIf="this.ingresando">
+            <img alt="Ingresando..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline;" />
+            <p id="textInfoEnvio" style="display: inline;" class="ml-1 black">Enviando...</p>
+        </div>
+
         <fieldset class="form-group position-relative has-icon-left row">
             <div class="my-2 d-flex justify-content-between align-items-center">
                 <div class="form-check">
                 </div>
-                <a asp-controller="Account" asp-action="ForgotPassword" class="auth-link text-black">¿Olvidó su contraseña?</a>
+                <a class="auth-link text-black">¿Olvidó su contraseña?</a>
             </div>
         </fieldset>
+      
 
     </form>
 
