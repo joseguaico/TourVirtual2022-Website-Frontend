@@ -27,7 +27,8 @@ export class BusquedaClientesComponent implements OnInit {
 
   constructor(public fb: FormBuilder,
     private router: Router,
-    private clientesService: ClientesService) { }
+    private clientesService: ClientesService) { 
+    }
     
   ngOnInit(): void {
     registerLocaleData(es);

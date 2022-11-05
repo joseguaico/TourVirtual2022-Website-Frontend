@@ -12,7 +12,7 @@
     margin: 0px !important;  
 }
 .menuBorderActivo {
-    border-left: solid 4px #ffbd66;
+    border-left: solid 4px #ffbd66 !important;
 }
 
 .navbar-aux,

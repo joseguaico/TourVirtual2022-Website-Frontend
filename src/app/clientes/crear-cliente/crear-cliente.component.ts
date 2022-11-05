@@ -21,7 +21,10 @@ export class CrearClienteComponent implements AfterViewInit {
     telefonosContacto: ['', [Validators.required] ],
   });
 
-  constructor(public fb: FormBuilder, private router: Router, public usuarioService: UsuarioService) { }
+  constructor(public fb: FormBuilder,
+    private router: Router, 
+    public usuarioService: UsuarioService) { 
+    }
 
   ngAfterViewInit(): void {
     initTemplate();
