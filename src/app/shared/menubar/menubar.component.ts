@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuService } from 'src/app/services/menu.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -8,11 +8,9 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   templateUrl: './menubar.component.html',
   styleUrls: ['./menubar.component.css']
 })
-export class MenubarComponent implements OnInit {
+export class MenubarComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  //public activo = false;
-  //public menuStatus: string = this.menuService.menuStatus;
-  public menuStatus: boolean = this.menuService.menuStatus !== '';
+  public menuStatus: boolean = this.menuService.menuStatus === 'active';
 
   constructor(public usuarioService: UsuarioService,
     public menuService: MenuService, 
@@ -20,6 +18,7 @@ export class MenubarComponent implements OnInit {
   ) { 
     this.menuService.reiniciarStatus();
 
+    console.log('MenuBar constructor...');
   }
 
   ngOnInit(): void {
@@ -28,7 +27,19 @@ export class MenubarComponent implements OnInit {
     document.querySelector('body')?.classList.remove('login-background');
     this.menuService.reiniciarStatus();
     this.menuService.cargarMenu();
+
+    console.log('MenuBar onInit...');
   }
+
+  ngAfterViewInit(): void {
+    this.menuService.reiniciarStatus();
+  }
+
+  ngOnDestroy(): void {
+    this.menuService.reiniciarStatus();
+    console.log('MenuBar onDestroy...');
+  }
+
 
   salir(){
     this.usuarioService.logout();
