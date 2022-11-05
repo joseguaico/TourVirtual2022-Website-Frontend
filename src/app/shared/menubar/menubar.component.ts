@@ -11,12 +11,16 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class MenubarComponent implements OnInit {
 
   //public activo = false;
-  public menuStatus: string = this.menuService.menuStatus;
+  //public menuStatus: string = this.menuService.menuStatus;
+  public menuStatus: boolean = this.menuService.menuStatus !== '';
 
   constructor(public usuarioService: UsuarioService,
     public menuService: MenuService, 
     private router: Router
-  ) { }
+  ) { 
+    this.menuService.reiniciarStatus();
+
+  }
 
   ngOnInit(): void {
     //console.log('On Init Sidebar.');
@@ -32,14 +36,16 @@ export class MenubarComponent implements OnInit {
 
   reroute(url: string) {
     this.menuService.reiniciarStatus();
-    this.menuStatus = this.menuService.menuStatus;
+    //this.menuStatus = this.menuService.menuStatus;
+    this.menuStatus = this.menuService.menuStatus !== '';
     this.router.navigate([url])
   }
   
   onNavbarToggleClick(){
     this.menuService.toggleStatus();
-    this.menuStatus = this.menuService.menuStatus;
-    console.log('toggleClick: ', this.menuStatus);
+    //this.menuStatus = this.menuService.menuStatus;
+    this.menuStatus = this.menuService.menuStatus !== '';
+    //console.log('toggleClick: ', this.menuStatus);
   }
 
 }

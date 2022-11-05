@@ -51,7 +51,7 @@
     <div class="container-fluid page-body-wrapper" style="padding-left:0px !important;">
         
         <!-- SIDEBAR -->
-        <nav id="sidebar" class="sidebar sidebar-offcanvas" style="margin-top: -5px;" [class.active]="this.menuStatus === 'active'">
+        <nav id="sidebar" class="sidebar sidebar-offcanvas" style="margin-top: -5px;" [class.active]="this.menuStatus">
             <ul class="nav">
             
                 <li class="nav-item" [title]="m.titulo" *ngFor="let m of this.menuService.menu">

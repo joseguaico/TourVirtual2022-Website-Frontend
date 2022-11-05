@@ -36,10 +36,10 @@ export class MenuService {
 
     const despues = this.storage.getMenuStatus();
 
-    console.log('Antes: ', antes, ", despues: ", despues);
+    //console.log('Antes: ', antes, ", despues: ", despues);
 
     if (antes === despues){
-      console.log('no cambió');
+      //console.log('no cambió');
     }
   }
 
