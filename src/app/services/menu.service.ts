@@ -24,7 +24,7 @@ export class MenuService {
   }
 
   toggleStatus(){
-    console.log('on cambiarStatus menu');
+    //console.log('on cambiarStatus menu');
 
     const antes = this.storage.getMenuStatus();
 

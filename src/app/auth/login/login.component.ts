@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { UsuarioService } from 'src/app/services/usuario.service';
+import { AccountService } from 'src/app/services/account.service';
 
 import Swal from 'sweetalert2';
 
@@ -23,7 +23,7 @@ export class LoginComponent {
   textoError: string = "";
 
   constructor(private formBuilder: FormBuilder,
-    private usuarioService: UsuarioService,
+    private accountService: AccountService,
     private router: Router) { }
 
     campoNoValido(campo: string){
@@ -43,7 +43,7 @@ export class LoginComponent {
       this.cargando = true;
       this.textoError = '';
       this.formularioLogin.disable();
-      this.usuarioService.login(formData).subscribe((resp: any) =>  {
+      this.accountService.login(formData).subscribe((resp: any) =>  {
   
         //console.log('RESP Login: ', resp);
   

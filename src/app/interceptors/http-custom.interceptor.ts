@@ -3,7 +3,7 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS
 import { BehaviorSubject, catchError, filter, Observable, switchMap, take, throwError } from 'rxjs';
 
 import { StorageService } from '../services/storage.service';
-import { UsuarioService } from '../services/usuario.service';
+import { AccountService } from '../services/account.service';
 import { Router } from '@angular/router';
 
 const TOKEN_HEADER_KEY = 'Authorization';   
@@ -14,7 +14,7 @@ export class HttpCustomInterceptor implements HttpInterceptor {
   private isRefreshing: boolean = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(private storage: StorageService, private usuarioService: UsuarioService,
+  constructor(private storage: StorageService, private accountService: AccountService,
     private router: Router) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -54,7 +54,7 @@ export class HttpCustomInterceptor implements HttpInterceptor {
 
       if (token){
 
-        return this.usuarioService.refreshToken().pipe(
+        return this.accountService.refreshToken().pipe(
 
           switchMap((resp: any) => {
 

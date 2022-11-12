@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UsuarioService } from 'src/app/services/usuario.service';
-
-// declare function initTemplate():void;
-// declare function initOffCanvas():void;
-// declare function initHoverableCollapse():void;
-
 @Component({
   selector: 'app-base-propiedades',
   templateUrl: './base-propiedades.component.html',
@@ -13,16 +7,12 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class BasePropiedadesComponent implements OnInit {
 
-  constructor(public usuarioService: UsuarioService) {
+  constructor() {
     document.querySelector('body')?.classList.remove('login-background');
    }
 
   ngOnInit(): void {
     document.querySelector('body')?.classList.remove('login-background');
-    // initTemplate();
-    // initOffCanvas();
-    // initHoverableCollapse();
   }
-
 
 }

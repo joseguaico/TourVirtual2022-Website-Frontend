@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuService } from 'src/app/services/menu.service';
-import { UsuarioService } from 'src/app/services/usuario.service';
+//import { MenuService } from 'src/app/services/menu.service';
+import { AccountService } from 'src/app/services/account.service';
 
 // declare function initTemplate():void;
 // declare function initOffCanvas():void;
@@ -13,10 +13,11 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class BaseComponent implements OnInit {
 
-  constructor(public usuarioService: UsuarioService,
-    private menuService: MenuService) {
+  constructor(public accountService: AccountService,
+    //private menuService: MenuService
+    ) {
     document.querySelector('body')?.classList.remove('login-background');
-    this.menuService.reiniciarStatus();
+    //this.menuService.reiniciarStatus();
    }
 
   ngOnInit(): void {

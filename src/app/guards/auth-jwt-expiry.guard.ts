@@ -5,7 +5,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { lastValueFrom, Observable, tap } from 'rxjs';
 
 import { StorageService } from '../services/storage.service';
-import { UsuarioService } from '../services/usuario.service';
+import { AccountService } from '../services/account.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class AuthJwtExpiryGuard implements CanActivate, CanLoad {
   public jwtHelper: JwtHelperService = new JwtHelperService();
 
   constructor(private router: Router, 
-    private usuarioService: UsuarioService,
+    private accountService: AccountService,
     private storage: StorageService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
@@ -26,7 +26,7 @@ export class AuthJwtExpiryGuard implements CanActivate, CanLoad {
       return true;
     }
     
-    return this.usuarioService.refreshToken().pipe(
+    return this.accountService.refreshToken().pipe(
 
       tap((estaAutenticado: boolean) => {
 
@@ -48,7 +48,7 @@ export class AuthJwtExpiryGuard implements CanActivate, CanLoad {
       return true;
     }
     
-    return this.usuarioService.refreshToken().pipe(
+    return this.accountService.refreshToken().pipe(
 
       tap((estaAutenticado: boolean) => {
 

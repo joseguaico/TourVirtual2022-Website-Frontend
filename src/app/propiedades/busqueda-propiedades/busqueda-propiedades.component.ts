@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PropiedadTitulo } from 'src/app/interfaces/propiedadTitulo.interface';
 import { PropiedadesService } from 'src/app/services/propiedades.service';
-import { UsuarioService } from 'src/app/services/usuario.service';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-busqueda-propiedades',
@@ -33,12 +33,12 @@ export class BusquedaPropiedadesComponent implements OnInit {
 
   constructor(public fb: FormBuilder,
     private router: Router,
-    private usuarioService: UsuarioService,
+    private accountService: AccountService,
     private propiedadesService: PropiedadesService) { }
 
   ngOnInit(): void {
 
-    this.mostrarPanelAdmin = this.usuarioService.rol === 'ADMINISTRADOR';
+    this.mostrarPanelAdmin = this.accountService.rol === 'ADMINISTRADOR';
 
     this.preBusqueda();
   }
@@ -53,7 +53,7 @@ export class BusquedaPropiedadesComponent implements OnInit {
 
   preBusqueda(){
 
-    if(this.usuarioService.rol === 'ADMINISTRADOR'){
+    if(this.accountService.rol === 'ADMINISTRADOR'){
 
       const {cliente, titulo, conFotos} = this.formBusquedaAdm.value;
 
@@ -61,7 +61,7 @@ export class BusquedaPropiedadesComponent implements OnInit {
 
       this.realizarBusqueda(cliente, titulo, conFotos);
 
-    }else if (this.usuarioService.rol === 'CORREDOR'){
+    }else if (this.accountService.rol === 'CORREDOR'){
       const {titulo, conFotos} = this.formBusquedaProp.value;
 
       this.realizarBusqueda('', titulo, conFotos);

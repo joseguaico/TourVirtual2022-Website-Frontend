@@ -14,7 +14,7 @@ const baseUrl: string = environment.baseUrl;
 @Injectable({
   providedIn: 'root'
 })
-export class UsuarioService {
+export class AccountService {
 
   //public usuario: Usuario | undefined;
 
@@ -31,9 +31,7 @@ export class UsuarioService {
     private router: Router,
     private storage: StorageService  
   ) { 
-
-    console.log("constructor de UsuarioService...");
-
+    //console.log("constructor de UsuarioService...");
   }
 
   get uid(): string {

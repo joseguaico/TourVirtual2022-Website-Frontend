@@ -50,7 +50,7 @@ export class BusquedaClientesComponent implements OnInit {
 
     this.clientesService.obtenerClientesWithCount(nombres, email, this.pageNumber, this.pageSize)
       .subscribe(resp => {
-        console.log("RESP: ", resp);
+        //console.log("RESP: ", resp);
 
         this.clientes = resp.datos;
         this.cargando = false;

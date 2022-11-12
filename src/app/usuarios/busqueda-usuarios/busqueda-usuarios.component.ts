@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Usuario } from 'src/app/models/usuario.class';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-busqueda-usuarios',
@@ -15,13 +17,28 @@ export class BusquedaUsuariosComponent implements OnInit {
     rol: ['',]
   });
 
-  constructor(public fb: FormBuilder, private router: Router) { }
+  usuarios: Usuario[] = [];
+  private pageNumber: number = 1;
+  private pageSize: number = 10;
+  public cargando = false;
+  public textoRespuestaBusqueda = '';
+
+  constructor(public fb: FormBuilder, private router: Router,
+    private usuariosService: UsuariosService) { }
 
   ngOnInit(): void {
   }
 
   buscarClick(){
 
+    const { email, nombre, rol} = this.formBusqueda.value;
+
+    this.usuariosService.obtenerUsuarios(email, nombre, rol, this.pageNumber, this.pageSize)
+      .subscribe(({datos}: any) => {
+        console.log("RESP: ", datos);
+      }, (err) => {
+        console.error(err);
+      });
   }
 
   crearClick(){

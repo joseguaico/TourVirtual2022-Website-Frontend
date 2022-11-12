@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UsuarioService } from 'src/app/services/usuario.service';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-editar-datos',
@@ -20,12 +20,12 @@ export class EditarDatosComponent implements OnInit {
 
   });
 
-  constructor(public fb: FormBuilder, private router: Router, public usuarioService: UsuarioService) { }
+  constructor(public fb: FormBuilder, private router: Router, public accountService: AccountService) { }
 
   ngOnInit(): void {
 
-    this.formCrear.get('nombres')?.setValue(this.usuarioService.usuario?.nombres);
-    this.formCrear.get('apellidos')?.setValue(this.usuarioService.usuario?.apellidos);
+    this.formCrear.get('nombres')?.setValue(this.accountService.usuario?.nombres);
+    this.formCrear.get('apellidos')?.setValue(this.accountService.usuario?.apellidos);
   }
 
   mostrarPassChange(){
