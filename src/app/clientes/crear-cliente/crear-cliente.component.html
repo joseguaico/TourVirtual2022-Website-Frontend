@@ -78,8 +78,24 @@
                         <span id="spnTelefonosContactoInvalido" class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('telefonosContacto')">
                             campo obligatorio
                         </span>
+                    </div>
+                    <div class="m-0">
+                        <label class="text-black mb-0 mt-1">Dirección</label>
+                        <input id="txtDireccion" 
+                            name="txtDireccion" 
+                            type="text"
+                            class="form-control form-control-sm" 
+                            placeholder=""
+                            formControlName="direccion"
+                            [class.input-validation-error]="this.campoNoValido('direccion')">
+
+                        <span id="spnDireccionInvalido" class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('direccion')">
+                            campo obligatorio
+                        </span>
 
                     </div>
+
+
                     <div id="divValidationInfo" class="m-0 input-validation-error" style="text-align: center;">
                     </div>
                     <div class="d-flex justify-content-end">
