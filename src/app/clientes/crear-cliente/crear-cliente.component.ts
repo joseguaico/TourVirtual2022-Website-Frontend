@@ -12,11 +12,11 @@ import { ClientesService } from 'src/app/services/clientes.service';
 export class CrearClienteComponent {
 
   formCrear: FormGroup = this.fb.group({
-    nombre: ['Bucket Properties Inc.', [Validators.required] ],
-    email: ['noemail@noemail.com', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-    nombreContacto: ['Joachim Löw', [Validators.required] ],
-    telefonosContacto: ['+562 5555555', [Validators.required] ],
-    direccion: ['San Agustin #451', [Validators.required] ],
+    nombre: ['', [Validators.required] ],
+    email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+    nombreContacto: ['', [Validators.required] ],
+    telefonosContacto: ['', [Validators.required] ],
+    direccion: ['', [Validators.required] ],
   });
 
   mostrarFormularioPrincipal = true;
