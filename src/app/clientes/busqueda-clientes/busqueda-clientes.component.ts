@@ -76,8 +76,8 @@ export class BusquedaClientesComponent implements OnInit {
 
   }
 
-  editar(){
-    this.router.navigate(['clientes/editar-cliente'])
+  editar(cliente: ClienteWithCount){
+    this.router.navigate(['clientes/editar-cliente'],  { queryParams: { cod: cliente.idx} })
   }
 
   eliminar(){

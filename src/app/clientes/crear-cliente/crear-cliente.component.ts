@@ -72,14 +72,7 @@ export class CrearClienteComponent {
 
       }, (err) => {
 
-        //const esErrorApi = err.error.error;
-        //const textoErrorApi = err.error.message;
-        //const erroresValidacionApi = err.error.errors;
-
         console.warn("ERR: ", err);
-        //console.log("ES ERROR API: ", esErrorApi);
-        //console.log("TEXTO ERROR API: ", textoErrorApi);
-        //console.log("ERRORES VALIDACION API: ", erroresValidacionApi);
 
         this.mostrarOverlay = false;
         this.mostrarLoading = false;

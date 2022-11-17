@@ -27,7 +27,7 @@ export class ClientesService {
       return this.http.get<DescargaClientesWithCount>(`${baseUrl}/Clientes/GetWithCountAllPaged`, { params });
   }
 
-  obtenerClientes(){
+  obtenerClientes() {
     return this.http.get<Cliente>(`${baseUrl}/Clientes/GetWithCountAllPaged`);
   }
 
@@ -43,11 +43,7 @@ export class ClientesService {
     return this.http.post<GeneralResponse>(`${baseUrl}/Clientes/CrearCliente`, formData)
     .pipe(
       catchError(err => {
-        // console.log('CatchError: ', err);
-        // console.log('Error validación API: ', err.error?.errors);
-        // console.log('Error respuesta API: ', err.error?.message);
-        // console.log('Otro error: ', err.message);
-
+      
         // Si tiene errores de validación de la API 
         const erroresValidacionApi = err.error?.errors;
         
@@ -70,5 +66,69 @@ export class ClientesService {
 
     );
   }
+
+  obtenerInfoCliente(codx: string) : Observable<GeneralResponse>{
+    return this.http.get<Cliente>(`${baseUrl}/Clientes/GetClienteWithCount?codCliente=${codx}`)
+    .pipe(
+      catchError(err => {
+
+        // Si tiene errores de validación de la API 
+        const erroresValidacionApi = err.error?.errors;
+        
+        if (erroresValidacionApi !== null && erroresValidacionApi !== undefined){
+          return of(new GeneralResponse(true, erroresApiArrayToString(erroresValidacionApi), {}));
+        }
+
+        // Si tiene un error desde las respuesta de API
+        if (err.error?.message !== null &&  err.error?.message !== undefined){
+          return of(new GeneralResponse(true,  err.error.message, {}));
+        }
+
+        // Si se produce otro error
+        if (err.message !== null && err.message !== undefined){
+          return of(new GeneralResponse(true, err.message, {}));
+        }
+
+        return of(err)
+      })
+    );
+  }
+
+  editarCliente(codx: string, nombre: string, email: string, nombreContacto: string, telefonos: string, direccion: string) : Observable<GeneralResponse> {
+    var formData = new FormData();
+    formData.append('codigoCliente', codx);
+    formData.append('nombre', nombre);
+    formData.append('email', email);
+    formData.append('nombreContacto', nombreContacto);
+    formData.append('telefonosContacto', telefonos);
+    formData.append('direccion', direccion);
+
+    return this.http.put<GeneralResponse>(`${baseUrl}/Clientes/UpdateInfoCliente`, formData)
+    .pipe(
+      catchError(err => {
+      
+        // Si tiene errores de validación de la API 
+        const erroresValidacionApi = err.error?.errors;
+        
+        if (erroresValidacionApi !== null && erroresValidacionApi !== undefined){
+          return of(new GeneralResponse(true, erroresApiArrayToString(erroresValidacionApi), {}));
+        }
+
+        // Si tiene un error desde las respuesta de API
+        if (err.error?.message !== null &&  err.error?.message !== undefined){
+          return of(new GeneralResponse(true,  err.error.message, {}));
+        }
+
+        // Si se produce otro error
+        if (err.message !== null && err.message !== undefined){
+          return of(new GeneralResponse(true, err.message, {}));
+        }
+
+        return of(err)
+      })
+
+    );
+  }
+
 
 }

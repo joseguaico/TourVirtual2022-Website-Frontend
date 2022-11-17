@@ -115,7 +115,7 @@
                                 <a title="Cambiar a estado 'Suspendido'" *ngIf="cli.estado === 'vigente'" 
                                     (click)="this.cambiarEstado()" ><i class="fas fa-user-slash fa-sm"></i></a>
     
-                            <a title="Editar este cliente" (click)="this.editar()"><i class="fas fa-pencil-alt fa-sm"></i></a>
+                            <a title="Editar este cliente" (click)="this.editar(cli)"><i class="fas fa-pencil-alt fa-sm"></i></a>
                             <a title="Eliminar este cliente" (click)="this.eliminar()"><i class="fas fa-times fa-sm"></i></a>
                         </div>
                     </div>
