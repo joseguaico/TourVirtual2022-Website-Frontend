@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Venta } from 'src/app/interfaces/venta.interface';
 import { VentasService } from 'src/app/services/ventas.service';
+import { environment } from 'src/environments/environment';
+
+const baseUrl: string = environment.baseUrl;
 
 @Component({
   selector: 'app-busqueda-ventas',
@@ -25,6 +28,7 @@ export class BusquedaVentasComponent implements OnInit {
   public textoValidacionFecha = '';
   public textoRespuestaBusqueda = '';
 
+  public urlVerFoto = baseUrl + '/Ventas/GetComprobanteVenta?codVenta=';
 
   constructor(public fb: FormBuilder,
     private router: Router,

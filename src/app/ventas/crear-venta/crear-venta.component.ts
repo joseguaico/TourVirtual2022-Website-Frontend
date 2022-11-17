@@ -110,11 +110,7 @@ export class CrearVentaComponent implements OnInit {
   redirectToBusqueda(){
     this.router.navigate(['ventas/busqueda']);
   }
-
-  redirectoTo360Images(){
-    // TODO: Agregar redirección a pantalla de imágenes 
-  }
-
+ 
   setModoInicial(){
     this.formCrear.reset();
     this.formCrear.get('cliente')?.setValue('');

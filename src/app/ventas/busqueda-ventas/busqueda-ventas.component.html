@@ -132,7 +132,7 @@
 
                             <div *ngIf="vt.extension === '.jpeg' || vt.extension === '.jpg' || vt.extension === '.png'">
                                 <a title="Ver el comprobante de esta venta"
-                                    asp-route-codigo="@v.IdVenta" target="_blank"><i class="far fa-file-image fa-sm"></i></a>
+                                   href="{{this.urlVerFoto}}{{vt.idx}}" target="_blank"><i class="far fa-file-image fa-sm"></i></a>
                             </div>
     
                             <div *ngIf="vt.extension === '.doc' || vt.extension === '.docx'">
