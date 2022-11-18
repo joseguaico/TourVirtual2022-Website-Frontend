@@ -9,12 +9,14 @@ import { VentasRoutingModule } from './ventas-routing.module';
 import { BusquedaVentasComponent } from './busqueda-ventas/busqueda-ventas.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CrearVentaComponent } from './crear-venta/crear-venta.component';
+import { VisorComprobanteComponent } from './visor-comprobante/visor-comprobante.component';
 
 @NgModule({
   declarations: [
     BaseVentasComponent,
     BusquedaVentasComponent,
-    CrearVentaComponent
+    CrearVentaComponent,
+    VisorComprobanteComponent
   ],
   imports: [
     CommonModule,

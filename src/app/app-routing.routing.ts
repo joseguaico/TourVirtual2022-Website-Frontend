@@ -9,6 +9,7 @@ import { BaseComponent } from './home/base/base.component';
 import { BasePropiedadesComponent } from './propiedades/base-propiedades/base-propiedades.component';
 import { BaseUsuariosComponent } from './usuarios/base-usuarios/base-usuarios.component';
 import { BaseVentasComponent } from './ventas/base-ventas/base-ventas.component';
+import { VisorComprobanteComponent } from './ventas/visor-comprobante/visor-comprobante.component';
 
 const routes: Routes = [
     {
@@ -53,6 +54,12 @@ const routes: Routes = [
         canLoad: [AuthJwtExpiryGuard],
         path: 'account', component: BaseUsuariosComponent,
         loadChildren: () => import('./account/account.module').then(m => m.AccountModule)
+    },
+    {
+        canActivate: [AuthJwtExpiryGuard],
+        canLoad: [AuthJwtExpiryGuard],
+        path: 'visor-comprobante/:codigo', component: VisorComprobanteComponent
+       
     }
 ];
 

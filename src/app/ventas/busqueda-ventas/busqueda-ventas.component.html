@@ -127,17 +127,12 @@
 
                             <div *ngIf="vt.extension === '.pdf'">
                                 <a title="Ver el comprobante de esta venta"
-                                    target="_blank"><i class="far fa-file-pdf fa-sm"></i></a>
+                                target="_blank" [routerLink]="['/visor-comprobante',vt.idx]"><i class="far fa-file-pdf fa-sm"></i></a>
                             </div>
 
                             <div *ngIf="vt.extension === '.jpeg' || vt.extension === '.jpg' || vt.extension === '.png'">
                                 <a title="Ver el comprobante de esta venta"
-                                   href="{{this.urlVerFoto}}{{vt.idx}}" target="_blank"><i class="far fa-file-image fa-sm"></i></a>
-                            </div>
-    
-                            <div *ngIf="vt.extension === '.doc' || vt.extension === '.docx'">
-                                <a title="Ver el comprobante de esta venta" asp-controller="ventas" asp-action="ComprobanteWord"
-                                asp-route-codigo="@v.IdVenta" target="_blank"><i class="far fa-file-word fa-sm"></i></a>
+                                target="_blank" [routerLink]="['/visor-comprobante',vt.idx]"><i class="far fa-file-image fa-sm"></i></a>
                             </div>
 
                             <a href="#" title="Ver el detalle de esta venta" onclick="javascript:setVerVenta('@v.IdVenta');"><i class="fas fa-info fa-sm"></i></a>

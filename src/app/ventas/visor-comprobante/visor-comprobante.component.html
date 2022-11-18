@@ -1,0 +1,15 @@
+<div class="d-flex justify-content-center w-100">
+
+    <div id="rowLoading" class="d-flex justify-content-center w-100 mt-3" *ngIf="this.cargando">
+        <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline;" />
+        <p id="textInfoEnvio" style="display: inline;" class="ml-2">Obteniedo comprobante...</p>
+    </div>
+
+    <div class="d-flex justify-content-center w-100 mt-3" *ngIf="this.mostrarMensaje">
+        <p style="display: inline;" class="ml-2">No se pudo obtener el comprobante</p>
+    </div>
+
+    <img [src]="this.contenidoArchivo" *ngIf="this.mostrarImagen">
+
+</div>
+
