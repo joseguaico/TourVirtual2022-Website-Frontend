@@ -29,10 +29,10 @@ export class CrearVentaComponent implements OnInit {
 
   formCrear: FormGroup = this.fb.group({
     cliente: ['', [Validators.required] ],
-    cantidadPropiedades: ['5', [Validators.required] ],
-    cantidadFotos: ['50', [Validators.required] ],
-    tipoServicio: ['1', [Validators.required] ],
-    montoVenta: ['135600', [Validators.required] ],
+    cantidadPropiedades: ['', [Validators.required] ],
+    cantidadFotos: ['', [Validators.required] ],
+    tipoServicio: ['', [Validators.required] ],
+    montoVenta: ['', [Validators.required] ],
     comprobante: [null, [Validators.required] ],
   });
 
