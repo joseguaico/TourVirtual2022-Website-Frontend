@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CrearPropiedadComponent } from './crear-propiedad/crear-propiedad.component';
 import { EditarFotosComponent } from './editar-fotos/editar-fotos.component';
+import { InfoPropiedadModalComponent } from './components/info-propiedad-modal/info-propiedad-modal.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { EditarFotosComponent } from './editar-fotos/editar-fotos.component';
     BusquedaPropiedadesComponent,
     BasePropiedadesComponent,
     CrearPropiedadComponent,
-    EditarFotosComponent
+    EditarFotosComponent,
+    InfoPropiedadModalComponent
   ],
   imports: [
     CommonModule,

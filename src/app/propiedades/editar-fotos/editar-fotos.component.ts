@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, mergeMap } from 'rxjs';
@@ -7,11 +7,12 @@ import { PropiedadTitulo } from 'src/app/interfaces/propiedadTitulo.interface';
 import { GeneralResponse } from 'src/app/models/generalResponse.class';
 import { Imagenes360Service } from 'src/app/services/imagenes360.service';
 import { PropiedadesService } from 'src/app/services/propiedades.service';
+import { InfoPropiedadModalComponent } from '../components/info-propiedad-modal/info-propiedad-modal.component';
 
 @Component({
   selector: 'app-editar-fotos',
   templateUrl: './editar-fotos.component.html',
-  styleUrls: ['./editar-fotos.component.css']
+  styleUrls: ['./editar-fotos.component.css'],
 })
 export class EditarFotosComponent implements OnInit {
 
@@ -22,6 +23,9 @@ export class EditarFotosComponent implements OnInit {
   cupoFotos: number = 0;
   usoFotos: number = 0;
   imagenes: Imagen360 [] = [];
+
+  @ViewChild(InfoPropiedadModalComponent) modalInfo!: InfoPropiedadModalComponent;
+
 
   constructor(private propiedadesService: PropiedadesService,
     private router: Router,
@@ -99,13 +103,7 @@ export class EditarFotosComponent implements OnInit {
 
   obtenerThumbnail(idxImagen: string){
     this.imagenes360.obtenerThumbnail(idxImagen).subscribe((blob: any) => {
-      //let objectURL = URL.createObjectURL(blob);
-   //   let contenido: any = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-
-      
-      console.log("CONTENIDO",  blob);
-      
-
+//      console.log("CONTENIDO",  blob);
     }, (err: any) => {
       console.warn(err);
     });
@@ -140,5 +138,7 @@ export class EditarFotosComponent implements OnInit {
     });
   }
 
-
+  onClickVerDetalle(codXPropiedad: string){
+    this.modalInfo.realizarBusqueda();
+  }
 }

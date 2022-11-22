@@ -52,7 +52,7 @@
                 </div>
 
 
-                <a href="#" title="Ver el detalle de esta propiedad" onclick="javascript:setVerPropiedad('@Model.Propiedad.IdPropiedad');"><i class="fas fa-info fa-sm"></i></a>
+                <a title="Ver el detalle de esta propiedad" (click)="this.onClickVerDetalle(this.propiedad!.idx)"><i class="fas fa-info fa-sm"></i></a>
 
                 <a title="Editar esta propiedad" onclick="javascript:cargarPopupEditarPropiedad()" ><i class="fas fa-pencil-alt fa-sm"></i></a>
     
@@ -90,5 +90,7 @@
 
     </div>
 
+    <!-- Modal info propiedad -->
+    <app-info-propiedad-modal></app-info-propiedad-modal>
 
 </div>
