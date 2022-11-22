@@ -1,0 +1,94 @@
+<div class="row justify-content-center w-100 p-0">
+
+    <!-- Titulo -->
+    <div class="col-lg-12 d-flex flex-row">
+
+        <div class="col-lg-12 d-flex flex-row" *ngIf="!this.mostrarDetalle">
+            <i class="fas fa-angle-double-right fa-sm blue" style="position: relative; top: 10px; margin-right: 3px;"></i>
+            <p class="mb-md-0 font-weight-bold justify-content-start blue">Editar fotos de la propiedad </p>
+        </div>
+
+        <div class="col-lg-12 d-flex flex-row" *ngIf="this.mostrarDetalle">
+            <i class="fas fa-angle-double-right fa-sm blue" style="position: relative; top: 10px; margin-right: 3px;"></i>
+            <p class="mb-md-0 font-weight-bold justify-content-start blue" style="display: ruby !important;">
+                &nbsp;
+                <span id="spnTitulo" class="mb-md-0 font-weight-bold justify-content-start w-100 warning" style="left: -5px; position:relative;">
+                    Propiedad {{this.propiedad?.titulo}}</span>
+            </p>
+        </div>
+    </div>
+
+    <div class="w-100 d-flex justify-content-center p-2 flex-column" style="text-align: center;" *ngIf="!this.mostrarDetalle">
+        <div class="w-100 d-flex justify-content-center">
+            <img src="assets/images/exclamation-64.png" alt="" width="64" height="64" />
+        </div>
+        <span>{{this.mensajeCarga}}</span>
+    </div>
+
+    <div class="w-100" *ngIf="this.mostrarDetalle">
+
+        <div id="divMensajePost" class="alert alert-success alert-dismissible fade show pb-0" role="alert" style="display: none;">
+            <p id="txtMensajePost">--Texto---</p>
+            <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div id="divImagenes" class="card w-100 mt-2 p-2 flex-xl-shrink-1 justify-content-center flex-column mh-100"
+         style="width: 100% !important; margin-bottom: 0 !important;">
+        
+            <!-- Botones opciones -->
+            <div id="divOpciones" class="d-flex mb-3 rounded-buttons-icons">
+                <div id="divBotonesPublicar">
+                        
+                    <a id="lnkPublicar" title="Publicar esta propiedad" 
+                        *ngIf="((this.propiedad?.codEstado === 1 && this.propiedad!.fotos > 0) || (this.propiedad?.codEstado === 4 && this.propiedad!.fotos > 0))"
+                        onclick="javascript:setPublicar('@Model.Propiedad.IdPropiedad');">
+                            <i class="far fa-share-square fa-sm"></i>
+                    </a>
+                        
+                    <a id="lnkSuspender" *ngIf="this.propiedad?.codEstado === 3"  title="Suspender esta propiedad" onclick="javascript:setSuspender('@Model.Propiedad.IdPropiedad');"><i class="fas fa-ban fa-sm"></i></a>
+
+                </div>
+
+
+                <a href="#" title="Ver el detalle de esta propiedad" onclick="javascript:setVerPropiedad('@Model.Propiedad.IdPropiedad');"><i class="fas fa-info fa-sm"></i></a>
+
+                <a title="Editar esta propiedad" onclick="javascript:cargarPopupEditarPropiedad()" ><i class="fas fa-pencil-alt fa-sm"></i></a>
+    
+                <a id="btnAddFoto" title="Agregar foto 360"><i class="fa fa-camera"></i></a>
+                <a id="btnPreviewTour" title="Previsualizar tour" style="display: none;"><i class="fa fa-eye fa-sm" aria-hidden="true"></i></a>
+
+            </div>
+        
+            <!-- Información del cupo -->
+            <div id="divInfoCupo" class="d-flex flex-column small w-100 pt-1 pb-3" style="margin-left: 1.5px;">
+                <span id="spnCantidadFotosProp" style="font-size: small; text-align:center;" class="ml-2 w-100">Esta propiedad tiene {{this.propiedad?.fotos}} fotos.</span>
+                <span id="spnInfoFotosDisp" style="font-size: small; text-align:center;" class="ml-2 w-100">Ha utilizado {{this.usoFotos}} de un total de {{this.cupoFotos}}.</span>
+            </div>
+        
+            <div id="contenedorCardsFotos" class="d-flex row justify-content-center">
+                
+                <div *ngFor="let img of this.imagenes" id="cardFoto_{{img.id}}" class="card border-secondary mb-3 ml-2" style="max-width: 20rem; width: 20rem;">
+                    <div class="card-header d-flex justify-content-between w-100">
+                        <span id="spnTitulo_{{img.id}}">{{img.descripcion}}</span>
+                        <div class="row">
+                            <a href="#"><i class="far fa-edit btnOpciones"></i></a>
+                            <a href="#"><i class="far fa-trash-alt btnOpciones"></i></a>
+                        </div>
+                    </div>
+                    <img id="img_{{img.id}}" [src]="img.imageSrc"
+                         class="imgPropiedadNormal"  style="cursor: pointer;" />
+                </div>
+            
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+</div>

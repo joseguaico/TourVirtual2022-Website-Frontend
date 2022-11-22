@@ -2,8 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { DescargaPropiedades } from '../interfaces/descargaPropiedades.interface';
-import { PropiedadTitulo } from '../interfaces/propiedadTitulo.interface';
+import { DescargaImagensPropiedad } from '../interfaces/descargaImagenesPropiedad.interface';
 import { GeneralResponse } from '../models/generalResponse.class';
 import { erroresApiArrayToString } from '../shared/functions/customErrorsFunctions';
 
@@ -12,27 +11,16 @@ const baseUrl: string = environment.baseUrl;
 @Injectable({
   providedIn: 'root'
 })
-export class PropiedadesService {
+export class Imagenes360Service {
 
   constructor(private http: HttpClient) { }
 
-  obtenerPropiedadesTitulo(cliente: string, titulo: string, conFotos: boolean, pageNumber: number, pageSize: number){
 
+  obtenerImagenesPorPropiedad(codxPropiedad: string) : Observable<GeneralResponse>{
     const params = new HttpParams()
-      .set('cliente', cliente)
-      .set('titulo', titulo)
-      .set('conFotos', conFotos)
-      .set('pageNumber', pageNumber)
-      .set('pageSize', pageSize);
+      .set('codPropiedad', codxPropiedad);
 
-      return this.http.get<DescargaPropiedades>(`${baseUrl}/Propiedades/GetAllPaged`, { params });
-  }
-
-  obtenerPropiedadTitulo(codx: string)  : Observable<GeneralResponse>{
-    const params = new HttpParams()
-      .set('codPropiedad', codx);
-
-    return this.http.get<PropiedadTitulo>(`${baseUrl}/Propiedades/GetInfo`, { params })
+    return this.http.get<DescargaImagensPropiedad>(`${baseUrl}/FotosPropiedades/GetFotos`, { params })
     .pipe(
       catchError(err => {
 
@@ -55,8 +43,15 @@ export class PropiedadesService {
 
         return of(err)
       })
-    );;
+    
+    );
   }
+
+  obtenerThumbnail(codx: string){
+    return this.http.get(`${baseUrl}/FotosPropiedades/bkt/GetThumbnail/${codx}`, { responseType: 'blob' });
+  }
+
+
 
 
 }

@@ -92,6 +92,8 @@ export class BusquedaPropiedadesComponent implements OnInit {
 
   }
 
-
+  editarFoto(codX: string){
+    this.router.navigate(['propiedades/editar-fotos'],  { queryParams: { cod: codX} })
+  }
 
 }

@@ -9,13 +9,15 @@ import { PropiedadesRoutingModule } from './propiedades-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CrearPropiedadComponent } from './crear-propiedad/crear-propiedad.component';
+import { EditarFotosComponent } from './editar-fotos/editar-fotos.component';
 
 
 @NgModule({
   declarations: [
     BusquedaPropiedadesComponent,
     BasePropiedadesComponent,
-    CrearPropiedadComponent
+    CrearPropiedadComponent,
+    EditarFotosComponent
   ],
   imports: [
     CommonModule,
