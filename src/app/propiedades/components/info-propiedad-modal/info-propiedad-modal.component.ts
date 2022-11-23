@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PropiedadesService } from 'src/app/services/propiedades.service';
 
+//import * as $ from 'jquery';
+declare let $ : any;
 import * as bootstrap from "bootstrap";
+
 import { GeneralResponse } from 'src/app/models/generalResponse.class';
-import { PropiedadTitulo } from 'src/app/interfaces/propiedadTitulo.interface';
 import { PropiedadInfo } from 'src/app/interfaces/propiedadInfo.interface';
 
 @Component({
@@ -12,6 +14,9 @@ import { PropiedadInfo } from 'src/app/interfaces/propiedadInfo.interface';
   styleUrls: ['./info-propiedad-modal.component.css']
   })
 export class InfoPropiedadModalComponent implements OnInit {
+
+
+  @ViewChild('mdlInfoPropiedadView') mdlInfoPropiedadView!: ElementRef;
 
   cargando = true;
   mostrarDetalles = true;
@@ -28,7 +33,7 @@ export class InfoPropiedadModalComponent implements OnInit {
   }
 
   cerrarModal(){
-    $('#mdlInfoPropiedadView').modal('hide');
+    $(this.mdlInfoPropiedadView.nativeElement).modal('hide');
     this.mostrarDetalles = false;
     this.mostrarMensaje = false;
     this.mensaje = "";
@@ -39,7 +44,7 @@ export class InfoPropiedadModalComponent implements OnInit {
 
     this.cargando = true;
     this.mostrarDetalles = false;
-    $("#mdlInfoPropiedadView").modal('show');
+    $(this.mdlInfoPropiedadView.nativeElement).modal('show');
 
     this.propiedadesService.obtenerPropiedadTitulo(codigoX).subscribe((resp: GeneralResponse) => 
     {

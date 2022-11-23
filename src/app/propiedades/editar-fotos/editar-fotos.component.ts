@@ -9,8 +9,6 @@ import { Imagenes360Service } from 'src/app/services/imagenes360.service';
 import { PropiedadesService } from 'src/app/services/propiedades.service';
 import { InfoPropiedadModalComponent } from '../components/info-propiedad-modal/info-propiedad-modal.component';
 
-import * as $ from 'jquery';
-
 @Component({
   selector: 'app-editar-fotos',
   templateUrl: './editar-fotos.component.html',

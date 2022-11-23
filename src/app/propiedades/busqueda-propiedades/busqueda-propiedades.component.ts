@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PropiedadTitulo } from 'src/app/interfaces/propiedadTitulo.interface';
 import { PropiedadesService } from 'src/app/services/propiedades.service';
 import { AccountService } from 'src/app/services/account.service';
+import { InfoPropiedadModalComponent } from '../components/info-propiedad-modal/info-propiedad-modal.component';
 
 @Component({
   selector: 'app-busqueda-propiedades',
@@ -18,6 +19,8 @@ export class BusquedaPropiedadesComponent implements OnInit {
   private pageSize: number = 10;
   public cargando = false;
   public textoRespuestaBusqueda = '';
+
+  @ViewChild(InfoPropiedadModalComponent) modalInfo!: InfoPropiedadModalComponent;
 
   formBusquedaAdm: FormGroup = this.fb.group({
     cliente: ['',],
@@ -95,5 +98,11 @@ export class BusquedaPropiedadesComponent implements OnInit {
   editarFoto(codX: string){
     this.router.navigate(['propiedades/editar-fotos'],  { queryParams: { cod: codX} })
   }
+
+  onClickVerDetalle(codXPropiedad: string){
+    console.log(codXPropiedad);
+    this.modalInfo.realizarBusqueda(codXPropiedad);
+  }
+
 
 }
