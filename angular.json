@@ -13,9 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": [
-              "sweetalert2"
-            ],
+           
             "outputPath": "dist/tour-virtual-web-app",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -30,6 +28,7 @@
               "./node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css",
               "./node_modules/@fortawesome/fontawesome-free/css/solid.min.css",
               "./node_modules/@fortawesome/fontawesome-free/css/regular.min.css",
+              "src/assets/template/app-assets/css/bootstrap.min.css",
               "src/assets/template/app-assets/css/bootstrap-extended.css",
               "src/assets/template/vendors/mdi/css/materialdesignicons.min.css",             
               "src/assets/template/css/style.css",
@@ -44,7 +43,7 @@
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
-              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
               "src/assets/template/js/template.js",
               "src/assets/template/js/hoverable-collapse.js",
               "src/assets/template/js/off-canvas.js"

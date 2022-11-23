@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, mergeMap } from 'rxjs';
@@ -8,6 +8,8 @@ import { GeneralResponse } from 'src/app/models/generalResponse.class';
 import { Imagenes360Service } from 'src/app/services/imagenes360.service';
 import { PropiedadesService } from 'src/app/services/propiedades.service';
 import { InfoPropiedadModalComponent } from '../components/info-propiedad-modal/info-propiedad-modal.component';
+
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-editar-fotos',
@@ -46,7 +48,6 @@ export class EditarFotosComponent implements OnInit {
     }
   );
   }
-
 
   obtenerInfoPropiedad(){
 
@@ -139,6 +140,7 @@ export class EditarFotosComponent implements OnInit {
   }
 
   onClickVerDetalle(codXPropiedad: string){
-    this.modalInfo.realizarBusqueda();
+    console.log(codXPropiedad);
+    this.modalInfo.realizarBusqueda(codXPropiedad);
   }
 }

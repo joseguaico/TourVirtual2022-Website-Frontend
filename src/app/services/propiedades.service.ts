@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DescargaPropiedades } from '../interfaces/descargaPropiedades.interface';
+import { PropiedadInfo } from '../interfaces/propiedadInfo.interface';
 import { PropiedadTitulo } from '../interfaces/propiedadTitulo.interface';
 import { GeneralResponse } from '../models/generalResponse.class';
 import { erroresApiArrayToString } from '../shared/functions/customErrorsFunctions';
@@ -32,7 +33,7 @@ export class PropiedadesService {
     const params = new HttpParams()
       .set('codPropiedad', codx);
 
-    return this.http.get<PropiedadTitulo>(`${baseUrl}/Propiedades/GetInfo`, { params })
+    return this.http.get<PropiedadInfo>(`${baseUrl}/Propiedades/GetInfo`, { params })
     .pipe(
       catchError(err => {
 

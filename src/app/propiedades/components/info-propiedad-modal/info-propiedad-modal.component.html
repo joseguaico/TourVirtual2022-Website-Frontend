@@ -1,128 +1,138 @@
-<div id="mdlInfoPropiedadView" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog"
-    aria-labelledby="mdlItemizadoTitle" aria-hidden="false" style="margin-left: 5px; margin-right: 5px;">
-<div class="modal-dialog modal-dialog-centered modal-lg mx-auto" role="document">
-   <div class="modal-content d-flex justify-content-center">
-       <div class="modal-header">
-           <h5 id="mdlInfoPropiedadTitleView" class="modal-title">-----</h5>
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-           </button>
-       </div>
+<div id="mdlInfoPropiedadView" 
+    class="modal fade in"    
+    aria-labelledby="mdlItemizadoTitle" aria-hidden="false" 
+    data-backdrop="false"
+    style="background-color: rgba(0, 0, 0, 0.5);" *ngIf="this.mostrarModal">
 
-       <div id="divInfoPropiedadInfo" style="text-align: center; padding: 2px;" *ngIf="this.cargando">
-           Obteniendo información de la propiedad...
-       </div>
-       <div id="divContenidoInfoPropiedad" class="d-flex justify-content-center" *ngIf="this.mostrarDetalles"
-            style="padding-top: 5px; padding-left:5px; width: 95% !important;">
+    <div class="modal-dialog modal-dialog-centered modal-lg mx-auto" role="document">
+        
+        <div class="modal-content d-flex justify-content-center">
+            
+            <div class="modal-header">
+                <h5 id="mdlInfoPropiedadTitleView" class="modal-title">{{this.textoTitulo}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="this.cerrarModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
-           <table class="d-flex w-100">
-               <tbody style="width: 100% !important;">
-                   <tr class="d-flex w-100">
-                       <td class="colLabel">
-                           <label id="lblCliente_pre" class="col">Propietario</label>
-                       </td>
-                       <td class="col colTexto">
-                           <span id="lblCliente"></span>
-                       </td>
-                   </tr>
-                   <tr class="d-flex w-100">
-                       <td class="colLabel">
-                           <label id="lblTitulo_pre" class="col">Título</label>
-                       </td>
-                       <td class="col colTexto">
-                           <span id="lblTitulo"></span>
-                       </td>
-                   </tr>
-                   <tr class="d-flex w-100">
-                       <td class="colLabel">
-                           <label id="lblDireccion_pre" class="col">Direccion</label>
-                       </td>
-                       <td class="col colTexto">
-                           <span id="lblDireccion"></span>
-                       </td>
-                   </tr>
-                   <tr class="d-flex w-100">
-                       <td class="colLabel">
-                           <label id="lblDetalle_pre" class="col labelViewInfo colLab17el">Detalle</label>
-                       </td>
-                       <td>
-                           <span id="lblDetalle" class="col colTexto"></span>
-                       </td>
-                   </tr>
-                   <tr class="d-flex w-100">
-                       <td class="colLabel">
-                           <label id="lblRegion_pre" class="col labelViewInfo colLabel">Region</label>
-                       </td>
-                       <td>
-                           <span id="lblRegion" class="col colTexto"></span>
-                       </td>
-                   </tr>
-                   <tr class="d-flex w-100">
-                       <td class="colLabel">
-                           <label id="lblComuna_pre" class="col labelViewInfo colLabel">Comunas</label>
-                       </td>
-                       <td class="mb-1">
-                           <span id="lblComuna" class="col colTexto"></span>
-                       </td>
-                   </tr>
-                   <tr class="d-flex w-100">
-                       <td class="colLabel">
-                           <label id="lblEstado_pre" class="col labelViewInfo colLabel">Estado</label>
-                       </td>
-                       <td>
-                           <span id="lblEstado" class="col colTexto"></span>
-                       </td>
-                   </tr>
-                   <tr class="d-flex w-100">
-                       <td class="colLabel">
-                           <label id="lblCantFotos_pre" class="col labelViewInfo colLabel">Fotos</label>
-                       </td>
-                       <td>
-                           <span id="lblCantFotos" class="col colTexto"></span>
-                       </td>
-                   </tr>
-                   <tr class="d-flex w-100">
-                       <td class="colLabel">
-                           <label id="lblHabitaciones_pre" class="col labelViewInfo colLabel">Habitaciones</label>
-                       </td>
-                       <td>
-                           <span id="lblHabitaciones" class="col colTexto"></span>
-                       </td>
-                   </tr>
-                   <tr class="d-flex w-100">
-                       <td class="colLabel">
-                           <label id="lblBanos_pre" class="col labelViewInfo colLabel">Baños</label>
-                       </td>
-                       <td>
-                           <span id="lblBanos" class="col colTexto"></span>
-                       </td>
-                   </tr>
-                   <tr id="trLink" class="d-flex w-100" style="display: none !important;">
-                       <td class="colLabel">
-                           <label class="col labelViewInfo colLabel">Link</label>
-                       </td>
-                       <td>
-                           <a id="lblLinkPublicacion" href="#" target="_blank">Click aquí para ver la publicación</a>
-                       </td>
-                   </tr>
-                   <tr class="d-flex w-100">
-                       <td class="colLabel">
-                           <label id="lblVistas_pre" class="col labelViewInfo" style="display: flex; flex-basis:100%;">N° vistas</label>
-                       </td>
-                       <td>
-                           <span id="lblVistas" class="col colTexto"></span>
-                       </td>
-                   </tr>
-               </tbody>
-           </table>
+            <div id="divInfoPropiedadInfo" style="text-align: center; padding: 2px;" *ngIf="this.cargando">
+                Obteniendo información de la propiedad...
+            </div>
+            <div style="text-align: center; padding: 2px;" *ngIf="this.mostrarMensaje">
+                {{this.mensaje}}
+            </div>
+            <div id="divContenidoInfoPropiedad" class="d-flex justify-content-center" *ngIf="this.mostrarDetalles"
+                    style="padding-top: 5px; padding-left:5px; width: 95% !important;">
 
-       </div>
+                <table class="d-flex w-100">
+                    <tbody style="width: 100% !important;">
+                        <tr class="d-flex w-100">
+                            <td class="colLabel">
+                                <label id="lblCliente_pre" class="col">Propietario</label>
+                            </td>
+                            <td class="col colTexto">
+                                <span id="lblCliente">{{this.propiedad?.cliente?.nombre}}</span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex w-100">
+                            <td class="colLabel">
+                                <label id="lblTitulo_pre" class="col">Título</label>
+                            </td>
+                            <td class="col colTexto">
+                                <span id="lblTitulo">{{this.propiedad?.titulo}}</span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex w-100">
+                            <td class="colLabel">
+                                <label id="lblDireccion_pre" class="col">Direccion</label>
+                            </td>
+                            <td class="col colTexto">
+                                <span id="lblDireccion">{{this.propiedad?.direccion}}</span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex w-100">
+                            <td class="colLabel">
+                                <label id="lblDetalle_pre" class="col labelViewInfo colLab17el">Detalle</label>
+                            </td>
+                            <td>
+                                <span id="lblDetalle" class="col colTexto">{{this.propiedad?.descripcion}}</span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex w-100">
+                            <td class="colLabel">
+                                <label id="lblRegion_pre" class="col labelViewInfo colLabel">Region</label>
+                            </td>
+                            <td>
+                                <span id="lblRegion" class="col colTexto">{{this.propiedad?.region}}</span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex w-100">
+                            <td class="colLabel">
+                                <label id="lblComuna_pre" class="col labelViewInfo colLabel">Comuna</label>
+                            </td>
+                            <td class="mb-1">
+                                <span id="lblComuna" class="col colTexto">{{this.propiedad?.comuna}}</span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex w-100">
+                            <td class="colLabel">
+                                <label id="lblEstado_pre" class="col labelViewInfo colLabel">Estado</label>
+                            </td>
+                            <td>
+                                <span id="lblEstado" class="col colTexto">{{this.propiedad?.estado}}</span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex w-100">
+                            <td class="colLabel">
+                                <label id="lblCantFotos_pre" class="col labelViewInfo colLabel">Fotos</label>
+                            </td>
+                            <td>
+                                <span id="lblCantFotos" class="col colTexto">{{this.propiedad?.fotos}}</span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex w-100">
+                            <td class="colLabel">
+                                <label id="lblHabitaciones_pre" class="col labelViewInfo colLabel">Habitaciones</label>
+                            </td>
+                            <td>
+                                <span id="lblHabitaciones" class="col colTexto">{{this.propiedad?.habitaciones}}</span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex w-100">
+                            <td class="colLabel">
+                                <label id="lblBanos_pre" class="col labelViewInfo colLabel">Baños</label>
+                            </td>
+                            <td>
+                                <span id="lblBanos" class="col colTexto">{{this.propiedad?.banos}}</span>
+                            </td>
+                        </tr>
+                        <tr id="trLink" class="d-flex w-100" style="display: none !important;">
+                            <td class="colLabel">
+                                <label class="col labelViewInfo colLabel">Link</label>
+                            </td>
+                            <td>
+                                <a id="lblLinkPublicacion" href="#" target="_blank">Click aquí para ver la publicación</a>
+                            </td>
+                        </tr>
+                        <tr class="d-flex w-100">
+                            <td class="colLabel">
+                                <label id="lblVistas_pre" class="col labelViewInfo" style="display: flex; flex-basis:100%;">N° vistas</label>
+                            </td>
+                            <td>
+                                <span id="lblVistas" class="col colTexto">{{this.propiedad?.visitas}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-       <div class="modal-footer">
-           <button type="button" class="btn btn-sm btn-sm-custom btn-light" (click)="this.cerrarModal()">Aceptar</button>
-       </div>
-      
+            </div>
 
-   </div>
-</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-sm-custom btn-light" (click)="this.cerrarModal()">Aceptar</button>
+            </div>
+            
+
+        </div>
+
+    </div>
 </div>
