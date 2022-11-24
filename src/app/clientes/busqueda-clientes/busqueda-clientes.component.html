@@ -110,10 +110,10 @@
                             <a title="Ver el detalle de este cliente" (click)="this.onClickVerDetalle(cli.idx)"><i class="fas fa-info fa-sm"></i></a>
                           
                                 <a title="Cambiar a estado 'Vigente'" *ngIf="cli.estado === 'suspendido'" 
-                                    (click)="this.cambiarEstado()" ><i class="fas fa-user-slash fa-sm"></i>
+                                    (click)="this.cambiarEstado(cli.idx)" ><i class="fas fa-user-slash fa-sm"></i>
                                 </a>
                                 <a title="Cambiar a estado 'Suspendido'" *ngIf="cli.estado === 'vigente'" 
-                                    (click)="this.cambiarEstado()" ><i class="fas fa-user-slash fa-sm"></i></a>
+                                    (click)="this.cambiarEstado(cli.idx)" ><i class="fas fa-user-slash fa-sm"></i></a>
     
                             <a title="Editar este cliente" (click)="this.editar(cli)"><i class="fas fa-pencil-alt fa-sm"></i></a>
                             <a title="Eliminar este cliente" (click)="this.eliminar()"><i class="fas fa-times fa-sm"></i></a>
@@ -134,6 +134,10 @@
 
     <!-- Modal info cliente -->
     <app-info-cliente-modal class="zindex-a"></app-info-cliente-modal>
+
+     <!-- Modal cambiar estado cliente -->
+     <app-cambiar-estado-cliente-modal class="zindex-a"></app-cambiar-estado-cliente-modal>
+
 
 
 </div>

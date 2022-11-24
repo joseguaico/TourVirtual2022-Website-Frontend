@@ -121,8 +121,6 @@ export class ClientesService {
     );
   }
 
-
-
   editarCliente(codx: string, nombre: string, email: string, nombreContacto: string, telefonos: string, direccion: string) : Observable<GeneralResponse> {
     var formData = new FormData();
     formData.append('codigoCliente', codx);
@@ -133,6 +131,38 @@ export class ClientesService {
     formData.append('direccion', direccion);
 
     return this.http.put<GeneralResponse>(`${baseUrl}/Clientes/UpdateInfoCliente`, formData)
+    .pipe(
+      catchError(err => {
+      
+        // Si tiene errores de validación de la API 
+        const erroresValidacionApi = err.error?.errors;
+        
+        if (erroresValidacionApi !== null && erroresValidacionApi !== undefined){
+          return of(new GeneralResponse(true, erroresApiArrayToString(erroresValidacionApi), {}));
+        }
+
+        // Si tiene un error desde las respuesta de API
+        if (err.error?.message !== null &&  err.error?.message !== undefined){
+          return of(new GeneralResponse(true,  err.error.message, {}));
+        }
+
+        // Si se produce otro error
+        if (err.message !== null && err.message !== undefined){
+          return of(new GeneralResponse(true, err.message, {}));
+        }
+
+        return of(err)
+      })
+
+    );
+  }
+
+  cambiarEstadoCliente(codX: string, bloqueado: boolean){
+    var formData = new FormData();
+    formData.append('codigoCliente', codX);
+    formData.append('bloqueado', bloqueado.toString());
+
+    return this.http.put<GeneralResponse>(`${baseUrl}/Clientes/CambiarEstadoBloqueo`, formData)
     .pipe(
       catchError(err => {
       

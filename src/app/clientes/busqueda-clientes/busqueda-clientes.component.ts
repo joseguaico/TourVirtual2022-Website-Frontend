@@ -7,6 +7,7 @@ import es from '@angular/common/locales/es';
 import { ClienteWithCount } from 'src/app/interfaces/clienteWithCount.interface';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { InfoClienteModalComponent } from '../components/info-cliente-modal/info-cliente-modal.component';
+import { CambiarEstadoClienteModalComponent } from '../components/cambiar-estado-cliente-modal/cambiar-estado-cliente-modal.component';
 
 @Component({
   selector: 'app-busqueda-clientes',
@@ -27,6 +28,7 @@ export class BusquedaClientesComponent implements OnInit {
   public textoRespuestaBusqueda = '';
 
   @ViewChild(InfoClienteModalComponent) modalInfo!: InfoClienteModalComponent;
+  @ViewChild(CambiarEstadoClienteModalComponent) modalCambiarEstado!: CambiarEstadoClienteModalComponent;
 
   constructor(public fb: FormBuilder,
     private router: Router,
@@ -71,13 +73,13 @@ export class BusquedaClientesComponent implements OnInit {
 
 
 
-  onClickVerDetalle(codXPropiedad: string){
-    console.log(codXPropiedad);
-    this.modalInfo.realizarBusqueda(codXPropiedad);
+  onClickVerDetalle(codXCliente: string){
+    //console.log(codXCliente);
+    this.modalInfo.realizarBusqueda(codXCliente);
   }
 
-  cambiarEstado(){
-
+  cambiarEstado(codXCliente: string){
+    this.modalCambiarEstado.obtenerDatosCliente(codXCliente);
   }
 
   editar(cliente: ClienteWithCount){

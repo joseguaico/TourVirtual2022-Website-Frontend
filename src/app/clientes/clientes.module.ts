@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CrearClienteComponent } from './crear-cliente/crear-cliente.component';
 import { EditarClienteComponent } from './editar-cliente/editar-cliente.component';
 import { InfoClienteModalComponent } from './components/info-cliente-modal/info-cliente-modal.component';
+import { CambiarEstadoClienteModalComponent } from './components/cambiar-estado-cliente-modal/cambiar-estado-cliente-modal.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { InfoClienteModalComponent } from './components/info-cliente-modal/info-
     BaseClientesComponent,
     CrearClienteComponent,
     EditarClienteComponent,
-    InfoClienteModalComponent
+    InfoClienteModalComponent,
+    CambiarEstadoClienteModalComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,59 @@
+<div #mdlCambiarEstado 
+    class="modal fade in" 
+    data-backdrop="false"
+    style="background-color: rgba(0, 0, 0, 0.5);">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg mx-auto" role="document">
+        <div class="modal-content d-flex justify-content-center">
+            <div class="modal-header">
+                <h5 class="modal-title">{{this.textoTitulo}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="this.cerrarModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div style="text-align: center; padding: 2px;" *ngIf="this.cargando">
+                Obteniendo información del cliente...
+            </div>
+
+            <div class="d-flex justify-content-center p-3 flex-column" style="padding-top: 5px; padding-bottom: 5px;width: 100% !important;">
+                <span class="w-100 text-center p-2">{{this.textoCambio1}}</span><br>
+                <span class="w-100 text-center p-2">{{this.textoCambio2}}</span><br>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-sm-custom btn-light"
+                    (click)="this.cerrarModal()">Cancelar</button>
+                <button type="button" class="btn btn-sm btn-sm-custom btn-warning"
+                    *ngIf="this.cliente?.estado?.toLowerCase()==='vigente'"
+                    (click)="this.cambiarEstado()">Suspender</button>
+                <button type="button" class="btn btn-sm btn-sm-custom btn-warning"
+                    *ngIf="this.cliente?.estado?.toLowerCase()==='suspendido'"
+                    (click)="this.cambiarEstado()">Cambiar</button>
+            </div>
+
+        </div>
+    </div>
+
+        <div class="modalOverlayCustom cBaseCuadranteBloqueo" *ngIf="this.mostrarOverlay">
+            <div class="modalOverlayLoadingCustom" *ngIf="this.actualizando">
+                <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline; height:16px; margin-right:2px;" />
+                <p style="display: inline;">Actualizando...</p>
+            </div>
+            <div class="modalOverlayInfoCustom" *ngIf="this.mostrarInfoCambioEstado">
+                <button type="button" class="close modalOverlayCerrarCustom modalOverlayBtnCerrar"
+                    *ngIf="this.mostrarCerrarOverlay"
+                    (click)="this.cerrarModalOverlay()">
+                    <span aria-hidden="true" class="modalOverlayBtnX">&times;</span>
+                </button>
+                <button type="button" class="close modalOverlayCerrarCustom modalOverlayBtnCerrar"
+                    *ngIf="this.mostrarCerrarAll"
+                    (click)="this.cerrarModalAll()">
+                    <span aria-hidden="true" class="modalOverlayBtnX">&times;</span>
+                </button>
+                <p id="textInfoOverlayCambiarEstado" style="display: inline;">{{this.textoPosteriorCambio}}</p>
+
+            </div>
+        </div>
+
+    </div>
