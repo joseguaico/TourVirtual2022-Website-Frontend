@@ -107,7 +107,7 @@
                     <div class="p-1 celda" style="flex-basis: 10%;">
                         <p class="celda-Texto text-muted font-weight-bold small">Opciones</p>
                         <div class="p-0 d-flex flex-row celda-Contenido rounded-buttons-icons">
-                            <a title="Ver el detalle de este cliente" (click)="this.verDetalle()"><i class="fas fa-info fa-sm"></i></a>
+                            <a title="Ver el detalle de este cliente" (click)="this.onClickVerDetalle(cli.idx)"><i class="fas fa-info fa-sm"></i></a>
                           
                                 <a title="Cambiar a estado 'Vigente'" *ngIf="cli.estado === 'suspendido'" 
                                     (click)="this.cambiarEstado()" ><i class="fas fa-user-slash fa-sm"></i>
@@ -131,5 +131,9 @@
         </div>
 
     </div>
+
+      <!-- Modal info cñoemte -->
+      <app-info-cliente-modal class="zindex-a"></app-info-cliente-modal>
+
 
 </div>

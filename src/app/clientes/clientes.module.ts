@@ -9,13 +9,15 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CrearClienteComponent } from './crear-cliente/crear-cliente.component';
 import { EditarClienteComponent } from './editar-cliente/editar-cliente.component';
+import { InfoClienteModalComponent } from './components/info-cliente-modal/info-cliente-modal.component';
 
 @NgModule({
   declarations: [
     BusquedaClientesComponent,
     BaseClientesComponent,
     CrearClienteComponent,
-    EditarClienteComponent
+    EditarClienteComponent,
+    InfoClienteModalComponent
   ],
   imports: [
     CommonModule,

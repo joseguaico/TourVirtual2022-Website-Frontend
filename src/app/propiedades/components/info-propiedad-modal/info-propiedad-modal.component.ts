@@ -1,12 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PropiedadesService } from 'src/app/services/propiedades.service';
 
+import { GeneralResponse } from 'src/app/models/generalResponse.class';
+import { PropiedadInfo } from 'src/app/interfaces/propiedadInfo.interface';
+
 //import * as $ from 'jquery';
 declare let $ : any;
 import * as bootstrap from "bootstrap";
-
-import { GeneralResponse } from 'src/app/models/generalResponse.class';
-import { PropiedadInfo } from 'src/app/interfaces/propiedadInfo.interface';
 
 @Component({
   selector: 'app-info-propiedad-modal',

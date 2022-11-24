@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { registerLocaleData } from '@angular/common';
@@ -6,6 +6,7 @@ import es from '@angular/common/locales/es';
 
 import { ClienteWithCount } from 'src/app/interfaces/clienteWithCount.interface';
 import { ClientesService } from 'src/app/services/clientes.service';
+import { InfoClienteModalComponent } from '../components/info-cliente-modal/info-cliente-modal.component';
 
 @Component({
   selector: 'app-busqueda-clientes',
@@ -24,6 +25,8 @@ export class BusquedaClientesComponent implements OnInit {
   private pageSize: number = 10;
   public cargando = false;
   public textoRespuestaBusqueda = '';
+
+  @ViewChild(InfoClienteModalComponent) modalInfo!: InfoClienteModalComponent;
 
   constructor(public fb: FormBuilder,
     private router: Router,
@@ -68,8 +71,9 @@ export class BusquedaClientesComponent implements OnInit {
 
 
 
-  verDetalle(){
-
+  onClickVerDetalle(codXPropiedad: string){
+    console.log(codXPropiedad);
+    this.modalInfo.realizarBusqueda(codXPropiedad);
   }
 
   cambiarEstado(){
