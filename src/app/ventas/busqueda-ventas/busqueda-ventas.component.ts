@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Venta } from 'src/app/interfaces/venta.interface';
 import { VentasService } from 'src/app/services/ventas.service';
 import { environment } from 'src/environments/environment';
+import { InfoVentaModalComponent } from '../components/info-venta-modal/info-venta-modal.component';
 
 const baseUrl: string = environment.baseUrl;
 
@@ -27,6 +28,8 @@ export class BusquedaVentasComponent implements OnInit {
   public cargando = false;
   public textoValidacionFecha = '';
   public textoRespuestaBusqueda = '';
+
+  @ViewChild(InfoVentaModalComponent) modalInfo!: InfoVentaModalComponent;
 
   public urlVerFoto = baseUrl + '/Ventas/GetComprobanteVenta?codVenta=';
 
@@ -118,5 +121,10 @@ export class BusquedaVentasComponent implements OnInit {
     return ret;
   }
   
+  
+  onClickVerDetalle(codXVenta: string){
+   // console.log(codXVenta);
+    this.modalInfo.realizarBusqueda(codXVenta);
+  }
 
 }

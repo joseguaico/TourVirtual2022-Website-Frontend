@@ -10,13 +10,15 @@ import { BusquedaVentasComponent } from './busqueda-ventas/busqueda-ventas.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CrearVentaComponent } from './crear-venta/crear-venta.component';
 import { VisorComprobanteComponent } from './visor-comprobante/visor-comprobante.component';
+import { InfoVentaModalComponent } from './components/info-venta-modal/info-venta-modal.component';
 
 @NgModule({
   declarations: [
     BaseVentasComponent,
     BusquedaVentasComponent,
     CrearVentaComponent,
-    VisorComprobanteComponent
+    VisorComprobanteComponent,
+    InfoVentaModalComponent
   ],
   imports: [
     CommonModule,

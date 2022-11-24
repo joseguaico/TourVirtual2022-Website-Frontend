@@ -135,10 +135,10 @@
                                 target="_blank" [routerLink]="['/visor-comprobante',vt.idx]"><i class="far fa-file-image fa-sm"></i></a>
                             </div>
 
-                            <a href="#" title="Ver el detalle de esta venta" onclick="javascript:setVerVenta('@v.IdVenta');"><i class="fas fa-info fa-sm"></i></a>
-                            <a title="Editar este venta" sp-route-codigo="@v.IdVenta"><i class="fas fa-pencil-alt fa-sm"></i></a>
+                            <a title="Ver el detalle de esta venta" (click)="this.onClickVerDetalle(vt.idx)"><i class="fas fa-info fa-sm"></i></a>
+                            <a title="Editar este venta"><i class="fas fa-pencil-alt fa-sm"></i></a>
     
-                            <a href="#" title="Eliminar este venta"><i class="fas fa-times fa-sm"></i></a>
+                            <a title="Eliminar este venta"><i class="fas fa-times fa-sm"></i></a>
                         </div>
                     </div>
     
@@ -153,5 +153,9 @@
         </div>
 
     </div>
+
+
+    <!-- Modal info venta -->
+    <app-info-venta-modal class="zindex-a"></app-info-venta-modal >
 
 </div>

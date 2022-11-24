@@ -3,6 +3,8 @@ import { Injectable, Input } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DescargaVentas } from '../interfaces/descargaVentas.interface';
+import { Venta } from '../interfaces/venta.interface';
+import { VentaInfo } from '../interfaces/ventaInfo.interface';
 import { GeneralResponse } from '../models/generalResponse.class';
 import { erroresApiArrayToString } from '../shared/functions/customErrorsFunctions';
 
@@ -67,5 +69,31 @@ export class VentasService {
 
   }
 
+  obtenerVenta(codx: string) : Observable<GeneralResponse>{
+    return this.http.get<VentaInfo>(`${baseUrl}/Ventas/GetInfoVenta?codVenta=${codx}`)
+    .pipe(
+      catchError(err => {
+
+        // Si tiene errores de validación de la API 
+        const erroresValidacionApi = err.error?.errors;
+        
+        if (erroresValidacionApi !== null && erroresValidacionApi !== undefined){
+          return of(new GeneralResponse(true, erroresApiArrayToString(erroresValidacionApi), {}));
+        }
+
+        // Si tiene un error desde las respuesta de API
+        if (err.error?.message !== null &&  err.error?.message !== undefined){
+          return of(new GeneralResponse(true,  err.error.message, {}));
+        }
+
+        // Si se produce otro error
+        if (err.message !== null && err.message !== undefined){
+          return of(new GeneralResponse(true, err.message, {}));
+        }
+
+        return of(err)
+      })
+    );
+  }
 
 }
