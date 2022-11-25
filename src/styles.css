@@ -59,3 +59,8 @@
     z-index: 80000 !important;
 }
 
+.input-group-sm > .input-group-btn > select.btn:not([size]):not([multiple]), .input-group-sm > select.form-control:not([size]):not([multiple]), .input-group-sm > select.input-group-addon:not([size]):not([multiple]), select.form-control-sm:not([size]):not([multiple]) {
+
+    height: 2.2rem !important;
+
+}

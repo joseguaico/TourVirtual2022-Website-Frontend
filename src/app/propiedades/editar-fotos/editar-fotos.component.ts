@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, mergeMap } from 'rxjs';
@@ -7,6 +7,7 @@ import { PropiedadTitulo } from 'src/app/interfaces/propiedadTitulo.interface';
 import { GeneralResponse } from 'src/app/models/generalResponse.class';
 import { Imagenes360Service } from 'src/app/services/imagenes360.service';
 import { PropiedadesService } from 'src/app/services/propiedades.service';
+import { AgregarFotoModalComponent } from '../components/agregar-foto-modal/agregar-foto-modal.component';
 import { InfoPropiedadModalComponent } from '../components/info-propiedad-modal/info-propiedad-modal.component';
 
 @Component({
@@ -25,6 +26,7 @@ export class EditarFotosComponent implements OnInit {
   imagenes: Imagen360 [] = [];
 
   @ViewChild(InfoPropiedadModalComponent) modalInfo!: InfoPropiedadModalComponent;
+  @ViewChild(AgregarFotoModalComponent) modallAddFoto!: AgregarFotoModalComponent;
 
 
   constructor(private propiedadesService: PropiedadesService,
@@ -138,7 +140,12 @@ export class EditarFotosComponent implements OnInit {
   }
 
   onClickVerDetalle(codXPropiedad: string){
-    console.log(codXPropiedad);
+    //console.log(codXPropiedad);
     this.modalInfo.realizarBusqueda(codXPropiedad);
+  }
+
+  onClickAgregarFoto(codXPropiedad: string){
+    //console.log(codXPropiedad);
+    this.modallAddFoto.mostrarModal(codXPropiedad);
   }
 }

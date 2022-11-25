@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ClienteWithCount } from 'src/app/interfaces/clienteWithCount.interface';
 import { GeneralResponse } from 'src/app/models/generalResponse.class';
 import { ClientesService } from 'src/app/services/clientes.service';
@@ -11,6 +11,8 @@ declare let $ : any;
   styleUrls: ['./cambiar-estado-cliente-modal.component.css']
 })
 export class CambiarEstadoClienteModalComponent implements OnInit {
+
+  @Output('recargarBusqueda') recargarBusquedaEmmiter: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('mdlCambiarEstado') mdlCambiarEstado!: ElementRef;
   cargando = false;
@@ -121,6 +123,8 @@ export class CambiarEstadoClienteModalComponent implements OnInit {
           this.textoPosteriorCambio = resp.message;
           this.mostrarCerrarAll = true;
 
+          this.recargarBusquedaEmmiter.emit();
+
         }
         this.mostrarInfoCambioEstado = true;
     },
@@ -135,12 +139,12 @@ export class CambiarEstadoClienteModalComponent implements OnInit {
   }
 
   cerrarModalOverlay(){
-    console.log('cerrarModalOverlay...')
+    //console.log('cerrarModalOverlay...')
     this.mostrarOverlay = false;
   }
 
   cerrarModalAll(){
-    console.log('cerrarModalAll...')
+    //console.log('cerrarModalAll...')
     this.cerrarModal();
   }
 

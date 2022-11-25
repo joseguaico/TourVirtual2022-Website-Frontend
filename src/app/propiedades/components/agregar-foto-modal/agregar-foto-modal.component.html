@@ -1,0 +1,81 @@
+<div #mdlAgregarFoto #mdlInfoPropiedadView
+    class="modal fade in"    
+    aria-labelledby="mdlItemizadoTitle" 
+    data-backdrop="false"
+    style="background-color: rgba(0, 0, 0, 0.5);">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg mx-auto" role="document">
+        <div class="modal-content d-flex justify-content-center">
+            
+            <div class="modal-header">
+                <h5 id="mdlInfoPropiedadTitleView" class="modal-title">{{this.textoTitulo}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="this.cerrarModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div *ngIf="this.mostrarDetalles">
+                <form [formGroup]="this.formAddFoto">
+
+                    <div class="edicion-container d-flex flex-column justify-content-center pl-3 pr-3 pb-2 pt-1">
+    
+                        <div class="m-0 mb-1">
+                            <label class="text-black mb-0 mt-2">Foto 360 (archivo jpg)</label>
+                            <input id="flFoto360" type="file" 
+                                class="form-control form-control-sm w-100"
+                                accept="image/jpeg,image/jpg"
+                                formControlName="foto"
+                                [class.input-validation-error]="this.campoNoValido('foto')"
+                                >
+                            <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('foto')">
+                                campo obligatorio
+                            </span>
+                        </div>
+                        <div class="m-0 mb-1">
+                            <label class="text-black mb-0 mt-2">Título</label>
+                            <input type="text" 
+                                class="form-control form-control-sm w-100" 
+                                placeholder="Título"
+                                formControlName="titulo"
+                                [class.input-validation-error]="this.campoNoValido('titulo')">
+                            <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('titulo')">
+                                campo obligatorio
+                            </span>
+                        </div>
+                        <div id="divValidationInfo" class="m-0 input-validation-error" style="text-align: center;">
+    
+                        </div>
+                    </div>
+    
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-sm-custom btn-light" (click)="this.cerrarModal()" >Cancelar</button>
+                    <button id="btnGuardarFoto" class="btn btn-sm btn-sm-custom btn-warning" (click)="this.guardarFoto()">Guardar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modalOverlayCustom cBaseCuadranteBloqueo" *ngIf="this.mostrarOverlay">
+        <div class="modalOverlayLoadingCustom" *ngIf="this.actualizando">
+            <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline; height:16px; margin-right:2px;" />
+            <p style="display: inline;">Actualizando...</p>
+        </div>
+        <div class="modalOverlayInfoCustom" *ngIf="this.mostrarInfoOverlay">
+            <button type="button" class="close modalOverlayCerrarCustom modalOverlayBtnCerrar"
+                *ngIf="this.mostrarCerrarOverlay"
+                (click)="this.cerrarModalOverlay()">
+                <span aria-hidden="true" class="modalOverlayBtnX">&times;</span>
+            </button>
+            <button type="button" class="close modalOverlayCerrarCustom modalOverlayBtnCerrar"
+                *ngIf="this.mostrarCerrarAll"
+                (click)="this.cerrarModalAll()">
+                <span aria-hidden="true" class="modalOverlayBtnX">&times;</span>
+            </button>
+            <p style="display: inline;">{{this.textoPosteriorCambio}}</p>
+
+        </div>
+    </div>
+
+</div>

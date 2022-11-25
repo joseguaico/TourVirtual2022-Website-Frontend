@@ -1,7 +1,15 @@
 ﻿.contenedorRowFlex {
     padding-top: 0.3em;
     padding-top: 0.3em;
+    border-bottom: 0.5px !important;
 }
+
+.contenedorLastRowFlex {
+    padding-top: 0.3em;
+    padding-top: 0.3em;
+    /* border-bottom: 1px !important; */
+}
+
 
 label {
     font-size: 0.875rem;

@@ -114,11 +114,12 @@
     
         <div id="gridBusquedaContainer" class="card w-100 ml-0 mt-2 p-0 flex-xl-shrink-1">
             
-            <div *ngFor="let prop of this.propiedades" 
-                class="card-body ml-0 contenedorRowFlex border-grey" 
-                style="@cssLastRow">
+            <div *ngFor="let prop of this.propiedades; let i = index" 
+                class="card-body ml-0 border-grey" 
+                [class.contenedorRowFlex]="i !== this.propiedades.length -1"
+                [class.contenedorLastRowFlex]="i === this.propiedades.length -1">
 
-                <div class="d-flex flex-row customFlex-100 pb-0 contenedorRowFlex" style="border-bottom: 0px !important;">
+                <div class="d-flex flex-row customFlex-100 pb-0 contenedorRowFlex">
     
                     <!-- <input id="_prop_@aux_currentRow" type="hidden" name="name" value="@p.IdPropiedad" />
                     <input type="hidden" id="textoProp_@aux_currentRow" value="@p.Titulo" /> -->

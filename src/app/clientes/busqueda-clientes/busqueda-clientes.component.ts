@@ -90,4 +90,8 @@ export class BusquedaClientesComponent implements OnInit {
 
   }
 
+  recargarBusquedaClientes(){
+   this.realizarBusqueda();
+  }
+
 }

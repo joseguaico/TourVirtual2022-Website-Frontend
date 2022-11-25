@@ -80,9 +80,11 @@
     
         <div id="gridBusquedaContainer" class="card w-100 ml-0 mt-2 p-0 flex-xl-shrink-1">
 
-            <div *ngFor="let vt of this.ventas" 
-                class="card-body ml-0 contenedorRowFlex border-grey"
-                style="@cssLastRow">
+            <div *ngFor="let vt of this.ventas; let i = index;" 
+                class="card-body ml-0 border-grey"
+                [class.contenedorRowFlex]="i !== this.ventas.length -1"
+                [class.contenedorLastRowFlex]="i === this.ventas.length -1"
+                >
 
                 <div class="d-flex flex-row customFlex-100 pb-0 contenedorRowFlex" style="border-bottom: 0px !important;">
                     <div class="p-1 celda" style="flex-basis: 10%;">

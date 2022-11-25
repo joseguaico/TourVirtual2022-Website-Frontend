@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CrearPropiedadComponent } from './crear-propiedad/crear-propiedad.component';
 import { EditarFotosComponent } from './editar-fotos/editar-fotos.component';
 import { InfoPropiedadModalComponent } from './components/info-propiedad-modal/info-propiedad-modal.component';
+import { AgregarFotoModalComponent } from './components/agregar-foto-modal/agregar-foto-modal.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { InfoPropiedadModalComponent } from './components/info-propiedad-modal/i
     BasePropiedadesComponent,
     CrearPropiedadComponent,
     EditarFotosComponent,
-    InfoPropiedadModalComponent
+    InfoPropiedadModalComponent,
+    AgregarFotoModalComponent
   ],
   imports: [
     CommonModule,
