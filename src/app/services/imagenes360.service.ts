@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DescargaImagensPropiedad } from '../interfaces/descargaImagenesPropiedad.interface';
 import { GeneralResponse } from '../models/generalResponse.class';
@@ -54,11 +54,16 @@ export class Imagenes360Service {
 
     var formData = new FormData();
     formData.append('codPropiedad', codxPropiedad);
-    formData.append('titulo',titulo.trim());
+    formData.append('titulo', titulo.trim());
     formData.append('imagen360', foto360);
+
+    console.log(formData);
 
     return this.http.post<GeneralResponse>(`${baseUrl}/FotosPropiedades/bkt/GuardarFoto360`, formData)
     .pipe(
+
+      tap((data: any) => console.log('TAP: ', data)),
+
       catchError(err => {
       
         // Si tiene errores de validación de la API 

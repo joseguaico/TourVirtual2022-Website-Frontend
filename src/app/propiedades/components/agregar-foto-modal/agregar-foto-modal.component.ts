@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GeneralResponse } from 'src/app/models/generalResponse.class';
 import { Imagenes360Service } from 'src/app/services/imagenes360.service';
@@ -17,6 +17,7 @@ export class AgregarFotoModalComponent implements OnInit {
     foto: [null, [Validators.required] ],
   });
 
+  @Output('recargarFotos') recargarFotosEmitter: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('mdlAgregarFoto') mdlAgregarFoto!: ElementRef;
   cargando = false;
@@ -55,6 +56,10 @@ export class AgregarFotoModalComponent implements OnInit {
   }
 
   mostrarModal(codXPropiedad: string){
+    this.reiniciarOverlay();
+    this.formAddFoto.reset();
+
+
     this.codPropiedad = codXPropiedad;
     this.mostrarDetalles = true;
     $(this.mdlAgregarFoto.nativeElement).modal('show');
@@ -98,6 +103,8 @@ export class AgregarFotoModalComponent implements OnInit {
         }else{
           this.textoPosteriorCambio = resp.message;
           this.mostrarCerrarAll = true;
+
+          this.recargarFotosEmitter.emit();
 
         }
         this.mostrarInfoOverlay = true;

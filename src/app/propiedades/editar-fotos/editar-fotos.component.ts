@@ -148,4 +148,10 @@ export class EditarFotosComponent implements OnInit {
     //console.log(codXPropiedad);
     this.modallAddFoto.mostrarModal(codXPropiedad);
   }
+
+  recargarFotos(){
+    this.obtenerImagenes360();
+  }
+
+
 }
