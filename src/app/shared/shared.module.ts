@@ -5,12 +5,14 @@ import { InputValidationEmailPipe } from './pipes/input-validation-email.pipe';
 import { RouterModule } from '@angular/router';
 import { DigitOnlyDirective } from './directives/digit-only.directive';
 import { MenubarComponent } from './menubar/menubar.component';
+import { AlertMensajeComponent } from './components/alert-mensaje/alert-mensaje.component';
 
 @NgModule({
   declarations: [
     InputValidationEmailPipe,
     DigitOnlyDirective,
-    MenubarComponent
+    MenubarComponent,
+    AlertMensajeComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import { MenubarComponent } from './menubar/menubar.component';
   exports: [
     InputValidationEmailPipe,
     DigitOnlyDirective,
-    MenubarComponent
+    MenubarComponent,
+    AlertMensajeComponent
   ]
 })
 export class SharedModule { }

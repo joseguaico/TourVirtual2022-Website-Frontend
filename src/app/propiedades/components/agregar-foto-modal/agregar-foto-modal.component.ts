@@ -101,10 +101,11 @@ export class AgregarFotoModalComponent implements OnInit {
           this.textoPosteriorCambio = resp.message;
           this.mostrarCerrarOverlay = true;
         }else{
-          this.textoPosteriorCambio = resp.message;
-          this.mostrarCerrarAll = true;
+          //this.textoPosteriorCambio = resp.message;
+          //this.mostrarCerrarAll = true;
 
-          this.recargarFotosEmitter.emit();
+          this.recargarFotosEmitter.emit({mensaje: 'Foto 360 guardada exitosamente'});
+          this.cerrarModalAll();
 
         }
         this.mostrarInfoOverlay = true;

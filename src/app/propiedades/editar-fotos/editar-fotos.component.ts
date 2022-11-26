@@ -7,6 +7,7 @@ import { PropiedadTitulo } from 'src/app/interfaces/propiedadTitulo.interface';
 import { GeneralResponse } from 'src/app/models/generalResponse.class';
 import { Imagenes360Service } from 'src/app/services/imagenes360.service';
 import { PropiedadesService } from 'src/app/services/propiedades.service';
+import { AlertMensajeComponent } from 'src/app/shared/components/alert-mensaje/alert-mensaje.component';
 import { AgregarFotoModalComponent } from '../components/agregar-foto-modal/agregar-foto-modal.component';
 import { InfoPropiedadModalComponent } from '../components/info-propiedad-modal/info-propiedad-modal.component';
 
@@ -27,6 +28,7 @@ export class EditarFotosComponent implements OnInit {
 
   @ViewChild(InfoPropiedadModalComponent) modalInfo!: InfoPropiedadModalComponent;
   @ViewChild(AgregarFotoModalComponent) modallAddFoto!: AgregarFotoModalComponent;
+  @ViewChild(AlertMensajeComponent) alertMensaje!: AlertMensajeComponent;
 
 
   constructor(private propiedadesService: PropiedadesService,
@@ -149,7 +151,10 @@ export class EditarFotosComponent implements OnInit {
     this.modallAddFoto.mostrarModal(codXPropiedad);
   }
 
-  recargarFotos(){
+  recargarFotos(mensaje: string){
+
+    this.alertMensaje.mostrarAlert(mensaje);
+   
     this.obtenerImagenes360();
   }
 

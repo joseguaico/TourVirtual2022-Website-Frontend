@@ -1,0 +1,6 @@
+<div #divMensaje class="alert alert-success alert-dismissible fade in show pb-0 border" role="alert" *ngIf="this.visible" >
+    <p>{{this.textoAlert}}</p>
+    <button type="button" class="close" aria-label="Close" (click)="this.cerrarAlert()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
