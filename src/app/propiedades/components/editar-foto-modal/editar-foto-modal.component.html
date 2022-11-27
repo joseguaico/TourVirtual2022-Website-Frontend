@@ -1,4 +1,4 @@
-<div #mdlAgregarFoto #mdlInfoPropiedadView
+<div #mdlEditarFoto 
     class="modal fade in"    
     aria-labelledby="mdlItemizadoTitle" 
     data-backdrop="false"
@@ -15,8 +15,9 @@
             </div>
 
             <div *ngIf="this.mostrarDetalles">
-                <form [formGroup]="this.formAddFoto">
-
+               
+                <form [formGroup]="this.formEditarFoto">
+            
                     <div class="edicion-container d-flex flex-column justify-content-center pl-3 pr-3 pb-2 pt-1">
     
                         <div class="m-0 mb-1">
@@ -30,8 +31,13 @@
                                 campo obligatorio
                             </span>
                         </div>
-
                         <div class="m-0 mb-1">
+                            <input type="checkbox" 
+                                formControlName='checkEditarFoto'
+                                (change)="this.onCheckEditarFotoChanged($event)"/>
+                            <label class="text-black mb-0 mt-2 ml-2">Editar Foto 360</label>
+                        </div>
+                        <div class="m-0 mb-1" *ngIf="this.mostrarInputFoto">
                             <label class="text-black mb-0 mt-2">Foto 360 (archivo jpg)</label>
                             <input id="flFoto360" type="file" 
                                 class="form-control form-control-sm w-100"
@@ -43,17 +49,15 @@
                                 campo obligatorio
                             </span>
                         </div>
-                       
-                        <!-- <div id="divValidationInfo" class="m-0 input-validation-error" style="text-align: center;">
-    
-                        </div> -->
                     </div>
     
                 </form>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-sm-custom btn-light" (click)="this.cerrarModal()" >Cancelar</button>
-                    <button id="btnGuardarFoto" class="btn btn-sm btn-sm-custom btn-warning" (click)="this.guardarFoto()">Guardar</button>
+                    <button id="btnGuardarFoto" class="btn btn-sm btn-sm-custom btn-warning" (click)="this.guardarEdicionFoto()">Guardar</button>
                 </div>
+
             </div>
 
         </div>

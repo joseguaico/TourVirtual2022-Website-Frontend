@@ -9,6 +9,7 @@ import { Imagenes360Service } from 'src/app/services/imagenes360.service';
 import { PropiedadesService } from 'src/app/services/propiedades.service';
 import { AlertMensajeComponent } from 'src/app/shared/components/alert-mensaje/alert-mensaje.component';
 import { AgregarFotoModalComponent } from '../components/agregar-foto-modal/agregar-foto-modal.component';
+import { EditarFotoModalComponent } from '../components/editar-foto-modal/editar-foto-modal.component';
 import { InfoPropiedadModalComponent } from '../components/info-propiedad-modal/info-propiedad-modal.component';
 
 @Component({
@@ -29,6 +30,7 @@ export class EditarFotosComponent implements OnInit {
   @ViewChild(InfoPropiedadModalComponent) modalInfo!: InfoPropiedadModalComponent;
   @ViewChild(AgregarFotoModalComponent) modallAddFoto!: AgregarFotoModalComponent;
   @ViewChild(AlertMensajeComponent) alertMensaje!: AlertMensajeComponent;
+  @ViewChild(EditarFotoModalComponent) modalEditarFoto!: EditarFotoModalComponent;
 
 
   constructor(private propiedadesService: PropiedadesService,
@@ -150,6 +152,12 @@ export class EditarFotosComponent implements OnInit {
     //console.log(codXPropiedad);
     this.modallAddFoto.mostrarModal(codXPropiedad);
   }
+
+  onClickEditarFoto(codXFoto: string, titulo: string){
+    //console.log(codXPropiedad);
+    this.modalEditarFoto.mostrarModal(codXFoto, titulo);
+  }
+
 
   recargarFotos(mensaje: string){
 

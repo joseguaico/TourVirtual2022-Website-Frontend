@@ -12,6 +12,7 @@ import { CrearPropiedadComponent } from './crear-propiedad/crear-propiedad.compo
 import { EditarFotosComponent } from './editar-fotos/editar-fotos.component';
 import { InfoPropiedadModalComponent } from './components/info-propiedad-modal/info-propiedad-modal.component';
 import { AgregarFotoModalComponent } from './components/agregar-foto-modal/agregar-foto-modal.component';
+import { EditarFotoModalComponent } from './components/editar-foto-modal/editar-foto-modal.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { AgregarFotoModalComponent } from './components/agregar-foto-modal/agreg
     CrearPropiedadComponent,
     EditarFotosComponent,
     InfoPropiedadModalComponent,
-    AgregarFotoModalComponent
+    AgregarFotoModalComponent,
+    EditarFotoModalComponent
   ],
   imports: [
     CommonModule,
