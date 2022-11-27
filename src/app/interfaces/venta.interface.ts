@@ -7,5 +7,6 @@ export interface Venta{
     propiedades: number,
     fotos: number,
     monto: number,
-    extension: string
+    extension: string,
+    comentario: string    
 };

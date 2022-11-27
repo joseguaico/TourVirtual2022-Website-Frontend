@@ -127,4 +127,9 @@ export class BusquedaVentasComponent implements OnInit {
     this.modalInfo.realizarBusqueda(codXVenta);
   }
 
+  onClickEditarVenta(codXVenta: string){
+    this.router.navigate(['ventas/editar-venta'],  { queryParams: { cod: codXVenta} })
+  }
+
+
 }

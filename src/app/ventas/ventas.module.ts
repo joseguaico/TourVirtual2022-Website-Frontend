@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CrearVentaComponent } from './crear-venta/crear-venta.component';
 import { VisorComprobanteComponent } from './visor-comprobante/visor-comprobante.component';
 import { InfoVentaModalComponent } from './components/info-venta-modal/info-venta-modal.component';
+import { EditarVentaComponent } from './editar-venta/editar-venta.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { InfoVentaModalComponent } from './components/info-venta-modal/info-vent
     BusquedaVentasComponent,
     CrearVentaComponent,
     VisorComprobanteComponent,
-    InfoVentaModalComponent
+    InfoVentaModalComponent,
+    EditarVentaComponent
   ],
   imports: [
     CommonModule,

@@ -108,6 +108,5 @@ export class EditarFotoModalComponent implements OnInit {
    const checked = this.formEditarFoto.get('checkEditarFoto')?.value;
    this.agregarValidacionFile(checked);
    this.mostrarInputFoto = checked;
-   
   }
 }

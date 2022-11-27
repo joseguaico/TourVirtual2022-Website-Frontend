@@ -46,8 +46,11 @@ export class EditarClienteComponent implements OnInit {
 
         if(this.codClienteEditar !== undefined && this.codClienteEditar !== ''){
           this.obtenerInfoCliente();
+        }else{
+          this.mostrarDetalle = false;
+          this.mostrarFormularioPrincipal = false;
+          this.mensajeCarga = "El enlace para editar cliente no es válido.";
         }
-
       }
     );
   }

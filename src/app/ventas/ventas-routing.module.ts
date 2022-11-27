@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { BusquedaVentasComponent } from './busqueda-ventas/busqueda-ventas.component';
 import { CrearVentaComponent } from './crear-venta/crear-venta.component';
+import { EditarVentaComponent } from './editar-venta/editar-venta.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,9 @@ const routes: Routes = [
   },
   {
     path: 'crear-venta', component: CrearVentaComponent
+  },
+  { 
+    path: 'editar-venta', component: EditarVentaComponent
   }
 ];
 
