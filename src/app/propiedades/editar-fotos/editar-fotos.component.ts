@@ -9,6 +9,7 @@ import { Imagenes360Service } from 'src/app/services/imagenes360.service';
 import { PropiedadesService } from 'src/app/services/propiedades.service';
 import { AlertMensajeComponent } from 'src/app/shared/components/alert-mensaje/alert-mensaje.component';
 import { AgregarFotoModalComponent } from '../components/agregar-foto-modal/agregar-foto-modal.component';
+import { BorrarFotoModalComponent } from '../components/borrar-foto-modal/borrar-foto-modal.component';
 import { EditarFotoModalComponent } from '../components/editar-foto-modal/editar-foto-modal.component';
 import { InfoPropiedadModalComponent } from '../components/info-propiedad-modal/info-propiedad-modal.component';
 
@@ -31,6 +32,7 @@ export class EditarFotosComponent implements OnInit {
   @ViewChild(AgregarFotoModalComponent) modallAddFoto!: AgregarFotoModalComponent;
   @ViewChild(AlertMensajeComponent) alertMensaje!: AlertMensajeComponent;
   @ViewChild(EditarFotoModalComponent) modalEditarFoto!: EditarFotoModalComponent;
+  @ViewChild(BorrarFotoModalComponent) modalBorrarFoto!: BorrarFotoModalComponent;
 
 
   constructor(private propiedadesService: PropiedadesService,
@@ -155,7 +157,12 @@ export class EditarFotosComponent implements OnInit {
 
   onClickEditarFoto(codXFoto: string, titulo: string){
     //console.log(codXPropiedad);
-    this.modalEditarFoto.mostrarModal(codXFoto, titulo);
+    this.modalEditarFoto.mostrarModal(codXFoto, titulo, this.codPropiedad);
+  }
+
+  onClickBorrarFoto(codXFoto: string, titulo: string){
+    //console.log(codXPropiedad);
+    this.modalBorrarFoto.mostrarModal(codXFoto, titulo, this.codPropiedad);
   }
 
 

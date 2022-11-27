@@ -28,6 +28,7 @@ export class EditarFotoModalComponent implements OnInit {
   mostrarCerrarOverlay = false;
   mostrarCerrarAll = false;
   codPropiedad: string = '';
+  codFoto360: string = '';
   mostrarDetalles = false;
 
   mostrarInfoOverlay = false;
@@ -62,12 +63,14 @@ export class EditarFotoModalComponent implements OnInit {
     return this.formEditarFoto.controls[campo].errors && this.formEditarFoto.controls[campo].touched;
   }
 
-  mostrarModal(codXPropiedad: string, tituloPropiedad: string){
+  mostrarModal(codXFoto: string, tituloFoto: string, codXPropiedad: string){
     this.reiniciarOverlay();
     this.reiniciarForm();
 
+    this.codFoto360 = codXFoto;
     this.codPropiedad = codXPropiedad;
-    this.textoTitulo = 'Editar ' + tituloPropiedad;
+    this.textoTitulo = 'Editar ' + tituloFoto;
+    this.formEditarFoto.get('titulo')?.setValue(tituloFoto);
     this.mostrarDetalles = true;
     $(this.mdlEditarFoto.nativeElement).modal('show');
   }
@@ -85,12 +88,11 @@ export class EditarFotoModalComponent implements OnInit {
     if (this.formEditarFoto.invalid){
       return this.formEditarFoto.markAllAsTouched();    
     }    
-
     console.log('guardarEdicionFoto', this.formEditarFoto.valid, this.formEditarFoto.value);
   }
 
   agregarValidacionFile(agregar: boolean){
-    console.log('agregarValidacionFile: ', agregar);
+   // console.log('agregarValidacionFile: ', agregar);
     if(agregar){
       this.formEditarFoto.get('foto')?.clearValidators();
       this.formEditarFoto.get('foto')?.setValidators(Validators.required);

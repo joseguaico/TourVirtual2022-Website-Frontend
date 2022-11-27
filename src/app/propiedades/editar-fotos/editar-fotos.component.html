@@ -69,7 +69,7 @@
                         <span id="spnTitulo_{{img.id}}">{{img.descripcion}}</span>
                         <div class="row">
                             <a (click)="this.onClickEditarFoto(img.id, img.descripcion)"><i class="far fa-edit btnOpciones"></i></a>
-                            <a href="#"><i class="far fa-trash-alt btnOpciones"></i></a>
+                            <a (click)="this.onClickBorrarFoto(img.id, img.descripcion)"><i class="far fa-trash-alt btnOpciones"></i></a>
                         </div>
                     </div>
                     <img id="img_{{img.id}}" [src]="img.imageSrc"
@@ -91,5 +91,8 @@
 
     <!-- Modal editar foto -->
     <app-editar-foto-modal (recargarFotos)="this.recargarFotos($event.mensaje)"></app-editar-foto-modal>
+
+    <!-- Modal borrar foto -->
+    <app-borrar-foto-modal (recargarFotos)="this.recargarFotos($event.mensaje)"></app-borrar-foto-modal>
 
 </div>
