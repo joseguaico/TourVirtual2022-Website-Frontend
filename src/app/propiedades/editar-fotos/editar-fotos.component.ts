@@ -165,6 +165,11 @@ export class EditarFotosComponent implements OnInit {
     this.modalBorrarFoto.mostrarModal(codXFoto, titulo, this.codPropiedad);
   }
 
+  onclickDetalleFoto(codxFoto: string, titulo: string){
+
+    this.router.navigate(['propiedades/editar-detalle-foto'],  { queryParams: { foto: codxFoto, propiedad: this.codPropiedad} })
+
+  }
 
   recargarFotos(mensaje: string){
 

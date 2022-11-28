@@ -14,6 +14,8 @@ import { InfoPropiedadModalComponent } from './components/info-propiedad-modal/i
 import { AgregarFotoModalComponent } from './components/agregar-foto-modal/agregar-foto-modal.component';
 import { EditarFotoModalComponent } from './components/editar-foto-modal/editar-foto-modal.component';
 import { BorrarFotoModalComponent } from './components/borrar-foto-modal/borrar-foto-modal.component';
+import { EditarDetalleFotoComponent } from './editar-detalle-foto/editar-detalle-foto.component';
+import { CambiarFotoModalComponent } from './components/cambiar-foto-modal/cambiar-foto-modal.component';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { BorrarFotoModalComponent } from './components/borrar-foto-modal/borrar-
     InfoPropiedadModalComponent,
     AgregarFotoModalComponent,
     EditarFotoModalComponent,
-    BorrarFotoModalComponent
+    BorrarFotoModalComponent,
+    EditarDetalleFotoComponent,
+    CambiarFotoModalComponent
   ],
   imports: [
     CommonModule,

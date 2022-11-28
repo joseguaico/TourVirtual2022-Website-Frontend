@@ -72,7 +72,7 @@
                             <a (click)="this.onClickBorrarFoto(img.id, img.descripcion)"><i class="far fa-trash-alt btnOpciones"></i></a>
                         </div>
                     </div>
-                    <img id="img_{{img.id}}" [src]="img.imageSrc"
+                    <img id="img_{{img.id}}" [src]="img.imageSrc" (click)="this.onclickDetalleFoto(img.id, img.descripcion)"
                          class="imgPropiedadNormal"  style="cursor: pointer;" />
                 </div>
             
