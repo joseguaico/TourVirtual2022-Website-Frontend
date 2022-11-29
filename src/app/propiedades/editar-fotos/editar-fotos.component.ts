@@ -49,6 +49,9 @@ export class EditarFotosComponent implements OnInit {
 
       if(this.codPropiedad !== undefined && this.codPropiedad !== ''){
         this.obtenerInfoPropiedad();
+      }else{
+        this.mostrarDetalle = false;
+        this.mensajeCarga = "El enlace para editar las fotos no es válido.";
       }
 
     }
