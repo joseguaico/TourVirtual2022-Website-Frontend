@@ -30,6 +30,7 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
   imagenes: Imagen360[] = [];
 
   cargando = true;
+  mostrarOverlay = false;
 
   btnAddHotspotVisible = false;
   btnRemoverHotspotVisible = false;
@@ -237,32 +238,23 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
       var settings: any = {};
       settings["onstart"] = "loadxml('" + this.getXmlString() + "')";
 
-     // console.log('pano div', this.panoDiv);
-
-      console.log('auxKrPanoCargado: ', this.auxKrPanoCargado, this.krpano?.get("scene"));
-
-      if (!this.auxKrPanoCargado){
-       
-        krpanoJS.embedpano({
-          target: document.getElementById('pano') ,//"pano",
-          xml: "",
-          consolelog: true,
-          passQueryParameters: true,
-          //onready: this.krpano_onready_callback,
-          onready:(krpanoObj :any) => {
-            this.krpano = krpanoObj; //krpanoObj.get("global");
-            this.scenes = this.krpano.get("scene");
-            this.krpano!.get("scene").isDynArray = true;
-            this.auxKrPanoCargado = true;
-          },
-          vars: settings
-        });
-      
-      }else{
-
-        
-
-      }
+      krpanoJS.embedpano({
+        id: 'current_pano',
+        target: document.getElementById('pano') ,//"pano",
+        xml: "",
+        consolelog: true,
+        passQueryParameters: true,
+        //onready: this.krpano_onready_callback,
+        onready:(krpanoObj :any) => {
+          this.krpano = krpanoObj; //krpanoObj.get("global");
+          this.scenes = this.krpano.get("scene");
+          this.krpano!.get("scene").isDynArray = true;
+          this.auxKrPanoCargado = true;
+          this.mostrarOverlay = false;
+        },
+        vars: settings
+      });
+    
 
      
     }
@@ -436,6 +428,13 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
     this.cargando = true;
 
     if(this.codPropiedad !== undefined && this.codPropiedad !== '' && this.codImagen !== undefined && this.codImagen !== ''){
+
+      if (this.auxKrPanoCargado){
+        document.getElementById('pano')!.innerHTML = '';
+      }
+      this.mostrarOverlay = true;
+
+
      this.obtenerImagenes360();
      this.obtenerInfoFoto360();
     }else{
