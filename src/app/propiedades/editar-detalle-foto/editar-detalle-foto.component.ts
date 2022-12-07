@@ -235,6 +235,11 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
   InicializarKrObjects() {
       if (this.imagen360 !== null) {
 
+        // if (this.auxKrPanoCargado){
+        //     document.getElementById('pano')!.innerHTML = '';
+        // }
+        // this.mostrarOverlay = true;
+
       var settings: any = {};
       settings["onstart"] = "loadxml('" + this.getXmlString() + "')";
 
@@ -305,27 +310,45 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
     sceneContent += '<sphere url="' +  this.imagen360?.imageSrc + '" />';
     sceneContent += '</image>';
 
+    
+    sceneContent += '<style name="tooltip" onover="copy(layer[tooltip].html, tooltip); set(layer[tooltip].visible, true); tween(layer[tooltip].alpha, 1.0, 0.5); ';
+    sceneContent += 'asyncloop(hovering, copy(layer[tooltip].x,mouse.stagex); copy(layer[tooltip].y,mouse.stagey); );" ';
+    sceneContent += 'onout="tween(layer[tooltip].alpha, 0.0, 0.25, default, set(layer[tooltip].visible,false), copy(layer[tooltip].x,mouse.stagex); copy(layer[tooltip].y,mouse.stagey); );" ';
+    sceneContent += '/>';
+
+    sceneContent += '<layer name="tooltip" keep="true" type="text" parent="STAGE" visible="false" alpha="0" enabled="false" align="lefttop" ';
+    sceneContent += 'edge="bottom" oy="-2" background="false" backgroundcolor="0xFFFFFF" backgroundalpha="1.0" border="false" bordercolor="0x000000" borderalpha="1.0" ';
+    sceneContent += 'borderwidth="1.0" roundedge="0" shadow="0.0" shadowrange="4.0" shadowangle="45" shadowcolor="0x000000" shadowalpha="1.0" ';
+    sceneContent += 'textshadow="1" textshadowrange="6.0" textshadowangle="90" textshadowcolor="0x000000" textshadowalpha="1.0" ';
+    sceneContent += 'css="text-align:center; color:#FFFFFF; font-family:Arial; font-weight:bold; font-size:14px;" html="" /> ';
+
     //console.log(sceneContent);
 
     // console.log("scene.UrlPreview: " + scene.UrlPreview);
 
     if (this.imagen360!.hotspots != null && this.imagen360!.hotspots.length > 0) {
       for (var i = 0; i < this.imagen360!.hotspots.length; i++) {
-        sceneContent += '<hotspot name="H' + this.imagen360!.hotspots[i].id + '" ';
-        //sceneContent += 'style="roomspot|skin_tooltips" tooltip="get:scene[' + scene.Hotspots[i].SceneTo + '].title" ';
+        sceneContent += '<hotspot name="' + this.imagen360!.hotspots[i].id + '" ';
+        sceneContent += 'style="tooltip" ';
+        
 
-        sceneContent += 'url="assets/krpano/plugins/hs_circle.png" ';
-        sceneContent += 'ath="' + this.imagen360!.hotspots[i].ath + '" atv="' + this.imagen360!.hotspots[i].atv + '" ';
-        sceneContent += 'style="skin_tooltips" ';
+        // sceneContent += 'url="assets/krpano/plugins/hs_circle.png" ';
+        // sceneContent += 'ath="' + this.imagen360!.hotspots[i].ath + '" atv="' + this.imagen360!.hotspots[i].atv + '" ';
+        // sceneContent += 'style="skin_tooltips" ';
 
         if (this.imagen360!.hotspots[i].sceneTo != '') {
-          sceneContent += 'tooltip="get:scene[S' + this.imagen360!.hotspots[i].sceneTo + '].title" ';
-          sceneContent += 'onclick="goto(S' + this.imagen360!.hotspots[i].sceneTo + ');"> '
+          //sceneContent += 'tooltip="get:scene[S' + this.imagen360!.hotspots[i].sceneTo + '].title" ';
+          //sceneContent += 'onclick="goto(S' + this.imagen360!.hotspots[i].sceneTo + ');"> '
+          sceneContent += ' tooltip="' + (this.imagen360!.hotspots[i].sceneTo) + '" ';
         } else {
           sceneContent += 'tooltip="(sin imagen)" >';
         }
 
         //console.log("scene.Hotspots[i].SceneTo: " + scene.Hotspots[i].SceneTo);
+        sceneContent += 'url="assets/krpano/plugins/hs_circle.png" ';
+        sceneContent += 'ath="' + this.imagen360!.hotspots[i].ath + '" atv="' + this.imagen360!.hotspots[i].atv + '" ';
+        sceneContent += 'onclick="onHotspotClickCustom">';
+
         sceneContent += '</hotspot>';
       }
     }
@@ -424,8 +447,10 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
   cambiarOtraFoto(codFotoCambiar: string){
 
     //console.log('Padre cambiarOtraFoto', codFotoCambiar);
+   
     this.codImagen = codFotoCambiar;
     this.cargando = true;
+    //this.router.navigate(['propiedades/editar-detalle-foto'],  { queryParams: { foto: this.codImagen, propiedad: this.codPropiedad} })
 
     if(this.codPropiedad !== undefined && this.codPropiedad !== '' && this.codImagen !== undefined && this.codImagen !== ''){
 
@@ -443,7 +468,7 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
     }
   
     //this.router.navigate([`propiedades/editar-detalle-foto?foto=${this.codImagen}&propiedad=${this.codPropiedad}`])
-    //this.router.navigate(['propiedades/editar-detalle-foto'],  { queryParams: { foto: this.codImagen, propiedad: this.codPropiedad} })
+  
     
 
   }
