@@ -46,7 +46,8 @@
               "./node_modules/bootstrap/dist/js/bootstrap.min.js",
               "src/assets/template/js/template.js",
               "src/assets/template/js/hoverable-collapse.js",
-              "src/assets/template/js/off-canvas.js"
+              "src/assets/template/js/off-canvas.js",
+              "src/assets/krpano/krpano.js"
             ]
           },
           "configurations": {

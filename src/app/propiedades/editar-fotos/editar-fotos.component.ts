@@ -20,6 +20,8 @@ import { InfoPropiedadModalComponent } from '../components/info-propiedad-modal/
 })
 export class EditarFotosComponent implements OnInit {
 
+  cargando = true;
+
   mostrarDetalle: boolean = true;
   mensajeCarga: string = '';
   propiedad: PropiedadTitulo | null = null;
@@ -48,6 +50,7 @@ export class EditarFotosComponent implements OnInit {
       console.log(this.codPropiedad); // 
 
       if(this.codPropiedad !== undefined && this.codPropiedad !== ''){
+        this.cargando = true;
         this.obtenerInfoPropiedad();
       }else{
         this.mostrarDetalle = false;
@@ -62,7 +65,7 @@ export class EditarFotosComponent implements OnInit {
 
     this.propiedadesService.obtenerPropiedadTitulo(this.codPropiedad.trim()).subscribe((resp: GeneralResponse) => {
      
-      console.log('RESP: ', resp);
+      //console.log('RESP: ', resp);
 
       if(!resp.tieneError){
         this.mostrarDetalle = true;
@@ -98,17 +101,17 @@ export class EditarFotosComponent implements OnInit {
 
         this.usoFotos = resp.datos.usoFotos;
         this.cupoFotos = resp.datos.cupoFotos;
+        this.cargando = false;
         
       }else{
         this.mostrarDetalle = false;
         this.mensajeCarga = resp.message;
-        
+        this.cargando = false;
       }
 
     }, (err) => {
       console.warn("ERR: ", err);
     });
-
   }
 
   obtenerThumbnail(idxImagen: string){

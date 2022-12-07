@@ -8,5 +8,7 @@ export interface InfoImagen360 {
     fov: string,
     hotspots: Hotspot[],
 
-    imageSrc: any
+    imageSrc: any,
+    thumbnailSrc: any,
+    previewSrc: any
 }

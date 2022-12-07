@@ -95,7 +95,7 @@ export class AgregarFotoModalComponent implements OnInit {
     {
       this.actualizando = false;
 
-      console.log(resp);
+     // console.log(resp);
 
         if(resp.tieneError == true){
           this.textoPosteriorCambio = resp.message;

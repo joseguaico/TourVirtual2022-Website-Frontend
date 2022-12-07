@@ -1,7 +1,7 @@
 <div class="row justify-content-center w-100">
 
-     <!-- Titulo -->
-     <div class="col-lg-12 d-flex flex-row">
+    <!-- Titulo -->
+    <div class="col-lg-12 d-flex flex-row">
 
         <div class="col-lg-12 d-flex flex-row" *ngIf="!this.mostrarDetalle">
             <i class="fas fa-angle-double-right fa-sm blue" style="position: relative; top: 10px; margin-right: 3px;"></i>
@@ -25,12 +25,18 @@
         <span>{{this.mensajeCarga}}</span>
     </div>
 
-    <div class="w-100" *ngIf="this.mostrarDetalle">
+    <div class="w-100">
 
         <app-alert-mensaje></app-alert-mensaje>
 
+        <div *ngIf="this.cargando" class="w-100 text-center">
+            <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline; height:16px; margin-right:2px;" />
+            <p style="display: inline;">Obteniedo datos...</p>
+        </div>
+
+
         <!-- Opciones -->
-        <div class="d-flex w-100 pt-1 pb-1 border justify-content-center flex-column">
+        <div class="d-flex w-100 pt-1 pb-1 border justify-content-center flex-column" *ngIf="!this.cargando">
             <div class="row" *ngIf="this.mostrarInfoModo">
                 <span #spnTextoAccion class="w-100 cTextBold" [ngClass]="this.cssClassTextoInfo" style="text-align:center;">{{this.textoModo}}</span>
             </div>
@@ -70,10 +76,14 @@
         </div>
 
         <!-- Pano Base-->
-        <div id="pano" class="d-flex"></div>
+        <!-- <app-pano-div></app-pano-div> -->
+        <div #pano id="pano" class="d-flex panoDiv">
+        </div>
 
 
     </div>
 
+    <!-- Modal agregar hotspot -->  
+    <app-agregar-hotspot-modal [imagenes360]="this.imagenes"></app-agregar-hotspot-modal>
 
 </div>

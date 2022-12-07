@@ -29,11 +29,16 @@
 
         <div id="divImagenes" class="card w-100 mt-2 p-2 flex-xl-shrink-1 justify-content-center flex-column mh-100"
          style="width: 100% !important; margin-bottom: 0 !important;">
-
+         
             <app-alert-mensaje></app-alert-mensaje>
-        
+
+            <div *ngIf="this.cargando" class="w-100 text-center">
+                <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline; height:16px; margin-right:2px;" />
+                <p style="display: inline;">Obteniedo datos...</p>
+            </div>
+                
             <!-- Botones opciones -->
-            <div id="divOpciones" class="d-flex mb-3 rounded-buttons-icons">
+            <div id="divOpciones" class="d-flex mb-3 rounded-buttons-icons" *ngIf="!this.cargando">
                 <div id="divBotonesPublicar">
                         
                     <a id="lnkPublicar" title="Publicar esta propiedad" 
@@ -57,12 +62,12 @@
             </div>
         
             <!-- Información del cupo -->
-            <div id="divInfoCupo" class="d-flex flex-column small w-100 pt-1 pb-3" style="margin-left: 1.5px;">
+            <div id="divInfoCupo" class="d-flex flex-column small w-100 pt-1 pb-3" style="margin-left: 1.5px;" *ngIf="!this.cargando">
                 <span id="spnCantidadFotosProp" style="font-size: small; text-align:center;" class="ml-2 w-100">Esta propiedad tiene {{this.propiedad?.fotos}} fotos.</span>
                 <span id="spnInfoFotosDisp" style="font-size: small; text-align:center;" class="ml-2 w-100">Ha utilizado {{this.usoFotos}} de un total de {{this.cupoFotos}}.</span>
             </div>
         
-            <div id="contenedorCardsFotos" class="d-flex row justify-content-center">
+            <div id="contenedorCardsFotos" class="d-flex row justify-content-center" *ngIf="!this.cargando">
                 
                 <div *ngFor="let img of this.imagenes" id="cardFoto_{{img.id}}" class="card border-secondary mb-3 ml-2" style="max-width: 20rem; width: 20rem;">
                     <div class="card-header d-flex justify-content-between w-100">
@@ -73,11 +78,10 @@
                         </div>
                     </div>
                     <img id="img_{{img.id}}" [src]="img.imageSrc" (click)="this.onclickDetalleFoto(img.id, img.descripcion)"
-                         class="imgPropiedadNormal"  style="cursor: pointer;" />
+                        class="imgPropiedadNormal"  style="cursor: pointer;" />
                 </div>
             
             </div>
-
 
         </div>
 

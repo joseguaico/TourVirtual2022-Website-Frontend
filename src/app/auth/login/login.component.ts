@@ -45,7 +45,7 @@ export class LoginComponent {
       this.formularioLogin.disable();
       this.accountService.login(formData).subscribe((resp: any) =>  {
   
-        console.log('RESP Login: ', resp);
+        //console.log('RESP Login: ', resp);
   
         if (resp.tieneError === false){
   
