@@ -1,1 +1,77 @@
-<p>cambiar-foto-modal works!</p>
+<div #mdlCambiarImagen
+    class="modal fade in"    
+    aria-labelledby="mdlItemizadoTitle" 
+    data-backdrop="false"
+    style="background-color: rgba(0, 0, 0, 0.5);">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg mx-auto" role="document">
+        <div class="modal-content d-flex justify-content-center">
+      
+            <div class="modal-header">
+                <h5 id="mdlInfoPropiedadTitleView" class="modal-title">{{this.textoTitulo}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="this.cerrarModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form [formGroup]="this.formCambiarFoto">
+
+                <div class="edicion-container d-flex flex-column justify-content-center pl-3 pr-3 pb-2 pt-1">
+
+                    <div class="m-0 mb-1">
+                        <label class="text-black mb-0 mt-2">Imagen</label>
+                        <select class="form-control form-control-sm form-control-ddl-sm" 
+                            style="height: 30px !important; width: 96% !important;"
+                            formControlName="sceneCambiar">
+                            <option value="-1">(Seleccione imagen)</option>
+                            <ng-container *ngFor="let img of this.imagenes360">
+                                <option *ngIf="img.id !== this.codImagenActual"
+                                    [value]="img.id">{{img.descripcion}}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                    <div class="d-row d-flex justify-content-center" style="margin-bottom:1px;">
+                        <span class=""
+                                style="font-size: small; margin-left: 10px !important; ">Sólo se puede cambiar a una imagen diferente a la actual.</span>
+                    </div>
+                    <div class="d-row d-flex justify-content-center" style="margin-bottom:0px;">
+                        <span id="spnCambiarImagenReq" class="input-validation-error"
+                                style="display:none; font-size: small; margin-left: 10px !important; ">Los campos en rojo son obligatorios</span>
+                    </div>
+
+                </div>
+
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-sm-custom btn-light" (click)="this.cerrarModal()">Cancelar</button>
+                <button id="btnGuardarCambiarFoto" 
+                    class="btn btn-sm btn-sm-custom btn-warning" 
+                    (click)="this.guardarCambioFoto()"
+                    [disabled]="!this.seleccionValida()">Guardar</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modalOverlayCustom cBaseCuadranteBloqueo" *ngIf="this.mostrarOverlay">
+        <div class="modalOverlayLoadingCustom" *ngIf="this.actualizando">
+            <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline; height:16px; margin-right:2px;" />
+            <p style="display: inline;">Actualizando...</p>
+        </div>
+        <div class="modalOverlayInfoCustom" *ngIf="this.mostrarInfoOverlay">
+            <button type="button" class="close modalOverlayCerrarCustom modalOverlayBtnCerrar"
+                *ngIf="this.mostrarCerrarOverlay"
+                (click)="this.cerrarModalOverlay()">
+                <span aria-hidden="true" class="modalOverlayBtnX">&times;</span>
+            </button>
+            <button type="button" class="close modalOverlayCerrarCustom modalOverlayBtnCerrar"
+                *ngIf="this.mostrarCerrarAll"
+                (click)="this.cerrarModalAll()">
+                <span aria-hidden="true" class="modalOverlayBtnX">&times;</span>
+            </button>
+            <p style="display: inline;">{{this.textoPosteriorCambio}}</p>
+
+        </div>
+    </div>
+
+</div>

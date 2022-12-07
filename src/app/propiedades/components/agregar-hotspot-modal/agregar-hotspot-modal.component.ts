@@ -12,7 +12,7 @@ declare let $ : any;
 export class AgregarHotspotModalComponent implements OnInit {
 
   formAddHotspot: FormGroup = this.fb.group({
-    screneTo: ['', [] ],
+    sceneTo: ['-1', [] ],
   });
 
   @ViewChild('mdlAgregarHotspot') mdlAgregarHotspot!: ElementRef;
@@ -40,6 +40,7 @@ export class AgregarHotspotModalComponent implements OnInit {
   mostrarModal(codXPropiedad: string, codImagen: string){
     this.reiniciarOverlay();
     this.formAddHotspot.reset();
+    this.formAddHotspot.get('sceneTo')?.setValue('-1');
     this.codPropiedad = codXPropiedad;
     this.codImagen = codImagen;
     this.mostrarDetalles = true;

@@ -40,9 +40,9 @@ export class EditarClienteComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params:any) => {
-        console.log(params); 
+        //console.log(params); 
         this.codClienteEditar = params.cod;
-        console.log(this.codClienteEditar); // 
+        //console.log(this.codClienteEditar); // 
 
         if(this.codClienteEditar !== undefined && this.codClienteEditar !== ''){
           this.obtenerInfoCliente();
@@ -59,7 +59,7 @@ export class EditarClienteComponent implements OnInit {
     
     this.clientesService.obtenerInfoCliente(this.codClienteEditar.trim()).subscribe((resp: GeneralResponse) => {
      
-      console.log('RESP: ', resp);
+      //console.log('RESP: ', resp);
 
       if(!resp.tieneError){
         this.mostrarDetalle = true;
@@ -96,7 +96,7 @@ export class EditarClienteComponent implements OnInit {
       return this.formEditar.markAllAsTouched();
     }    
 
-    console.log(this.formEditar.value);
+    //console.log(this.formEditar.value);
 
 
     const {nombre, email, nombreContacto, telefonosContacto, direccion} = this.formEditar.value;

@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { Hotspot } from 'src/app/interfaces/hotspot.interface';
 import { AgregarHotspotModalComponent } from '../components/agregar-hotspot-modal/agregar-hotspot-modal.component';
 import { Imagen360 } from 'src/app/interfaces/imagen360.interface';
+import { CambiarFotoModalComponent } from '../components/cambiar-foto-modal/cambiar-foto-modal.component';
 
 declare let krpanoJS: any;
 
@@ -22,6 +23,7 @@ const baseUrl: string = environment.baseUrl;
 export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
 
   @ViewChild(AgregarHotspotModalComponent) modalAgregarHotspot!: AgregarHotspotModalComponent;
+  @ViewChild(CambiarFotoModalComponent) modalCambiarFoto!: CambiarFotoModalComponent;
 
   @ViewChild('pano', { static : true }) pano!:ElementRef; 
 
@@ -57,6 +59,7 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
 
   scenes: any = null;
   krpano: any;
+  auxKrPanoCargado = false;
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -126,7 +129,6 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
       console.warn("ERR: ", err);
     });
   }
-
 
   setOpcionesDefault(){
     this.btnAddHotspotVisible = true;
@@ -199,7 +201,7 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
 
   }
   btnOtraImagenClick(){
-    
+    this.modalCambiarFoto.mostrarModal(this.codImagen);
   }
   btnVolverClick(){
     //this.router.navigate([".."]);
@@ -237,7 +239,11 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
 
      // console.log('pano div', this.panoDiv);
 
-      krpanoJS.embedpano({
+      console.log('auxKrPanoCargado: ', this.auxKrPanoCargado, this.krpano?.get("scene"));
+
+      if (!this.auxKrPanoCargado){
+       
+        krpanoJS.embedpano({
           target: document.getElementById('pano') ,//"pano",
           xml: "",
           consolelog: true,
@@ -247,9 +253,18 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
             this.krpano = krpanoObj; //krpanoObj.get("global");
             this.scenes = this.krpano.get("scene");
             this.krpano!.get("scene").isDynArray = true;
+            this.auxKrPanoCargado = true;
           },
           vars: settings
-      });
+        });
+      
+      }else{
+
+        
+
+      }
+
+     
     }
   }
 
@@ -410,7 +425,29 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
     }else{
       console.log('ELSEEE');
     }
-}
+  }
+
+
+
+  cambiarOtraFoto(codFotoCambiar: string){
+
+    //console.log('Padre cambiarOtraFoto', codFotoCambiar);
+    this.codImagen = codFotoCambiar;
+    this.cargando = true;
+
+    if(this.codPropiedad !== undefined && this.codPropiedad !== '' && this.codImagen !== undefined && this.codImagen !== ''){
+     this.obtenerImagenes360();
+     this.obtenerInfoFoto360();
+    }else{
+      this.mostrarDetalle = false;
+      this.mensajeCarga = "El enlace para editar las fotos no es válido.";
+    }
+  
+    //this.router.navigate([`propiedades/editar-detalle-foto?foto=${this.codImagen}&propiedad=${this.codPropiedad}`])
+    //this.router.navigate(['propiedades/editar-detalle-foto'],  { queryParams: { foto: this.codImagen, propiedad: this.codPropiedad} })
+    
+
+  }
 
 
   /* // FUNCIONA SÓLO SI LAS URLS SON PÚBLICAS

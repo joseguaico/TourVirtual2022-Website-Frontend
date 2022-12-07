@@ -18,14 +18,14 @@
         </div>
     </div>
 
-    <div class="w-100 d-flex justify-content-center p-2 flex-column" style="text-align: center;" *ngIf="!this.mostrarDetalle">
+    <div class="w-100 d-flex justify-content-center p-2 flex-column" style="text-align: center;" *ngIf="!this.mostrarDetalle && !this.cargando">
         <div class="w-100 d-flex justify-content-center">
             <img src="assets/images/exclamation-64.png" alt="" width="64" height="64" />
         </div>
         <span>{{this.mensajeCarga}}</span>
     </div>
 
-    <div class="w-100">
+    <div class="w-100" *ngIf="this.mostrarDetalle">
 
         <app-alert-mensaje></app-alert-mensaje>
 
@@ -85,5 +85,8 @@
 
     <!-- Modal agregar hotspot -->  
     <app-agregar-hotspot-modal [imagenes360]="this.imagenes"></app-agregar-hotspot-modal>
+
+    <!-- Modal cambiar foto -->
+    <app-cambiar-foto-modal [imagenes360]="this.imagenes" (cambiarOtraFoto)="this.cambiarOtraFoto($event.codFotoCambiar)"></app-cambiar-foto-modal>
 
 </div>

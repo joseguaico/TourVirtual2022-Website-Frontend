@@ -45,9 +45,9 @@ export class EditarFotosComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params:any) => {
-      console.log(params); 
+      //console.log(params); 
       this.codPropiedad = params.cod;
-      console.log(this.codPropiedad); // 
+      //console.log(this.codPropiedad); // 
 
       if(this.codPropiedad !== undefined && this.codPropiedad !== ''){
         this.cargando = true;
@@ -57,8 +57,7 @@ export class EditarFotosComponent implements OnInit {
         this.mensajeCarga = "El enlace para editar las fotos no es válido.";
       }
 
-    }
-  );
+    });
   }
 
   obtenerInfoPropiedad(){
@@ -89,7 +88,7 @@ export class EditarFotosComponent implements OnInit {
   obtenerImagenes360(){
     this.imagenes360.obtenerImagenesPorPropiedad(this.codPropiedad).subscribe((resp: any) => {
      
-      console.log('RESP: ', resp);
+     // console.log('RESP: ', resp);
 
       if(!resp.tieneError){
         this.mostrarDetalle = true;
@@ -116,7 +115,7 @@ export class EditarFotosComponent implements OnInit {
 
   obtenerThumbnail(idxImagen: string){
     this.imagenes360.obtenerThumbnail(idxImagen).subscribe((blob: any) => {
-//      console.log("CONTENIDO",  blob);
+    //console.log("CONTENIDO",  blob);
     }, (err: any) => {
       console.warn(err);
     });

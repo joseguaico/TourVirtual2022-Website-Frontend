@@ -14,13 +14,16 @@
                 </button>
             </div>
 
-            <form form [formGroup]="this.formAddHotspot">
+            <form [formGroup]="this.formAddHotspot">
 
                 <div class="edicion-container d-flex flex-column justify-content-center pl-3 pr-3 pb-2 pt-1">
 
                     <div class="m-0 mb-1">
                         <label class="text-black mb-0 mt-2">Al hacer click, cambiar a la siguiente imagen:</label>
-                        <select id="ddlScenesAddNuevoHST" class="form-control form-control-sm form-control-ddl-sm" style="height: 30px !important; width: 96% !important;">
+                        <select 
+                            class="form-control form-control-sm form-control-ddl-sm" 
+                            style="height: 30px !important; width: 96% !important;"
+                            formControlName="sceneTo">
                             <option value="-1">(Seleccione foto)</option>
                             <ng-container *ngFor="let img of this.imagenes360">
                                 <option  *ngIf="img.id !== this.codImagen"
