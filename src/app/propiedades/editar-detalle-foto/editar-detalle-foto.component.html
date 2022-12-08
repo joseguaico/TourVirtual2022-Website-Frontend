@@ -40,6 +40,9 @@
             <div class="row" *ngIf="this.mostrarInfoModo">
                 <span #spnTextoAccion class="w-100 cTextBold" [ngClass]="this.cssClassTextoInfo" style="text-align:center;">{{this.textoModo}}</span>
             </div>
+            <div class="row" *ngIf="this.mostrarInfoCupo">
+                <span  class="w-100 blue" style="text-align:center;">{{this.textoInfoCupo}}</span>
+            </div>
             <div class="row">
                 <span class="w-100 mb-1" style="text-align:center">{{this.textoInfoOpciones}}</span>
             </div>
@@ -92,5 +95,8 @@
 
     <!-- Modal cambiar foto -->
     <app-cambiar-foto-modal [imagenes360]="this.imagenes" (cambiarOtraFoto)="this.cambiarOtraFoto($event.codFotoCambiar)"></app-cambiar-foto-modal>
+
+    <!-- Modal eliminar hotspot -->
+    <app-borrar-hotspot-modal (onHotspotBorrado)="this.onHotspotBorrado($event.hotspotBorrado)"></app-borrar-hotspot-modal>
 
 </div>

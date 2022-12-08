@@ -60,7 +60,7 @@ export class BusquedaPropiedadesComponent implements OnInit {
 
       const {cliente, titulo, conFotos} = this.formBusquedaAdm.value;
 
-      console.log(this.formBusquedaAdm.value);
+     // console.log(this.formBusquedaAdm.value);
 
       this.realizarBusqueda(cliente, titulo, conFotos);
 
@@ -82,7 +82,7 @@ export class BusquedaPropiedadesComponent implements OnInit {
         this.cargando = false;
         this.textoRespuestaBusqueda = this.propiedades.length === 0 ? 'No se encontraron datos' : '';
   
-        console.log('DATOS RESP: ', datos);
+        //console.log('DATOS RESP: ', datos);
 
       },
       (err: any) => {
@@ -100,7 +100,7 @@ export class BusquedaPropiedadesComponent implements OnInit {
   }
 
   onClickVerDetalle(codXPropiedad: string){
-    console.log(codXPropiedad);
+    //console.log(codXPropiedad);
     this.modalInfo.realizarBusqueda(codXPropiedad);
   }
 

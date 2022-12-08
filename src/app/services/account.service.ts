@@ -85,7 +85,7 @@ export class AccountService {
 
       map((resp: any) => {
        
-        console.log("RESP Validar token: ", resp);
+       // console.log("RESP Validar token: ", resp);
 
         const {uid, email, nombres, apellidos, rol, bloqueado,  menu, empresa } = resp.datos;
         const usuario = new Usuario(uid, email, nombres, apellidos, bloqueado, rol.toUpperCase(), empresa);

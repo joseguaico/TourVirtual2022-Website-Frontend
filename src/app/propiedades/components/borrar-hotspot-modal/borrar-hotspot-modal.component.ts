@@ -1,66 +1,54 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { Hotspot } from 'src/app/interfaces/hotspot.interface';
-import { Imagen360 } from 'src/app/interfaces/imagen360.interface';
 import { GeneralResponse } from 'src/app/models/generalResponse.class';
 import { HotspotsService } from 'src/app/services/hotspots.service';
 
 declare let $ : any;
 
 @Component({
-  selector: 'app-agregar-hotspot-modal',
-  templateUrl: './agregar-hotspot-modal.component.html',
-  styleUrls: ['./agregar-hotspot-modal.component.css']
+  selector: 'app-borrar-hotspot-modal',
+  templateUrl: './borrar-hotspot-modal.component.html',
+  styleUrls: ['./borrar-hotspot-modal.component.css']
 })
-export class AgregarHotspotModalComponent implements OnInit {
+export class BorrarHotspotModalComponent implements OnInit {
 
-  formAddHotspot: FormGroup = this.fb.group({
-    sceneTo: ['-1', [] ],
-  });
+  @ViewChild('mdlBorrarHotspot') mdlBorrarHotspot!: ElementRef;  
 
-  @ViewChild('mdlAgregarHotspot') mdlAgregarHotspot!: ElementRef;
-  textoTitulo = 'Agregar hotspot';
+  @Output('onHotspotBorrado') onHotspotBorrado: EventEmitter<any> = new EventEmitter();
 
-  @Input("imagenes360")imagenes360: Imagen360[] = [];
-
-  @Output('onHotspotCreado') onHotspotCreado: EventEmitter<any> = new EventEmitter();
+  textoTitulo = 'Borrar enlace';
 
   mostrarOverlay = false;
   actualizando = false;
   textoPosteriorCambio = '';
   mostrarCerrarOverlay = false;
   mostrarCerrarAll = false;
-  codPropiedad: string = '';
   
   codImagen: string = '';
-  valorAth: string = '';
-  valorAtv: string = '';
+  codHotspot: string = '';
   mostrarDetalles = false;
+  textoEliminacion: string = '';
 
   mostrarInfoOverlay = false;
 
-  constructor(private fb: FormBuilder,
-    private hotspotsService: HotspotsService) { }
+  constructor(private hotspotsService: HotspotsService) { }
 
   ngOnInit(): void {
   }
 
-
-  mostrarModal(codXPropiedad: string, codImagen: string, valorAth: string, valorAtv: string){
+  
+  mostrarModal(codHotspot: string, codImagen: string, tituloSceneTo: string){
     this.reiniciarOverlay();
-    this.formAddHotspot.reset();
-    this.formAddHotspot.get('sceneTo')?.setValue('-1');
-    this.codPropiedad = codXPropiedad;
+    this.codHotspot = codHotspot.toLowerCase().startsWith('h') ? codHotspot.substring(1) : codHotspot;
     this.codImagen = codImagen;
-    this.valorAth = valorAth;
-    this.valorAtv = valorAtv;
     this.mostrarDetalles = true;
-    $(this.mdlAgregarHotspot.nativeElement).modal('show');
+    this.textoEliminacion = `¿Está seguro que quiere borrar este enlace, que redirige a la imagen: ${tituloSceneTo} ?`;
+    $(this.mdlBorrarHotspot.nativeElement).modal('show');
   }
 
 
   cerrarModal(){
-    $(this.mdlAgregarHotspot.nativeElement).modal('hide');
+    $(this.mdlBorrarHotspot.nativeElement).modal('hide');
     this.reiniciarOverlay();
   }
   reiniciarOverlay(){
@@ -71,25 +59,13 @@ export class AgregarHotspotModalComponent implements OnInit {
   }
 
   cerrarModalOverlay(){
-    //console.log('cerrarModalOverlay...')
     this.mostrarOverlay = false;
   }
-
   cerrarModalAll(){
-    //console.log('cerrarModalAll...')
     this.cerrarModal();
   }
 
-  seleccionValida(){
-    return this.formAddHotspot.get('sceneTo')?.value !== '-1';
-  }
-  
-  guardarHotspot(){
-    if(this.formAddHotspot.get('sceneTo')?.value === '-1')
-    {
-      return;
-    }
-
+  borrarHotspot(){
     this.mostrarOverlay = true;
     this.actualizando = true;
 
@@ -97,9 +73,7 @@ export class AgregarHotspotModalComponent implements OnInit {
     this.mostrarCerrarOverlay = false;
     this.textoPosteriorCambio = '';
 
-    const sceneTo = this.formAddHotspot.get('sceneTo')?.value;
-
-    this.hotspotsService.crearHotspot(this.codImagen, '', this.valorAth, this.valorAtv, sceneTo).subscribe((resp: GeneralResponse) => 
+    this.hotspotsService.eliminarHotspot(this.codImagen, this.codHotspot).subscribe((resp: GeneralResponse) => 
     {
       this.actualizando = false;
 
@@ -112,8 +86,8 @@ export class AgregarHotspotModalComponent implements OnInit {
           //this.textoPosteriorCambio = resp.message;
           //this.mostrarCerrarAll = true;
 
-          const hotspotNuevo: Hotspot = resp.datos as Hotspot;
-          this.onHotspotCreado.emit({nuevoHotspot: hotspotNuevo});
+          const hotspotBorrado: Hotspot = resp.datos as Hotspot;
+          this.onHotspotBorrado.emit({hotspotBorrado: hotspotBorrado});
           this.cerrarModalAll();
         }
         this.mostrarInfoOverlay = true;

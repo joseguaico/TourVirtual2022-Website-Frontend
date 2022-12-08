@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Host, Input, NgZone, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, mergeMap } from 'rxjs';
@@ -11,21 +11,29 @@ import { AgregarHotspotModalComponent } from '../components/agregar-hotspot-moda
 import { Imagen360 } from 'src/app/interfaces/imagen360.interface';
 import { CambiarFotoModalComponent } from '../components/cambiar-foto-modal/cambiar-foto-modal.component';
 import { AlertMensajeComponent } from 'src/app/shared/components/alert-mensaje/alert-mensaje.component';
+import { BorrarHotspotModalComponent } from '../components/borrar-hotspot-modal/borrar-hotspot-modal.component';
 
 declare let krpanoJS: any;
+
+declare global {
+  interface Window { VisorHotspotEdit: any; }
+}
+
+window.VisorHotspotEdit = window.VisorHotspotEdit || {};
 
 const baseUrl: string = environment.baseUrl;
 
 @Component({
   selector: 'app-editar-detalle-foto',
   templateUrl: './editar-detalle-foto.component.html',
-  styleUrls: ['./editar-detalle-foto.component.css']
+  styleUrls: ['./editar-detalle-foto.component.css'], 
 })
 export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
 
   @ViewChild(AgregarHotspotModalComponent) modalAgregarHotspot!: AgregarHotspotModalComponent;
   @ViewChild(CambiarFotoModalComponent) modalCambiarFoto!: CambiarFotoModalComponent;
   @ViewChild(AlertMensajeComponent) alertMensaje!: AlertMensajeComponent;
+  @ViewChild(BorrarHotspotModalComponent) modalBorrarHotstpot!: BorrarHotspotModalComponent;
 
   @ViewChild('pano', { static : true }) pano!:ElementRef; 
 
@@ -54,6 +62,8 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
   textoModo = 'Modo agregar enlace activado';
   textoInfoOpciones = '';
   cssClassTextoInfo = 'blue';
+  mostrarInfoCupo = false;
+  textoInfoCupo = '';
 
   agregarActivo = false;
   eliminarActivo = false;
@@ -68,10 +78,21 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
     private activatedRoute: ActivatedRoute,
     private imagenes360Service: Imagenes360Service,
     private sanitizer: DomSanitizer,
-    public element: ElementRef
-    ) { }
-
+    public element: ElementRef,
+    private ngZone: NgZone) {
+    }
+ 
   ngOnInit(): void {
+
+    window.VisorHotspotEdit.OnHotspotClick = (nameHostpot: string) => {
+      // Since this function runs outside Angular's zone, we need to get back inside!
+      this.ngZone.run(() => {
+        // Put angular code that has to be called on click on the link in the popover here...
+        this.onHotspotClickCustomJS(nameHostpot);
+      });
+    }
+
+
     this.activatedRoute.queryParams.subscribe((params:any) => {
       this.codPropiedad = params.propiedad;
       this.codImagen = params.foto;
@@ -144,6 +165,8 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
     this.textoInfoOpciones = '';
     this.mostrarInfoModo = false;
     this.textoBtnCancelar = 'Cancelar';
+    this.setTextoInfoCupo();
+    this.mostrarInfoCupo = true;
   }
   setModoEliminarHotspot(){
     this.btnAddHotspotVisible = false;
@@ -160,7 +183,8 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
     this.cssClassTextoInfo = 'red';
     this.textoInfoOpciones = 'Haga click sobre el enlace que desea eliminar';
     this.mostrarInfoModo = true;
-
+    this.eliminarActivo = true;
+    this.mostrarInfoCupo = false;
   }
   setModoAgregarHotspot(){
     this.btnAddHotspotVisible = false;
@@ -175,12 +199,12 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
     this.cssClassTextoInfo = "blue";
     this.textoInfoOpciones = "Arrastre el enlace color naranjo hasta la posición deseada.";
     this.mostrarInfoModo = true;
+    this.mostrarInfoCupo = false;
 
     //$("#spnTextoAccion").text("Modo agregar enlace activado").removeClass("red").addClass("blue");
     //$("#spnInfo").text("Arrastre el enlace color naranjo hasta la posición deseada.");
     //$("#rowInfoAccion").css("display", "");
   }
-
 
   mostrarBoton(boton: ElementRef, mostrar: boolean){
     boton!.nativeElement.style.display = mostrar ? '' : 'none';
@@ -224,21 +248,14 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
   }
   btnAceptarClick(){
     if (this.agregarActivo === true) {
-
-      // var currentScene = $("#aux_imageEdit").val();
-      // $("#opt_" + currentScene).hide();
-
-      //$("#ddlScenes").val("-1");
-      //TODO:  setModalAgregarHotspot();
-
       const ath = this.krpano.get("hotspot['" + this.hotspotTempAdd?.id + "'].ath");
       const atv = this.krpano.get("hotspot['" + this.hotspotTempAdd?.id + "'].atv");
-
       this.modalAgregarHotspot.mostrarModal(this.codPropiedad, this.codImagen, ath, atv);
     }
-
   }
   
+  //#region KrPano 
+
   InicializarKrObjects() {
       if (this.imagen360 !== null) {
 
@@ -297,6 +314,11 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
     xmlContent += '); ';
     xmlContent += '</action>';
 
+    xmlContent += '<action name="onHotspotClickCustom">';
+    xmlContent += 'js(VisorHotspotEdit.OnHotspotClick(get(name)));'; 
+    
+    xmlContent += '</action>';
+
     if (this.imagen360 !== null && this.imagen360 !== undefined) {
       xmlContent += this.generateXmlScene();
     }
@@ -332,14 +354,10 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
 
         if (this.imagen360!.hotspots[i].sceneTo != '') {
           const tituloSceneTo = this.obtenerTituloFoto(this.imagen360!.hotspots[i].sceneTo);
-          console.log('titulo Scene: ', tituloSceneTo);
           sceneContent += 'tooltip="' + tituloSceneTo + '" ';
-          //sceneContent += 'onclick="goto(S' + this.imagen360!.hotspots[i].sceneTo + ');"> '
         } else {
           sceneContent += 'tooltip="(sin imagen)" ';
         }
-
-        //console.log("scene.Hotspots[i].SceneTo: " + scene.Hotspots[i].SceneTo);
         sceneContent += 'url="assets/krpano/plugins/hs_circle.png" ';
         sceneContent += 'ath="' + this.imagen360!.hotspots[i].ath + '" atv="' + this.imagen360!.hotspots[i].atv + '" ';
         sceneContent += 'onclick="onHotspotClickCustom">';
@@ -348,9 +366,19 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
       }
     }
     sceneContent += '</scene>';
-    //console.log("generateXmlScene: " + sceneContent);
     return sceneContent;
   }
+
+//#endregion
+
+  onHotspotClickCustomJS(codHotspot: string) {
+    if (this.eliminarActivo == true) {
+      const tituloSceneTo = this.obtenerTituloFotoFromHotspot(codHotspot);
+      this.modalBorrarHotstpot.mostrarModal(codHotspot, this.codImagen, tituloSceneTo);
+    }
+  }
+
+  //#region Imagenes 360, Thumbnail y preview (para URL sin token)
 
   prepareImageThumbnail() {
     return this.imagenes360Service.obtenerThumbnail(this.imagen360!.id).pipe(
@@ -389,6 +417,8 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
   prepararImagenes(){
     return forkJoin([this.prepareImage360(), this.prepareImageThumbnail(), this.preparePreview()])
   }
+
+  //#endregion
 
 
   addHotspotTemporal() {
@@ -440,12 +470,8 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
 
 
   cambiarOtraFoto(codFotoCambiar: string){
-
-    //console.log('Padre cambiarOtraFoto', codFotoCambiar);
-   
     this.codImagen = codFotoCambiar;
     this.cargando = true;
-    //this.router.navigate(['propiedades/editar-detalle-foto'],  { queryParams: { foto: this.codImagen, propiedad: this.codPropiedad} })
 
     if(this.codPropiedad !== undefined && this.codPropiedad !== '' && this.codImagen !== undefined && this.codImagen !== ''){
 
@@ -453,21 +479,15 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
         document.getElementById('pano')!.innerHTML = '';
       }
       this.mostrarOverlay = true;
-
-
      this.obtenerImagenes360();
      this.obtenerInfoFoto360();
     }else{
       this.mostrarDetalle = false;
       this.mensajeCarga = "El enlace para editar las fotos no es válido.";
     }
-  
-    //this.router.navigate([`propiedades/editar-detalle-foto?foto=${this.codImagen}&propiedad=${this.codPropiedad}`])
-  
-    
-
   }
 
+  //#region Obtiene imagen360, thumbnail y preview, sólo si tiene
 
   /* // FUNCIONA SÓLO SI LAS URLS SON PÚBLICAS
   generarUrlImagen(){
@@ -483,13 +503,33 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
   }
 */
 
+  //#endregion
+
+
   obtenerTituloFoto(codScene: string){
-    const scene = this.imagenes.find(f => f.id === codScene);
+    const scene = this.imagenes.find(f => f.id.trim().toLowerCase() === codScene.trim().toLowerCase());
+
+    // for(let i=0; i<this.imagenes.length; i++){
+    //   console.log('Scene: ', this.imagenes[i].id.trim().toLowerCase(), 'bucado: ', codScene.trim().toLowerCase());
+    // }
 
     if (scene){
+      //console.log('Scene: ', scene);
       return scene.descripcion;
     }
     return "";
+  }
+
+  obtenerTituloFotoFromHotspot(codHotspot: string){
+    
+    let hotspot: Hotspot | undefined = this.imagen360!.hotspots.find(f => f.id.trim().toLowerCase() === codHotspot.substring(1).trim().toLowerCase());
+
+    //console.log("Hostpot entontrado: ",hotspot);
+
+    if (hotspot){
+      return this.obtenerTituloFoto(hotspot.sceneTo);
+    }
+    return '';
   }
 
   onHotspotCreado(nuevoHotspot: Hotspot){
@@ -509,8 +549,50 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
 
     this.hotspotTempAdd = null;
     this.agregarActivo = false;
+
+    this.agregarHotspotIfNotExists(nuevoHotspot);
     this.setOpcionesDefault();
 
     this.alertMensaje.mostrarAlert('Enlace creado exitosamente');
+  }
+
+
+  onHotspotBorrado(hotspotBorrado: Hotspot){
+  
+    this.krpano.call("removehotspot(h" + hotspotBorrado.id + ")");
+    this.removerHotspotIfNotExists(hotspotBorrado);
+    this.eliminarActivo = false;
+
+    this.setOpcionesDefault();
+
+    this.alertMensaje.mostrarAlert('Enlace borrado exitosamente');
+  }
+
+  setTextoInfoCupo() {
+    const hotsCount = this.imagen360!.hotspots.length;
+    this.textoInfoCupo = `Esta imagen tiene ${hotsCount} enlaces.`;
+  }
+
+  agregarHotspotIfNotExists(hotspotAgregar: Hotspot){
+    if(hotspotAgregar.id.toLowerCase().startsWith('h')){
+      hotspotAgregar.id = hotspotAgregar.id.substring(1).trim();
+    }
+
+    const hotspot: Hotspot | undefined = this.imagen360!.hotspots.find(f => f.id.trim().toLowerCase() === hotspotAgregar.id.trim().toLowerCase());
+
+    if (hotspot === null || hotspot === undefined){
+      this.imagen360?.hotspots.push(hotspotAgregar);
+    }
+
+    console.log('Hotspots despues de agregar: ', this.imagen360?.hotspots);
+  }
+
+  removerHotspotIfNotExists(hotspotBorrar: Hotspot){
+    if(hotspotBorrar.id.toLowerCase().startsWith('h')){
+      hotspotBorrar.id = hotspotBorrar.id.substring(1).trim();
+    }
+    this.imagen360!.hotspots = this.imagen360!.hotspots.filter(f => f.id.trim().toLowerCase() !== hotspotBorrar.id.trim().toLowerCase());
+
+    console.log('Hotspots despues de borrar: ', this.imagen360?.hotspots);
   }
 }

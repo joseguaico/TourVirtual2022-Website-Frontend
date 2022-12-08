@@ -40,6 +40,9 @@ export class CambiarFotoModalComponent implements OnInit {
     this.formCambiarFoto.reset();
     this.formCambiarFoto.get('sceneCambiar')?.setValue('-1');
     this.codImagenActual = codImagenActual;
+
+    console.log('CodImagen actual: ', codImagenActual);
+
     $(this.mdlCambiarImagen.nativeElement).modal('show');
   }
 
@@ -56,12 +59,10 @@ export class CambiarFotoModalComponent implements OnInit {
   }
 
   cerrarModalOverlay(){
-    //console.log('cerrarModalOverlay...')
     this.mostrarOverlay = false;
   }
 
   cerrarModalAll(){
-    //console.log('cerrarModalAll...')
     this.cerrarModal();
   }
 
@@ -75,7 +76,6 @@ export class CambiarFotoModalComponent implements OnInit {
     const fotoCambiar = this.formCambiarFoto.get('sceneCambiar')?.value;
 
     if (fotoCambiar != '-1'){
-      //console.log('Cambiar a: ', fotoCambiar);
       this.cambiarOtraFoto.emit({codFotoCambiar: fotoCambiar});
       this.cerrarModalAll();
     }

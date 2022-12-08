@@ -52,7 +52,7 @@ export class AuthJwtExpiryGuard implements CanActivate, CanLoad {
 
       tap((estaAutenticado: boolean) => {
 
-        console.log('GUARD JWT canLoad ', estaAutenticado);
+        //console.log('GUARD JWT canLoad ', estaAutenticado);
 
         if (!estaAutenticado){
           this.router.navigateByUrl('/auth/login');
