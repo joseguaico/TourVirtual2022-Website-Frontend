@@ -88,7 +88,7 @@
     </div>
 
     <!-- Modal agregar hotspot -->  
-    <app-agregar-hotspot-modal [imagenes360]="this.imagenes"></app-agregar-hotspot-modal>
+    <app-agregar-hotspot-modal [imagenes360]="this.imagenes" (onHotspotCreado)="this.onHotspotCreado($event.nuevoHotspot)"></app-agregar-hotspot-modal>
 
     <!-- Modal cambiar foto -->
     <app-cambiar-foto-modal [imagenes360]="this.imagenes" (cambiarOtraFoto)="this.cambiarOtraFoto($event.codFotoCambiar)"></app-cambiar-foto-modal>

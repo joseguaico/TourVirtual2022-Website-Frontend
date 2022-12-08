@@ -118,8 +118,5 @@ export class AgregarFotoModalComponent implements OnInit {
       this.mostrarCerrarOverlay = true;
     });
 
-
-
-
   }
 }

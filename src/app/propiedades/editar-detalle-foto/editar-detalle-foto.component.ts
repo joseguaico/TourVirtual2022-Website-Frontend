@@ -10,6 +10,7 @@ import { Hotspot } from 'src/app/interfaces/hotspot.interface';
 import { AgregarHotspotModalComponent } from '../components/agregar-hotspot-modal/agregar-hotspot-modal.component';
 import { Imagen360 } from 'src/app/interfaces/imagen360.interface';
 import { CambiarFotoModalComponent } from '../components/cambiar-foto-modal/cambiar-foto-modal.component';
+import { AlertMensajeComponent } from 'src/app/shared/components/alert-mensaje/alert-mensaje.component';
 
 declare let krpanoJS: any;
 
@@ -24,6 +25,7 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
 
   @ViewChild(AgregarHotspotModalComponent) modalAgregarHotspot!: AgregarHotspotModalComponent;
   @ViewChild(CambiarFotoModalComponent) modalCambiarFoto!: CambiarFotoModalComponent;
+  @ViewChild(AlertMensajeComponent) alertMensaje!: AlertMensajeComponent;
 
   @ViewChild('pano', { static : true }) pano!:ElementRef; 
 
@@ -139,6 +141,7 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
     this.btnAceptarVisible = false;
     this.btnOtraImagenVisible = true;
     this.textoModo = '';
+    this.textoInfoOpciones = '';
     this.mostrarInfoModo = false;
     this.textoBtnCancelar = 'Cancelar';
   }
@@ -213,10 +216,10 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
       this.krpano.call("removehotspot(" + this.hotspotTempAdd?.id + ")");
       this.hotspotTempAdd = null;
       this.agregarActivo = false;
-  }
-  if (this.eliminarActivo == true) {
+    }
+    if (this.eliminarActivo == true) {
       this.eliminarActivo = false;
-  }
+    }
     this.setOpcionesDefault();
   }
   btnAceptarClick(){
@@ -227,7 +230,11 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
 
       //$("#ddlScenes").val("-1");
       //TODO:  setModalAgregarHotspot();
-      this.modalAgregarHotspot.mostrarModal(this.codPropiedad, this.codImagen);
+
+      const ath = this.krpano.get("hotspot['" + this.hotspotTempAdd?.id + "'].ath");
+      const atv = this.krpano.get("hotspot['" + this.hotspotTempAdd?.id + "'].atv");
+
+      this.modalAgregarHotspot.mostrarModal(this.codPropiedad, this.codImagen, ath, atv);
     }
 
   }
@@ -300,16 +307,12 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
   }
 
   generateXmlScene() {
-    //var sceneContent = '<scene name="S' + this.imagen360!.id + '" title="' + this.imagen360!.descripcion + '" onstart="" thumburl="' + this.generarUrlThumbnail() + '" lat="" lng="" heading="">';
     var sceneContent = '<scene name="S' + this.imagen360!.id + '" title="' + this.imagen360!.descripcion + '" onstart="" thumburl="' + this.imagen360!.thumbnailSrc + '" lat="" lng="" heading="">';
     sceneContent += '<view hlookat="3.51" vlookat="1.00" fovtype="MFOV" fov="140" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />';
-    //sceneContent += '<preview url="' + this.generarUrlPreview() + '" />';
     sceneContent += '<preview url="' + this.imagen360?.previewSrc + '" />';
     sceneContent += '<image>';
-    //sceneContent += '<sphere url="' +  this.generarUrlImagen() + '" />';
     sceneContent += '<sphere url="' +  this.imagen360?.imageSrc + '" />';
     sceneContent += '</image>';
-
     
     sceneContent += '<style name="tooltip" onover="copy(layer[tooltip].html, tooltip); set(layer[tooltip].visible, true); tween(layer[tooltip].alpha, 1.0, 0.5); ';
     sceneContent += 'asyncloop(hovering, copy(layer[tooltip].x,mouse.stagex); copy(layer[tooltip].y,mouse.stagey); );" ';
@@ -322,26 +325,18 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
     sceneContent += 'textshadow="1" textshadowrange="6.0" textshadowangle="90" textshadowcolor="0x000000" textshadowalpha="1.0" ';
     sceneContent += 'css="text-align:center; color:#FFFFFF; font-family:Arial; font-weight:bold; font-size:14px;" html="" /> ';
 
-    //console.log(sceneContent);
-
-    // console.log("scene.UrlPreview: " + scene.UrlPreview);
-
     if (this.imagen360!.hotspots != null && this.imagen360!.hotspots.length > 0) {
       for (var i = 0; i < this.imagen360!.hotspots.length; i++) {
-        sceneContent += '<hotspot name="' + this.imagen360!.hotspots[i].id + '" ';
+        sceneContent += '<hotspot name="H' + this.imagen360!.hotspots[i].id + '" ';
         sceneContent += 'style="tooltip" ';
-        
-
-        // sceneContent += 'url="assets/krpano/plugins/hs_circle.png" ';
-        // sceneContent += 'ath="' + this.imagen360!.hotspots[i].ath + '" atv="' + this.imagen360!.hotspots[i].atv + '" ';
-        // sceneContent += 'style="skin_tooltips" ';
 
         if (this.imagen360!.hotspots[i].sceneTo != '') {
-          //sceneContent += 'tooltip="get:scene[S' + this.imagen360!.hotspots[i].sceneTo + '].title" ';
+          const tituloSceneTo = this.obtenerTituloFoto(this.imagen360!.hotspots[i].sceneTo);
+          console.log('titulo Scene: ', tituloSceneTo);
+          sceneContent += 'tooltip="' + tituloSceneTo + '" ';
           //sceneContent += 'onclick="goto(S' + this.imagen360!.hotspots[i].sceneTo + ');"> '
-          sceneContent += ' tooltip="' + (this.imagen360!.hotspots[i].sceneTo) + '" ';
         } else {
-          sceneContent += 'tooltip="(sin imagen)" >';
+          sceneContent += 'tooltip="(sin imagen)" ';
         }
 
         //console.log("scene.Hotspots[i].SceneTo: " + scene.Hotspots[i].SceneTo);
@@ -488,4 +483,34 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
   }
 */
 
+  obtenerTituloFoto(codScene: string){
+    const scene = this.imagenes.find(f => f.id === codScene);
+
+    if (scene){
+      return scene.descripcion;
+    }
+    return "";
+  }
+
+  onHotspotCreado(nuevoHotspot: Hotspot){
+  
+    this.krpano.call("removehotspot(" + this.hotspotTempAdd?.id + ")");
+      
+    // Agregar nuevo hotspot
+    this.krpano.call("addhotspot(H" + nuevoHotspot.id + ")");
+    this.krpano.set("hotspot[H" + nuevoHotspot.id + "].url", "assets/krpano/plugins/hs_circle.png");
+    this.krpano.set("hotspot[H" + nuevoHotspot.id+ "].ath", nuevoHotspot.ath);
+    this.krpano.set("hotspot[H" + nuevoHotspot.id + "].style", "tooltip");
+    this.krpano.call("hotspot[H" +nuevoHotspot.id + "].loadStyle('tooltip')");
+    this.krpano.set("hotspot[H" + nuevoHotspot.id + "].distorted", false);
+    this.krpano.set("hotspot[H" + nuevoHotspot.id + "].atv", nuevoHotspot.atv);
+    this.krpano.set("hotspot[H" + nuevoHotspot.id+ "].tooltip", "'" + this.obtenerTituloFoto(nuevoHotspot.sceneTo) + "'");
+    this.krpano.set("hotspot[H" + nuevoHotspot.id + "].onclick", "onHotspotClickCustom");
+
+    this.hotspotTempAdd = null;
+    this.agregarActivo = false;
+    this.setOpcionesDefault();
+
+    this.alertMensaje.mostrarAlert('Enlace creado exitosamente');
+  }
 }
