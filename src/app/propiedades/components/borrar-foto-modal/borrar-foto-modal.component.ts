@@ -10,7 +10,7 @@ declare let $ : any;
 })
 export class BorrarFotoModalComponent implements OnInit {
 
-  @Output('recargarFotos') recargarFotosEmitter: EventEmitter<any> = new EventEmitter();
+  @Output('onPostBorrarFoto') onPostBorrarFoto: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('mdlBorrarFoto') mdlBorrarFoto!: ElementRef;
 

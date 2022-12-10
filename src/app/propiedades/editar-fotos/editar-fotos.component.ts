@@ -40,7 +40,7 @@ export class EditarFotosComponent implements OnInit {
   constructor(private propiedadesService: PropiedadesService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private imagenes360: Imagenes360Service,
+    private imagenes360Service: Imagenes360Service,
     private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
@@ -86,9 +86,7 @@ export class EditarFotosComponent implements OnInit {
   }
 
   obtenerImagenes360(){
-    this.imagenes360.obtenerImagenesPorPropiedad(this.codPropiedad).subscribe((resp: any) => {
-     
-     // console.log('RESP: ', resp);
+    this.imagenes360Service.obtenerImagenesPorPropiedad(this.codPropiedad).subscribe((resp: any) => {
 
       if(!resp.tieneError){
         this.mostrarDetalle = true;
@@ -114,7 +112,7 @@ export class EditarFotosComponent implements OnInit {
   }
 
   obtenerThumbnail(idxImagen: string){
-    this.imagenes360.obtenerThumbnail(idxImagen).subscribe((blob: any) => {
+    this.imagenes360Service.obtenerThumbnail(idxImagen).subscribe((blob: any) => {
     //console.log("CONTENIDO",  blob);
     }, (err: any) => {
       console.warn(err);
@@ -139,7 +137,7 @@ export class EditarFotosComponent implements OnInit {
   prepareImages(posts: Imagen360[]) {
     forkJoin(
       posts.map(post =>
-         this.imagenes360.obtenerThumbnail(post.id).pipe(
+         this.imagenes360Service.obtenerThumbnail(post.id).pipe(
           mergeMap(async (response: Blob) => {
             post.imageSrc = await this.CreateImageFromBlob(response);
             return post;
@@ -150,8 +148,23 @@ export class EditarFotosComponent implements OnInit {
     });
   }
 
+  prepareImagenPostUpdate(imagenEditar: Imagen360) {
+    //forkJoin(
+         this.imagenes360Service.obtenerThumbnail(imagenEditar.id).pipe(
+          mergeMap(async (response: Blob) => {
+            imagenEditar.imageSrc = await this.CreateImageFromBlob(response);
+            return imagenEditar
+          }
+        )
+     // )
+    ).subscribe((img: Imagen360) => {
+      imagenEditar = img;
+    });
+  }
+
+
+
   onClickVerDetalle(codXPropiedad: string){
-    //console.log(codXPropiedad);
     this.modalInfo.realizarBusqueda(codXPropiedad);
   }
 
@@ -161,27 +174,51 @@ export class EditarFotosComponent implements OnInit {
   }
 
   onClickEditarFoto(codXFoto: string, titulo: string){
-    //console.log(codXPropiedad);
     this.modalEditarFoto.mostrarModal(codXFoto, titulo, this.codPropiedad);
   }
 
   onClickBorrarFoto(codXFoto: string, titulo: string){
-    //console.log(codXPropiedad);
     this.modalBorrarFoto.mostrarModal(codXFoto, titulo, this.codPropiedad);
   }
 
   onclickDetalleFoto(codxFoto: string, titulo: string){
-
     this.router.navigate(['propiedades/editar-detalle-foto'],  { queryParams: { foto: codxFoto, propiedad: this.codPropiedad} })
-
   }
 
-  recargarFotos(mensaje: string){
-
+  onPostCrearFoto(mensaje: string){
     this.alertMensaje.mostrarAlert(mensaje);
-   
     this.obtenerImagenes360();
   }
 
+  onPostEditarFoto(mensaje: string, idFoto:string, titulo:string, edicionArchivoFoto: boolean){
+    this.alertMensaje.mostrarAlert(mensaje);
+    this.actualizarImagenEnArray(idFoto, titulo, edicionArchivoFoto);
+    //this.obtenerImagenes360();
+    
+  }
+
+  onPostBorrarFoto(mensaje: string, idFoto:string){
+    this.alertMensaje.mostrarAlert(mensaje);
+    this.removerImagenEnArray(idFoto);
+    //this.obtenerImagenes360();
+  }
+
+
+  actualizarImagenEnArray(codImg: string, tituloNuevo: string, descargarArchivo: boolean){
+    for(let i=0; i<this.imagenes.length; i++){
+      if(this.imagenes[i].id === codImg){
+        this.imagenes[i].descripcion = tituloNuevo;
+
+        if (descargarArchivo){
+          this.prepareImagenPostUpdate(this.imagenes[i]);
+        }
+        break;
+      }
+    }
+  }
+
+  removerImagenEnArray(codImg: string){
+    this.imagenes = this.imagenes.filter(f => f.id.trim().toLowerCase() !== codImg.trim().toLowerCase());
+  }
 
 }

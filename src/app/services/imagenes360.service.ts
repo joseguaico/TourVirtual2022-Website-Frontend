@@ -53,13 +53,11 @@ export class Imagenes360Service {
     formData.append('codPropiedad', codxPropiedad);
     formData.append('titulo', titulo.trim());
     formData.append('imagen360', foto360);
-
-    console.log(formData);
-
+   
     return this.http.post<GeneralResponse>(`${baseUrl}/FotosPropiedades/bkt/GuardarFoto360`, formData)
     .pipe(
 
-      tap((data: any) => console.log('TAP: ', data)),
+      //tap((data: any) => console.log('TAP: ', data)),
 
       catchError(err => {
       
@@ -86,6 +84,55 @@ export class Imagenes360Service {
     );
 
   }
+
+  editarImagen360AndFoto(codxImagen360: string, codxPropiedad: string, titulo: string, editarFoto: boolean | null, foto360: File | null) : Observable<GeneralResponse>{
+
+    var formData = new FormData();
+    formData.append('codImagen', codxImagen360);
+    formData.append('codPropiedad', codxPropiedad);
+    formData.append('titulo', titulo.trim());
+
+    if (editarFoto === null || editarFoto === false)
+    {
+      formData.append('EditarArchivoImagen', "false");
+      //formData.append('imagen360', foto360);
+    }else{
+      formData.append('EditarArchivoImagen', "true");
+      formData.append('imagen360', foto360!);
+    }
+    
+
+    return this.http.put<GeneralResponse>(`${baseUrl}/FotosPropiedades/bkt/EditarFoto360`, formData)
+    .pipe(
+
+      //tap((data: any) => console.log('TAP: ', data)),
+
+      catchError(err => {
+      
+        // Si tiene errores de validación de la API 
+        const erroresValidacionApi = err.error?.errors;
+        
+        if (erroresValidacionApi !== null && erroresValidacionApi !== undefined){
+          return of(new GeneralResponse(true, erroresApiArrayToString(erroresValidacionApi), {}));
+        }
+
+        // Si tiene un error desde las respuesta de API
+        if (err.error?.message !== null &&  err.error?.message !== undefined){
+          return of(new GeneralResponse(true,  err.error.message, {}));
+        }
+
+        // Si se produce otro error
+        if (err.message !== null && err.message !== undefined){
+          return of(new GeneralResponse(true, err.message, {}));
+        }
+
+        return of(err)
+      })
+
+    );
+
+  }
+
 
   obtenerThumbnail(codx: string){
     return this.http.get(`${baseUrl}/FotosPropiedades/bkt/GetThumbnail/${codx}`, { responseType: 'blob' });

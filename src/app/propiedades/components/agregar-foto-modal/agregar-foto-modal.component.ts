@@ -17,7 +17,7 @@ export class AgregarFotoModalComponent implements OnInit {
     foto: [null, [Validators.required] ],
   });
 
-  @Output('recargarFotos') recargarFotosEmitter: EventEmitter<any> = new EventEmitter();
+  @Output('onPostCrearFoto') onPostCrearFoto: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('mdlAgregarFoto') mdlAgregarFoto!: ElementRef;
   cargando = false;
@@ -104,7 +104,7 @@ export class AgregarFotoModalComponent implements OnInit {
           //this.textoPosteriorCambio = resp.message;
           //this.mostrarCerrarAll = true;
 
-          this.recargarFotosEmitter.emit({mensaje: 'Foto 360 guardada exitosamente'});
+          this.onPostCrearFoto.emit({mensaje: 'Foto 360 guardada exitosamente'});
           this.cerrarModalAll();
 
         }

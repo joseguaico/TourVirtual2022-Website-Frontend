@@ -1,5 +1,7 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Imagen360 } from 'src/app/interfaces/imagen360.interface';
+import { GeneralResponse } from 'src/app/models/generalResponse.class';
 import { Imagenes360Service } from 'src/app/services/imagenes360.service';
 
 declare let $ : any;
@@ -17,7 +19,7 @@ export class EditarFotoModalComponent implements OnInit {
     foto: [null, [] ],
   });
 
-  @Output('recargarFotos') recargarFotosEmitter: EventEmitter<any> = new EventEmitter();
+  @Output('onPostEditarFoto') onPostEditarFoto: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('mdlEditarFoto') mdlEditarFoto!: ElementRef;
   cargando = false;
@@ -88,11 +90,53 @@ export class EditarFotoModalComponent implements OnInit {
     if (this.formEditarFoto.invalid){
       return this.formEditarFoto.markAllAsTouched();    
     }    
-    console.log('guardarEdicionFoto', this.formEditarFoto.valid, this.formEditarFoto.value);
+
+    const {titulo} = this.formEditarFoto.value;
+    const editarFoto: boolean = this.formEditarFoto.get('checkEditarFoto') !== null ? this.formEditarFoto.get('checkEditarFoto')!.value : false;
+    const foto360: File | null = this.formEditarFoto.get('foto')?.value !== null ? (document.getElementById('flFoto360Editar') as HTMLInputElement).files![0] : null;
+
+    this.mostrarOverlay = true;
+    this.actualizando = true;
+
+    this.mostrarCerrarAll = false;
+    this.mostrarCerrarOverlay = false;
+    this.textoPosteriorCambio = '';
+
+    this.imagenes360.editarImagen360AndFoto(this.codFoto360, this.codPropiedad, titulo, editarFoto, foto360).subscribe((resp: GeneralResponse) => 
+    {
+      this.actualizando = false;
+
+     // console.log(resp);
+
+        if(resp.tieneError == true){
+          this.textoPosteriorCambio = resp.message;
+          this.mostrarCerrarOverlay = true;
+        }else{
+          //this.textoPosteriorCambio = resp.message;
+          //this.mostrarCerrarAll = true;
+
+          const fotoEditada = resp.datos as Imagen360;
+
+
+          this.onPostEditarFoto.emit({mensaje: 'Foto 360 editada exitosamente', 
+            idFoto: this.codFoto360,
+            titulo: fotoEditada.descripcion,
+            edicionArchivoFoto: editarFoto});
+          this.cerrarModalAll();
+
+        }
+        this.mostrarInfoOverlay = true;
+    },
+    (err: any) => {
+      const {message, error} = err.error;
+      this.actualizando = false;
+      this.textoPosteriorCambio = message;
+      this.mostrarInfoOverlay = true;
+      this.mostrarCerrarOverlay = true;
+    });
   }
 
   agregarValidacionFile(agregar: boolean){
-   // console.log('agregarValidacionFile: ', agregar);
     if(agregar){
       this.formEditarFoto.get('foto')?.clearValidators();
       this.formEditarFoto.get('foto')?.setValidators(Validators.required);

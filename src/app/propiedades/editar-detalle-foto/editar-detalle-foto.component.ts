@@ -584,7 +584,7 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
       this.imagen360?.hotspots.push(hotspotAgregar);
     }
 
-    console.log('Hotspots despues de agregar: ', this.imagen360?.hotspots);
+    //console.log('Hotspots despues de agregar: ', this.imagen360?.hotspots);
   }
 
   removerHotspotIfNotExists(hotspotBorrar: Hotspot){
@@ -593,6 +593,6 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
     }
     this.imagen360!.hotspots = this.imagen360!.hotspots.filter(f => f.id.trim().toLowerCase() !== hotspotBorrar.id.trim().toLowerCase());
 
-    console.log('Hotspots despues de borrar: ', this.imagen360?.hotspots);
+    //console.log('Hotspots despues de borrar: ', this.imagen360?.hotspots);
   }
 }

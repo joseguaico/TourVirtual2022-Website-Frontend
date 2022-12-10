@@ -91,12 +91,12 @@
     <app-info-propiedad-modal class="zindex-a"></app-info-propiedad-modal>
 
     <!-- Modal agregar foto -->
-    <app-agregar-foto-modal (recargarFotos)="this.recargarFotos($event.mensaje)"></app-agregar-foto-modal>
+    <app-agregar-foto-modal (onPostCrearFoto)="this.onPostCrearFoto($event.mensaje)"></app-agregar-foto-modal>
 
     <!-- Modal editar foto -->
-    <app-editar-foto-modal (recargarFotos)="this.recargarFotos($event.mensaje)"></app-editar-foto-modal>
+    <app-editar-foto-modal (onPostEditarFoto)="this.onPostEditarFoto($event.mensaje, $event.idFoto, $event.titulo, $event.edicionArchivoFoto)"></app-editar-foto-modal>
 
     <!-- Modal borrar foto -->
-    <app-borrar-foto-modal (recargarFotos)="this.recargarFotos($event.mensaje)"></app-borrar-foto-modal>
+    <app-borrar-foto-modal (onPostBorrarFoto)="this.onPostBorrarFoto($event.mensaje, $event.idFoto)"></app-borrar-foto-modal>
 
 </div>
