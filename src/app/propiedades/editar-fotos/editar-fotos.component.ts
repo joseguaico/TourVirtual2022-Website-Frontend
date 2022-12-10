@@ -51,7 +51,7 @@ export class EditarFotosComponent implements OnInit {
 
       if(this.codPropiedad !== undefined && this.codPropiedad !== ''){
         this.cargando = true;
-        this.obtenerInfoPropiedad();
+        this.obtenerInfoPropiedad(true);
       }else{
         this.mostrarDetalle = false;
         this.mensajeCarga = "El enlace para editar las fotos no es válido.";
@@ -60,7 +60,7 @@ export class EditarFotosComponent implements OnInit {
     });
   }
 
-  obtenerInfoPropiedad(){
+  obtenerInfoPropiedad(descargarFotos: boolean){
 
     this.propiedadesService.obtenerPropiedadTitulo(this.codPropiedad.trim()).subscribe((resp: GeneralResponse) => {
      
@@ -72,11 +72,12 @@ export class EditarFotosComponent implements OnInit {
 
         this.propiedad = resp.datos as PropiedadTitulo;
         
-        this.obtenerImagenes360();
+        if(descargarFotos){
+          this.obtenerImagenes360();
+        }
       }else{
         this.mostrarDetalle = false;
         this.mensajeCarga = resp.message;
-        
       }
 
     }, (err) => {
@@ -187,12 +188,13 @@ export class EditarFotosComponent implements OnInit {
 
   onPostCrearFoto(mensaje: string){
     this.alertMensaje.mostrarAlert(mensaje);
-    this.obtenerImagenes360();
+    this.obtenerInfoPropiedad(true);
   }
 
   onPostEditarFoto(mensaje: string, idFoto:string, titulo:string, edicionArchivoFoto: boolean){
     this.alertMensaje.mostrarAlert(mensaje);
     this.actualizarImagenEnArray(idFoto, titulo, edicionArchivoFoto);
+  
     //this.obtenerImagenes360();
     
   }
@@ -200,6 +202,8 @@ export class EditarFotosComponent implements OnInit {
   onPostBorrarFoto(mensaje: string, idFoto:string){
     this.alertMensaje.mostrarAlert(mensaje);
     this.removerImagenEnArray(idFoto);
+    //this.cargando = true;
+    this.obtenerInfoPropiedad(false);
     //this.obtenerImagenes360();
   }
 

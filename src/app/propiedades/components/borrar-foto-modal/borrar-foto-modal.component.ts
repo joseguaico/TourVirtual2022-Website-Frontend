@@ -1,4 +1,6 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Imagen360 } from 'src/app/interfaces/imagen360.interface';
+import { GeneralResponse } from 'src/app/models/generalResponse.class';
 import { Imagenes360Service } from 'src/app/services/imagenes360.service';
 
 declare let $ : any;
@@ -14,7 +16,6 @@ export class BorrarFotoModalComponent implements OnInit {
 
   @ViewChild('mdlBorrarFoto') mdlBorrarFoto!: ElementRef;
 
-
   textoConfirmarEliminacion = '¿Está seguro que desea eliminar la foto ".., " y toda su información relacionada?';
   cargando = false;
   textoTitulo = 'Eliminar foto ';
@@ -27,7 +28,7 @@ export class BorrarFotoModalComponent implements OnInit {
   codFoto360: string = '';
   mostrarInfoOverlay = false;
 
-  constructor(private imagenes360: Imagenes360Service) { }
+  constructor(private imagenes360Service: Imagenes360Service) { }
 
   ngOnInit(): void {
   }
@@ -61,6 +62,39 @@ export class BorrarFotoModalComponent implements OnInit {
   }
 
   guardarEliminacionFoto(){
+    this.mostrarOverlay = true;
+    this.actualizando = true;
+
+    this.mostrarCerrarAll = false;
+    this.mostrarCerrarOverlay = false;
+    this.textoPosteriorCambio = '';
+
+    this.imagenes360Service.eliminarImagen360(this.codPropiedad, this.codFoto360).subscribe((resp: GeneralResponse) => 
+    {
+      this.actualizando = false;
+
+     // console.log(resp);
+
+        if(resp.tieneError == true){
+          this.textoPosteriorCambio = resp.message;
+          this.mostrarCerrarOverlay = true;
+        }else{
+          this.textoPosteriorCambio = resp.message;
+          //this.mostrarCerrarAll = true;
+
+          const imagenBorrada: Imagen360 = resp.datos as Imagen360;
+          this.onPostBorrarFoto.emit({mensaje: this.textoPosteriorCambio, idFoto: imagenBorrada.id});
+          this.cerrarModalAll();
+        }
+        this.mostrarInfoOverlay = true;
+    },
+    (err: any) => {
+      const {message, error} = err.error;
+      this.actualizando = false;
+      this.textoPosteriorCambio = message;
+      this.mostrarInfoOverlay = true;
+      this.mostrarCerrarOverlay = true;
+    });
 
   }
   cerrarModalOverlay(){

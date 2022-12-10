@@ -35,7 +35,6 @@ export class BorrarHotspotModalComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
   
   mostrarModal(codHotspot: string, codImagen: string, tituloSceneTo: string){
     this.reiniciarOverlay();

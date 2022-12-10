@@ -65,7 +65,7 @@ export class HotspotsService {
     return this.http.delete<GeneralResponse>(`${baseUrl}/Hotspots/BorrarHotspot`, options )
     .pipe(
 
-      tap((datos: any) => console.log('TAP: ', datos)),
+      //tap((datos: any) => console.log('TAP: ', datos)),
 
       catchError(err => {
       

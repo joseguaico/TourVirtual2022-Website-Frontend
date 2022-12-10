@@ -2,7 +2,7 @@
     class="modal fade in"    
     aria-labelledby="mdlItemizadoTitle" 
     data-backdrop="false"
-    style="background-color: rgba(0, 0, 0, 0.5);">
+    style="background-color: rgba(0, 0, 0, 0.5); z-index: 5000;">
        
     <div class="modal-dialog modal-dialog-centered modal-lg mx-auto" role="document">
         <div class="modal-content d-flex justify-content-center">
@@ -19,32 +19,37 @@
                 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-sm-custom btn-light" (click)="this.cerrarModal()" >Cancelar</button>
-                <button id="btnGuardarFoto" class="btn btn-sm btn-sm-custom btn-warning" (click)="this.guardarEliminacionFoto()">Eliminar</button>
-            </div>
-
-            <div class="modalOverlayCustom cBaseCuadranteBloqueo" *ngIf="this.mostrarOverlay">
-                <div class="modalOverlayLoadingCustom" *ngIf="this.actualizando">
-                    <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline; height:16px; margin-right:2px;" />
-                    <p style="display: inline;">Actualizando...</p>
-                </div>
-                <div class="modalOverlayInfoCustom" *ngIf="this.mostrarInfoOverlay">
-                    <button type="button" class="close modalOverlayCerrarCustom modalOverlayBtnCerrar"
-                        *ngIf="this.mostrarCerrarOverlay"
-                        (click)="this.cerrarModalOverlay()">
-                        <span aria-hidden="true" class="modalOverlayBtnX">&times;</span>
-                    </button>
-                    <button type="button" class="close modalOverlayCerrarCustom modalOverlayBtnCerrar"
-                        *ngIf="this.mostrarCerrarAll"
-                        (click)="this.cerrarModalAll()">
-                        <span aria-hidden="true" class="modalOverlayBtnX">&times;</span>
-                    </button>
-                    <p style="display: inline;">{{this.textoPosteriorCambio}}</p>
-        
-                </div>
+                <button type="button" 
+                    class="btn btn-sm btn-sm-custom btn-light" 
+                    (click)="this.cerrarModal()">Cancelar</button>
+                <button id="btnGuardarFoto" 
+                    class="btn btn-sm btn-sm-custom btn-warning" 
+                    (click)="this.guardarEliminacionFoto()">Eliminar</button>
             </div>
             
         </div>
     </div>
+
+    <div class="modalOverlayCustom cBaseCuadranteBloqueo" *ngIf="this.mostrarOverlay">
+        <div class="modalOverlayLoadingCustom" *ngIf="this.actualizando">
+            <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline; height:16px; margin-right:2px;" />
+            <p style="display: inline;">Actualizando...</p>
+        </div>
+        <div class="modalOverlayInfoCustom" *ngIf="this.mostrarInfoOverlay">
+            <button type="button" class="close modalOverlayCerrarCustom modalOverlayBtnCerrar"
+                *ngIf="this.mostrarCerrarOverlay"
+                (click)="this.cerrarModalOverlay()">
+                <span aria-hidden="true" class="modalOverlayBtnX">&times;</span>
+            </button>
+            <button type="button" class="close modalOverlayCerrarCustom modalOverlayBtnCerrar"
+                *ngIf="this.mostrarCerrarAll"
+                (click)="this.cerrarModalAll()">
+                <span aria-hidden="true" class="modalOverlayBtnX">&times;</span>
+            </button>
+            <p style="display: inline;">{{this.textoPosteriorCambio}}</p>
+
+        </div>
+    </div>
+
 
 </div>

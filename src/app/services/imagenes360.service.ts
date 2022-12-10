@@ -133,6 +133,45 @@ export class Imagenes360Service {
 
   }
 
+  eliminarImagen360(codxPropiedad: string, codxImagen360: string,) : Observable<GeneralResponse>{
+    const options = {
+      body: {
+        propiedad: codxPropiedad,
+        imagen360: codxImagen360
+      },
+    };
+    
+    return this.http.delete<GeneralResponse>(`${baseUrl}/FotosPropiedades/bkt/BorrarFoto360`, options )
+    .pipe(
+
+     // tap((datos: any) => console.log('TAP: ', datos)),
+
+      catchError(err => {
+      
+        // Si tiene errores de validación de la API 
+        const erroresValidacionApi = err.error?.errors;
+        
+        if (erroresValidacionApi !== null && erroresValidacionApi !== undefined){
+          return of(new GeneralResponse(true, erroresApiArrayToString(erroresValidacionApi), {}));
+        }
+
+        // Si tiene un error desde las respuesta de API
+        if (err.error?.message !== null &&  err.error?.message !== undefined){
+          return of(new GeneralResponse(true,  err.error.message, {}));
+        }
+
+        // Si se produce otro error
+        if (err.message !== null && err.message !== undefined){
+          return of(new GeneralResponse(true, err.message, {}));
+        }
+
+        return of(err)
+      })
+
+    );
+
+  }
+
 
   obtenerThumbnail(codx: string){
     return this.http.get(`${baseUrl}/FotosPropiedades/bkt/GetThumbnail/${codx}`, { responseType: 'blob' });
