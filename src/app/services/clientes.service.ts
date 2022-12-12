@@ -27,7 +27,7 @@ export class ClientesService {
       return this.http.get<DescargaClientesWithCount>(`${baseUrl}/Clientes/GetWithCountAllPaged`, { params });
   }
 
-  obtenerClientes() {
+  obtenerClientesAll() {
     return this.http.get<Cliente>(`${baseUrl}/Clientes/GetWithCountAllPaged`);
   }
 

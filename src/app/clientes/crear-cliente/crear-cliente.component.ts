@@ -41,7 +41,7 @@ export class CrearClienteComponent {
       return this.formCrear.markAllAsTouched();
     }    
 
-    console.log(this.formCrear.value);
+    //console.log(this.formCrear.value);
 
     const {nombre, email, nombreContacto, telefonosContacto, direccion} = this.formCrear.value;
 

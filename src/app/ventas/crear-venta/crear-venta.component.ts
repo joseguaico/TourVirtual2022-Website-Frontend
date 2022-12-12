@@ -44,7 +44,7 @@ export class CrearVentaComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.clientesService.obtenerClientes().subscribe(({datos}: any) => {
+    this.clientesService.obtenerClientesAll().subscribe(({datos}: any) => {
       this.clientes = datos;
     });
 
@@ -68,7 +68,7 @@ export class CrearVentaComponent implements OnInit {
 
     this.ventasService.crearVenta(cliente, cantidadPropiedades, cantidadFotos, tipoServicio, montoVenta, comprobante)
     .subscribe((resp: GeneralResponse) => {
-      console.log('RESP: ', resp);
+      //console.log('RESP: ', resp);
     
       this.mostrarLoading = false;
 

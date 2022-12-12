@@ -1,0 +1,87 @@
+<div #mdlInfoUsuarioView 
+    class="modal fade in" 
+    aria-labelledby="mdlItemizadoTitle"
+    data-backdrop="false"
+    style="background-color: rgba(0, 0, 0, 0.5);">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg mx-auto" role="document">
+        <div class="modal-content d-flex justify-content-center">
+           
+            <div class="modal-header">
+                <h5 id="mdlInfoPropiedadTitleView" class="modal-title">{{this.textoTitulo}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="this.cerrarModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div style="text-align: center; padding: 2px;" *ngIf="this.cargando">
+                Obteniendo información de la usuario...
+            </div>
+            <div style="text-align: center; padding: 2px;" *ngIf="this.mostrarMensaje">
+                {{this.mensaje}}
+            </div>
+
+            <div id="divContenidoInfoCliente" class="d-flex justify-content-center" *ngIf="this.mostrarDetalles"
+                style="padding-top: 5px; padding-left:5px; width: 95% !important;">
+
+                <table class="d-flex w-100">
+                    <tbody style="width: 100% !important;">
+                        <tr class="d-flex w-100">
+                            <td class="colLabel">
+                                <label class="col">Nombres</label>
+                            </td>
+                            <td class="col colTexto">
+                                <span>{{this.usuario?.nombres}}</span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex w-100">
+                            <td class="colLabel">
+                                <label class="col labelViewInfo colLab17el">Apellidos</label>
+                            </td>
+                            <td>
+                                <span class="col colTexto">{{this.usuario?.apellidos}}</span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex w-100">
+                            <td class="colLabel" style="white-space: nowrap;">
+                                <label class="col labelViewInfo colLabel">Email</label>
+                            </td>
+                            <td>
+                                <span class="col colTexto">{{this.usuario?.email}}</span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex w-100">
+                            <td class="colLabel" style="white-space: nowrap;">
+                                <label class="col labelViewInfo colLabel">Estado</label>
+                            </td>
+                            <td class="mb-1">
+                                <span class="col colTexto">{{this.usuario?.estado}}</span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex w-100">
+                            <td class="colLabel">
+                                <label class="col labelViewInfo colLabel">Rol</label>
+                            </td>
+                            <td class="mb-1">
+                                <span class="col colTexto">{{this.usuario?.rol?.descripcion}}</span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex w-100" *ngIf="this.mostrarCliente">
+                            <td class="colLabel">
+                                <label class="col labelViewInfo colLabel">Cliente</label>
+                            </td>
+                            <td class="mb-1">
+                                <span id="lblCliente" class="col colTexto">{{this.usuario?.cliente?.nombre}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-sm-custom btn-light" (click)="this.cerrarModal()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>

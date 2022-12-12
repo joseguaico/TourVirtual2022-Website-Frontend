@@ -10,21 +10,30 @@
     <!-- Filtros de búsqueda -->
     <div class="row w-100 mt-0 justify-content-center">
         
-        <form id="formBuscarUsuarios" class="form-inline" method="post" style="width: 100% !important;">
+        <form [formGroup]="this.formBusqueda" class="form-inline" method="post" style="width: 100% !important;">
 
             <div class="d-flex justify-content-center row-container-busqueda" style="width: 100% !important;">
                 <div class="m-0 col-Busqueda">
                     <label class="text-black">Email</label>
-                    <input id="txtEmailBusqueda" asp-for="@Model.EmailBusqueda" type="text" class="form-control form-control-sm  w-100" placeholder="Email">
+                    <input type="text" 
+                        class="form-control form-control-sm w-100"
+                        placeholder="Email"
+                        formControlName="email"
+                        >
                 </div>
                 <div class="m-0 col-Busqueda">
                     <label class="text-black">Nombre completo</label>
-                    <input id="txtNombresBusqueda" asp-for="@Model.NombreBusqueda" type="text" class="form-control form-control-sm  w-100" placeholder="Nombre completo">
+                    <input type="text" 
+                        class="form-control form-control-sm w-100"
+                        placeholder="Nombre completo"
+                        formControlName="nombres">
                 </div>
                 <div class="m-0 col-Busqueda">
                     <label class="text-black">Rol</label>
-                    <select id="ddlRolBusqueda" asp-for="@Model.RolBusqueda" class="form-control form-control-sm form-control-ddl-sm w-100">
-                        <option value="value">Todos</option>
+                    <select class="form-control form-control-sm form-control-ddl-sm w-100"
+                        formControlName="rol">
+                        <option value="">Todos</option>
+                        <option *ngFor="let r of this.roles" [value]="r.codigo">{{r.descripcion}}</option>
                     </select>
                 </div>
                 <div class="m-0 col-Busqueda-buttons">
@@ -44,16 +53,66 @@
     <!-- Grid principal -->
     <div class="row w-100 justify-content-center p-0">
 
-        <div id="rowLoading" class="w-100" style="display:none;">
+        <div id="rowLoading" class="w-100" *ngIf="this.cargando">
             <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline;" />
-            <p id="textInfoEnvio" style="display: inline;">Actualizando...</p>
+            <p id="textInfoEnvio" style="display: inline;" class="ml-2">Actualizando...</p>
         </div>
 
         <div id="gridBusquedaContainer" class="card w-100 ml-0 mt-2 p-0 flex-xl-shrink-1">
 
+            <div *ngFor="let usr of this.usuarios; let i = index;"
+                class="card-body ml-0 border-grey"
+                [class.contenedorRowFlex]="i !== this.usuarios.length -1"
+                [class.contenedorLastRowFlex]="i === this.usuarios.length -1">
 
+                <div  class="d-flex flex-row customFlex-100 pb-0 contenedorRowFlex" style="border-bottom: 0px !important;">
+                    <div class="p-1 celda" style="flex-basis: 25%;">
+                        <p class="celda-Texto text-muted font-weight-bold small ">Email</p>
+                        <div class="p-0 celda-Contenido">
+                            <p class="text-muted small pr-1" style="word-break: break-all !important;">{{usr.email}}</p>
+                        </div>
+                    </div>
+                    <div class="p-1 celda" style="flex-basis: 25%;">
+                        <p class=" celda-Texto text-muted font-weight-bold small">Nombre</p>
+                        <div class="p-0 celda-Contenido text-break">
+                            <p class="text-muted small">{{usr.nombres}} {{usr.apellidos}}</p>
+                        </div>
+                    </div>
+                    <div class="p-1 celda" style="flex-basis: 15%;">
+                        <p class="celda-Texto text-muted font-weight-bold small">Rol</p>
+                        <div class="p-0 celda-Contenido text-break">
+                            <p class="text-muted small">{{usr.rol}}</p>
+                        </div>
+                    </div>
+                    <div class="p-1 celda" style="flex-basis: 15%;">
+                        <p class="celda-Texto text-muted font-weight-bold small">Estado</p>
+                        <div class="p-0 celda-Contenido">
+                            <p class="text-muted small">{{usr.bloqueado ? "Bloqueado" : "Activo"}}</p>
+                        </div>
+                    </div>
+                    <div class="p-1 celda" style="flex-basis: 10%;">
+                        <p class="celda-Texto text-muted font-weight-bold small">Opciones</p>
+                        <div class="p-0 d-flex flex-row celda-Contenido rounded-buttons-icons">
+                            <a title="Ver el detalle de este usuario" (click)="this.onClickVerDetalle(usr.uid)"><i class="fas fa-info fa-sm"></i></a>
+                            <a title="Editar este usuario" (click)="this.onClickEditar(usr.uid)"><i class="fas fa-pencil-alt fa-sm"></i></a>
+                            <a title="Eliminar este usuario" (click)="this.onClickEliminar(usr.uid)"><i class="fas fa-times fa-sm"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex p-1 m-1 justify-content-center" *ngIf="this.textoRespuestaBusqueda.length > 0">
+                {{this.textoRespuestaBusqueda}}
+            </div>
+    
         </div>
+
+        <!-- Modal info cliente -->
+        <app-info-usuario-modal class="zindex-a"></app-info-usuario-modal>
+
     </div>
 
+    
+   
 
 </div>

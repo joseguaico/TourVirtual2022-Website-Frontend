@@ -50,7 +50,7 @@ export class InfoClienteModalComponent implements OnInit {
           this.mensaje = "";
           this.cliente = resp.datos as ClienteWithCount;
           this.mostrarDetalles = true;
-          console.log(resp);
+          //console.log(resp);
         }
 
     },

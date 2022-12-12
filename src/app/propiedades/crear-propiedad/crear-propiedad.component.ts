@@ -54,7 +54,7 @@ export class CrearPropiedadComponent implements OnInit, AfterViewInit {
 
    if (this.mostrarPanelAdmin){
     
-    this.clientesService.obtenerClientes().subscribe(({datos}: any) => {
+    this.clientesService.obtenerClientesAll().subscribe(({datos}: any) => {
       this.clientes = datos;
       this.formCliente.get('cliente')?.setValue("");
     });
