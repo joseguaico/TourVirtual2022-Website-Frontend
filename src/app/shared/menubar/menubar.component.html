@@ -29,8 +29,12 @@
                     <a class="nav-link d-flex" id="profileDropdown">
                         <img src="assets/template/images/avatar.jpg" alt="profile" style="visibility: hidden;" />
                         <div class="d-flex flex-column valign-top">
-                            <span id="spnUsuario" class="nav-profile-name" style="margin-left: 0.8rem !important;">{{this.accountService.usuario!.nombreFull}}</span>
-                            <span class="text-center blue" style="margin-left: 0.8rem !important; font-size: 0.8rem !important;">{{this.accountService.usuario!.rol | titlecase }}</span>
+                            <span id="spnUsuario" class="nav-profile-name" style="margin-left: 0.8rem !important;">
+                                {{this.accountService.usuario!.nombres | titlecase }} {{this.accountService.usuario!.apellidos | titlecase }}
+                            </span>
+                            <span class="text-center blue" style="margin-left: 0.8rem !important; font-size: 0.8rem !important;">
+                                {{this.accountService.usuario!.rol | titlecase }}
+                            </span>
                         </div>
 
                     </a>

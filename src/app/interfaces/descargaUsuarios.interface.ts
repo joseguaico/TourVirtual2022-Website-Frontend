@@ -1,5 +1,5 @@
-import { Usuario } from "../models/usuario.class";
 import { PropiedadTitulo } from "./propiedadTitulo.interface";
+import { Usuario } from "./usuario.interface";
 
 export interface DescargaUsuarios{
     message: string,

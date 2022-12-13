@@ -6,7 +6,7 @@ import { catchError, map, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { LoginForm } from '../interfaces/loginForm.interface';
-import { Usuario } from '../models/usuario.class';
+import { UsuarioAccount } from '../models/usuarioAccount.class';
 import { StorageService } from './storage.service';
 
 const baseUrl: string = environment.baseUrl;
@@ -18,14 +18,13 @@ export class AccountService {
 
   //public usuario: Usuario | undefined;
 
-  private _usuario: Usuario | undefined;
+  private _usuario: UsuarioAccount | undefined;
 
   public get usuario(){
 
     return this.storage.getUsuario()!;
 
   }
-
 
   constructor(private http: HttpClient,
     private router: Router,
@@ -54,8 +53,8 @@ export class AccountService {
 
           if (Object.keys(resp.datos).length !== 0){
 
-            const {uid, email, nombres, apellidos, rol, bloqueado,  menu, empresa } = resp.datos;
-            const usuario = new Usuario(uid, email, nombres, apellidos, bloqueado, rol.toUpperCase(), empresa);
+            const { uid, email, nombres, apellidos, rol, bloqueado,  menu, empresa } = resp.datos;
+            const usuario = new UsuarioAccount(uid, email, nombres, apellidos, bloqueado, rol.toUpperCase(), empresa);
     
             //this.usuario = usuario;
   
@@ -88,7 +87,7 @@ export class AccountService {
        // console.log("RESP Validar token: ", resp);
 
         const {uid, email, nombres, apellidos, rol, bloqueado,  menu, empresa } = resp.datos;
-        const usuario = new Usuario(uid, email, nombres, apellidos, bloqueado, rol.toUpperCase(), empresa);
+        const usuario = new UsuarioAccount(uid, email, nombres, apellidos, bloqueado, rol.toUpperCase(), empresa);
 
         //this.usuario = usuario;
         this.storage.guardarDatos(resp.datos.token, resp.datos.refreshToken, menu, usuario);

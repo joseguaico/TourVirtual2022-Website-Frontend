@@ -1,4 +1,4 @@
-export class Usuario {
+export class UsuarioAccount {
 
     constructor(
         public uid: string,
@@ -12,10 +12,8 @@ export class Usuario {
 
 
     get nombreFull() : string{
-        if(this.nombres!) {
-            return this.nombres! + ' ' + this.apellidos!;
-        }
-        return '';
+        console.log('onGetNombre FULL')
+        return this.nombres + ' ' + this.apellidos!;
     }
    
 }

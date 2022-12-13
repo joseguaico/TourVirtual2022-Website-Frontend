@@ -1,1 +1,198 @@
-<p>editar-usuario works!</p>
+<div class="row justify-content-center w-100">
+
+    <!-- Titulo -->
+    <div class="col-lg-12 d-flex flex-row">
+
+        <div class="col-lg-12 d-flex flex-row" *ngIf="!this.mostrarDetalle">
+            <i class="fas fa-angle-double-right fa-sm blue" style="position: relative; top: 10px; margin-right: 3px;"></i>
+            <p class="mb-md-0 font-weight-bold justify-content-start blue">Editar cliente </p>
+        </div>             
+        
+        <div class="col-lg-12 d-flex flex-row" *ngIf="this.mostrarDetalle">
+            <i class="fas fa-angle-double-right fa-sm blue" style="position: relative; top: 10px; margin-right: 3px;"></i>
+            <p class="mb-md-0 font-weight-bold justify-content-start blue" style="display: ruby !important;">
+                Editar &nbsp;
+                <span class="mb-md-0 font-weight-bold justify-content-start w-100 warning" style="left: -5px; position:relative;">Usuario {{this.usuarioEditar?.email}}</span>
+            </p>
+        </div>
+            
+    </div>
+
+    <div class="w-100 d-flex justify-content-center p-2 flex-column" style="text-align: center;" *ngIf="!this.mostrarDetalle">
+        <div class="w-100 d-flex justify-content-center">
+            <img src="assets/images/exclamation-64.png" alt="" width="64" height="64" />
+        </div>
+        <span>{{this.mensajeCarga}}</span>
+    </div>
+
+ 
+
+    <!-- Formulario contenido principal -->
+    <div class="w-100" *ngIf="this.mostrarDetalle">
+
+        <div id="divDetalle" class="card w-100 mt-2 p-2 flex-xl-shrink-1 justify-content-center flex-column" style="width: 100% !important; margin-bottom: 0 !important; padding-bottom:0px !important;">
+
+            <div class="d-flex justify-content-center" style="width: 100% !important;">
+                <label class="text-black w-100">Detalle usuario</label>
+            </div>
+
+            <div *ngIf="this.cargando" class="w-100 text-center pb-3">
+                <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline; height:16px; margin-right:2px;" />
+                <p style="display: inline;">Obteniedo datos...</p>
+            </div>
+          
+            <form [formGroup]="this.formEditar" (submit)="this.guardar()"  *ngIf="this.mostrarFormularioPrincipal">
+
+                <div class="edicion-container d-flex flex-column justify-content-center pl-3 pr-3 pb-2 pt-1">
+                    <div class="m-0">
+                        <label class="text-black mb-0 mt-1">Nombres</label>
+                        <input type="text"
+                            class="form-control form-control-sm" 
+                            placeholder=""
+                            formControlName="nombres"
+                            [class.input-validation-error]="this.campoNoValido('nombres')">
+                        <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('nombres')">
+                            campo obligatorio
+                        </span>
+                    </div>
+                    <div class="m-0">
+                        <label class="text-black mb-0 mt-1">Apellidos</label>
+                        <input type="text"
+                            class="form-control form-control-sm" 
+                            placeholder=""
+                            formControlName="apellidos"
+                            [class.input-validation-error]="this.campoNoValido('apellidos')">
+                        <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('apellidos')">
+                            campo obligatorio
+                        </span>
+                    </div>
+                    <div class="m-0">
+                        <label class="text-black mb-0 mt-1">Estado</label>
+                        <select class="form-control form-control-sm form-control-ddl-sm w-100"
+                            formControlName="estado"
+                            [class.input-validation-error]="this.campoNoValido('estado')">
+                            <option value="">Seleccione un estado</option>
+                            <option value="activo">Activo</option>
+                            <option value="bloqueado">Bloqueado</option>
+                        </select>
+                        <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('rol')">
+                            campo obligatorio
+                        </span>
+                    </div>
+                    <div class="m-0">
+                        <label class="text-black mb-0 mt-1">Rol</label>
+                        <select class="form-control form-control-sm form-control-ddl-sm w-100"
+                            formControlName="rol"
+                            [class.input-validation-error]="this.campoNoValido('rol')"
+                            (change)="this.onRolChanged()">
+                            <option value="">Seleccione un rol</option>
+                            <option *ngFor="let ts of this.roles" [value]="ts.codigo" >{{ts.descripcion}}</option>
+                        </select>
+                        <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('rol')">
+                            campo obligatorio
+                        </span>
+                    </div>
+                    <div *ngIf="this.mostrarCliente">
+                        <label class="text-black mb-0 mt-1">Cliente</label>
+                        <select
+                            class="form-control form-control-sm form-control-ddl-sm" 
+                            style="height: 30px !important;"
+                            formControlName="cliente"
+                            [class.input-validation-error]="this.campoNoValido('cliente')">
+                            <option value="">Seleccione cliente</option>
+                            <option *ngFor="let cli of this.clientes" [value]="cli.idx">{{cli.nombre}}</option>
+                        </select>
+                        <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('cliente')">
+                            campo obligatorio
+                        </span>
+                    </div>
+                    <div class="m-0 mt-1 pt-1">
+                        <label class="text-black mb-0 mt-1 mr-2">Editar password </label>
+                        <input type="checkbox" 
+                            name="name" 
+                            style="position: relative; top: 0.15rem;" 
+                            formControlName="checkCambiarPassword"
+                            (change)="this.onCheckPasswordChanged()">
+                    </div>
+                    <div class="m-0" *ngIf="this.mostrarPassword">
+                        <label class="text-black mb-0 mt-1">Password</label>
+                        <input type="password"
+                            class="form-control form-control-sm" 
+                            placeholder=""
+                            formControlName="password"
+                            [class.input-validation-error]="this.campoNoValido('password')">
+                        <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('password')">
+                            campo obligatorio
+                        </span>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button id="btnGuardar" type="submit" class="btn btn-sm btn-sm-custom btn-warning" style=" margin-right: 2em !important; margin-bottom: 1em !important;">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+
+        </div>
+
+    </div>
+
+     <!-- Opciones-->
+     <div id="containerOpciones" style="width: 100% !important;" *ngIf="this.mostrarOpcionesPosteriores">
+        <div id="rowWrapperOptions" class="w-100 d-flex justify-content-center">
+
+            <div class="card d-flex w-100 justify-content-center">
+        
+                <div class="card-body d-flex justify-content-center">
+                    <div class="card-block">
+        
+                        <div class="card-title justify-content-center">
+                            <p id="textoOptionsResp" class="blue text-center">{{this.textoOpcionesPosterior}}</p>
+                        </div>
+                        <div class="media justify-content-center">
+                            <div class="media-right wraper-btn-options">
+                                <a (click)="this.redirectToCreate()"
+                                   class="btn btn-sm btn-options btn-outline-light-orange border-black m-2">Crear nuevo usuario</a>
+        
+                                <a (click)="this.redirectToBusqueda()"
+                                   class="btn btn-sm btn-options btn-outline-light-orange border-black m-2">Búsqueda de usuarios</a>
+                                
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+        
+            </div>
+        
+        </div>
+    </div>
+
+    <!-- Overlay General -->
+    <div id="modalOverlayGeneral" class="d-abslt cBaseCuadranteBloqueo" *ngIf="this.mostrarOverlay"
+            style=" z-index:8; background-color:rgba(180, 180, 180, 0.5); width: 100%; height: 100%; padding-top: 8em;">
+        
+        <!-- Cargando -->
+        <div id="modalOverlayLoadingGeneral" class="modalOverlayLoadingCustom" *ngIf="this.mostrarLoading">
+            <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline; height:16px; margin-right:2px;" />
+            <p style="display: inline;">Actualizando...</p>
+        </div>
+        
+        <!-- Overlay INFO-->
+        <div id="modalOverlayInfoGeneral" class="modalOverlayInfoCustom" *ngIf="this.mostrarInfoGeneral">
+            <button id="btnCerrarOverlayGeneral" (click)="this.ocultarModal()" type="button" class="close modalOverlayCerrarCustom modalOverlayBtnCerrar">
+                <span aria-hidden="true" class="modalOverlayBtnX">&times;</span>
+            </button>
+            
+            <!-- parrafo info -->
+            <p id="textInfoOverlayGeneral" style="display: inline; text-align: center !important;">
+               {{this.textoOverlay}}
+            </p>
+
+        </div>
+    </div>
+
+
+</div>

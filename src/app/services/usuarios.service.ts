@@ -90,4 +90,43 @@ export class UsuariosService {
     );
   }
 
+  editarUsuario(codx: string, nombres: string, apellidos: string, estado: string, rol: string, 
+    editarPassword: boolean, password: string, cliente: string) : Observable<GeneralResponse>{
+
+    var formData = new FormData();    
+    formData.append('usuario', codx);
+    formData.append('nombres', nombres);
+    formData.append('apellidos', apellidos);
+    formData.append('estado', estado);
+    formData.append('rol', rol);
+    formData.append('editarPassword', editarPassword.toString());
+    formData.append('password', password);
+    formData.append('cliente', cliente);
+
+    return this.http.put<GeneralResponse>(`${baseUrl}/Usuarios/EditarUsuario`, formData)
+    .pipe(
+      catchError(err => {
+      
+        // Si tiene errores de validación de la API 
+        const erroresValidacionApi = err.error?.errors;
+        
+        if (erroresValidacionApi !== null && erroresValidacionApi !== undefined){
+          return of(new GeneralResponse(true, erroresApiArrayToString(erroresValidacionApi), {}));
+        }
+
+        // Si tiene un error desde las respuesta de API
+        if (err.error?.message !== null &&  err.error?.message !== undefined){
+          return of(new GeneralResponse(true,  err.error.message, {}));
+        }
+
+        // Si se produce otro error
+        if (err.message !== null && err.message !== undefined){
+          return of(new GeneralResponse(true, err.message, {}));
+        }
+
+        return of(err)
+      })
+
+    );
+  }
 }

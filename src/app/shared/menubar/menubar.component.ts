@@ -17,29 +17,21 @@ export class MenubarComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router
   ) { 
     this.menuService.reiniciarStatus();
-
-    //console.log('MenuBar constructor...');
   }
 
   ngOnInit(): void {
-    //console.log('On Init Sidebar.');
-
     document.querySelector('body')?.classList.remove('login-background');   
     this.menuService.cargarMenu();
     this.menuService.reiniciarStatus();
     this.menuStatus = false;
     this.verificarStatusMenu();
-    //console.log('MenuBar onInit...');
   }
 
   ngAfterViewInit(): void {
-    //this.menuService.reiniciarStatus();
-    //this.verificarStatusMenu();
   }
 
   ngOnDestroy(): void {
     this.menuService.reiniciarStatus();
-    //console.log('MenuBar onDestroy...');
   }
 
 
@@ -49,7 +41,6 @@ export class MenubarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   reroute(url: string) {
     this.menuService.reiniciarStatus();
-    //this.menuStatus = this.menuService.menuStatus;
     this.menuStatus = false;
     this.router.navigate([url])
   }
@@ -57,7 +48,6 @@ export class MenubarComponent implements OnInit, AfterViewInit, OnDestroy {
   onNavbarToggleClick(){
     this.menuService.toggleStatus();
     this.menuStatus = this.menuService.menuStatus !== '';
-    //console.log("onNavbarToggleClick: ", this.menuStatus);
     this.verificarStatusMenu();
   }
 

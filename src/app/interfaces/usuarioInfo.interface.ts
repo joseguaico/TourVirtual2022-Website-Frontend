@@ -9,5 +9,4 @@ export interface UsuarioInfo{
     estado: string,
     rol: Rol,
     cliente: Cliente,
-    
 }

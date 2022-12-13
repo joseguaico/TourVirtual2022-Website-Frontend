@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Menu } from '../interfaces/menu.interface';
-import { Usuario } from '../models/usuario.class';
+import { UsuarioAccount } from '../models/usuarioAccount.class';
 
 @Injectable({
   providedIn: 'root'
@@ -31,12 +31,12 @@ export class StorageService {
     localStorage.setItem(this.MENU_KEY, JSON.stringify(menu));
   }
 
-  public guardarUsuario(usuario: Usuario){
+  public guardarUsuario(usuario: UsuarioAccount){
     localStorage.setItem(this.USUARIO_KEY, '');
     localStorage.setItem(this.USUARIO_KEY, JSON.stringify(usuario));
   }
 
-  public guardarDatos(token: string, refreshToken: string, menu: Menu[], usuario: Usuario){
+  public guardarDatos(token: string, refreshToken: string, menu: Menu[], usuario: UsuarioAccount){
     this.guardarToken(token);
     this.guardarRefreshToken(refreshToken);
     this.guardarMenu(menu);
@@ -62,7 +62,7 @@ export class StorageService {
     return menu ??  [];
   }
 
-  public getUsuario(): Usuario | undefined {
+  public getUsuario(): UsuarioAccount | undefined {
     let usuario = JSON.parse(localStorage.getItem(this.USUARIO_KEY)!);
     return usuario;
   }
