@@ -220,8 +220,6 @@ export class EditarUsuarioComponent implements OnInit {
   guardar(){
 
     if (this.formEditar.invalid){
-      console.log(this.formEditar.errors);
-      console.log(this.formEditar.value);
       return this.formEditar.markAllAsTouched();
     }  
    

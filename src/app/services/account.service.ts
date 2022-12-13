@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, map, of, tap } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 
 import { LoginForm } from '../interfaces/loginForm.interface';
+import { GeneralResponse } from '../models/generalResponse.class';
 import { UsuarioAccount } from '../models/usuarioAccount.class';
+import { erroresApiArrayToString } from '../shared/functions/customErrorsFunctions';
 import { StorageService } from './storage.service';
 
 const baseUrl: string = environment.baseUrl;
@@ -52,11 +54,8 @@ export class AccountService {
         tap( (resp: any) => {
 
           if (Object.keys(resp.datos).length !== 0){
-
             const { uid, email, nombres, apellidos, rol, bloqueado,  menu, empresa } = resp.datos;
             const usuario = new UsuarioAccount(uid, email, nombres, apellidos, bloqueado, rol.toUpperCase(), empresa);
-    
-            //this.usuario = usuario;
   
             this.storage.guardarDatos(resp.datos.token, resp.datos.refreshToken, menu, usuario);
           }
@@ -86,6 +85,8 @@ export class AccountService {
        
        // console.log("RESP Validar token: ", resp);
 
+       console.log('refreshToken TAP', resp.datos);
+
         const {uid, email, nombres, apellidos, rol, bloqueado,  menu, empresa } = resp.datos;
         const usuario = new UsuarioAccount(uid, email, nombres, apellidos, bloqueado, rol.toUpperCase(), empresa);
 
@@ -102,5 +103,53 @@ export class AccountService {
     );
   }
 
+  editarUsuarioActual(nombres: string = '', apellidos: string = '', editarPassword: boolean, password: string = '') : Observable<GeneralResponse>{
+
+    var formData = new FormData();    
+    formData.append('nombres', nombres);
+    formData.append('apellidos', apellidos);
+    formData.append('editarPassword', editarPassword.toString());
+    formData.append('password', password);
+
+    return this.http.put<GeneralResponse>(`${baseUrl}/Account/EditarDatos`, formData)
+    .pipe(
+      catchError(err => {
+      
+        // Si tiene errores de validación de la API 
+        const erroresValidacionApi = err.error?.errors;
+        
+        if (erroresValidacionApi !== null && erroresValidacionApi !== undefined){
+          return of(new GeneralResponse(true, erroresApiArrayToString(erroresValidacionApi), {}));
+        }
+
+        // Si tiene un error desde las respuesta de API
+        if (err.error?.message !== null &&  err.error?.message !== undefined){
+          return of(new GeneralResponse(true,  err.error.message, {}));
+        }
+
+        // Si se produce otro error
+        if (err.message !== null && err.message !== undefined){
+          return of(new GeneralResponse(true, err.message, {}));
+        }
+
+        return of(err)
+      }),
+
+      tap( (resp: any) => {
+
+        if (Object.keys(resp.datos).length !== 0){
+
+          const { uid, email, nombres, apellidos, rol, estado,  empresa } = resp.datos;
+          const bloqueado = estado.toLowerCase() === 'bloqueado';
+          const usuario = new UsuarioAccount(uid, email, nombres, apellidos, bloqueado, rol.toUpperCase(), empresa);
+  
+          //this.usuario = usuario;
+
+          this.storage.guardarUsuario(usuario);
+        }
+      })
+
+    );
+  }
 
 }
