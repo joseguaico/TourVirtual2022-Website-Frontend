@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate, CanLoad {
 
       tap((estaAutenticado: boolean) => {
 
-        console.log('GUARD canActivate ', estaAutenticado);
+        //console.log('GUARD canActivate ', estaAutenticado);
 
         if (!estaAutenticado){
           this.router.navigateByUrl('/auth/login');

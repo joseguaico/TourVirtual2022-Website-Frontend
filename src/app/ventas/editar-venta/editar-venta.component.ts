@@ -4,6 +4,8 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TipoServicio } from 'src/app/interfaces/tipoServicio.interfaces';
 import { Venta } from 'src/app/interfaces/venta.interface';
+import { VentaInfo } from 'src/app/interfaces/ventaInfo.interface';
+import { GeneralResponse } from 'src/app/models/generalResponse.class';
 import { TiposServicioService } from 'src/app/services/tipos-servicio.service';
 import { VentasService } from 'src/app/services/ventas.service';
 
@@ -26,8 +28,11 @@ export class EditarVentaComponent implements OnInit {
     comprobante: [null, [] ],
   });
 
+  cargando = false;
+
+  nombreCliente: string = '';
   codVentaEditar: string = '';
-  ventaEditar: Venta | null = null;
+  ventaEditar: VentaInfo | null = null;
   mostrarDetalle: boolean = true;
   mostrarFormularioPrincipal: boolean = true;
   mostrarInputFoto = false;
@@ -54,9 +59,7 @@ export class EditarVentaComponent implements OnInit {
     this.tiposServicio = this.tiposServicioService.obtenerTiposServicio();
 
     this.activatedRoute.queryParams.subscribe((params:any) => {
-      console.log(params); 
       this.codVentaEditar = params.cod;
-      console.log(this.codVentaEditar); // 
 
       if(this.codVentaEditar !== undefined && this.codVentaEditar !== ''){
         this.obtenerInfoVenta();
@@ -70,8 +73,28 @@ export class EditarVentaComponent implements OnInit {
   }
   
   obtenerInfoVenta(){
-    
+    this.cargando = true;
+    this.ventasService.obtenerInfoVenta(this.codVentaEditar).subscribe((resp: GeneralResponse) => 
+    {
+        if(resp.tieneError === false){
+          this.ventaEditar = resp.datos as VentaInfo;
+          this.cargarDatosEditar();
+          this.mostrarFormularioPrincipal = true;
+          this.cargando = false;
+        }else {
+          this.mostrarDetalle = false;
+          this.mostrarFormularioPrincipal = false;
+          this.mensajeCarga = resp.message;
+        }
+
+    }, (err) => {
+      this.mostrarDetalle = false;
+      this.mensajeCarga = "Se produjo un error al obtener los datos del usuario"
+      console.error(err);
+      this.cargando = false;
+    });
   }
+
 
 
   campoNoValido(campo: string){
@@ -79,55 +102,59 @@ export class EditarVentaComponent implements OnInit {
   }
 
   cargarDatosEditar(){
+
+    console.log('Venta editar: ', this.ventaEditar);
+
     this.formEditar.get('cantidadPropiedades')?.setValue(this.ventaEditar!.propiedades);
-    this.formEditar.get('cantidadFotos')?.setValue(this.ventaEditar!.fotos);
-    this.formEditar.get('tipoServicio')?.setValue(this.ventaEditar!.tipoServicio);
-    this.formEditar.get('montoVenta')?.setValue(this.ventaEditar!.monto);
+    this.formEditar.get('cantidadFotos')?.setValue(this.ventaEditar!.fotos.replace('.', ''));
+    this.formEditar.get('tipoServicio')?.setValue(this.ventaEditar!.codTipoServicio);
+    this.formEditar.get('montoVenta')?.setValue(this.ventaEditar!.monto.replace('.', ''));
     this.formEditar.get('comentario')?.setValue(this.ventaEditar!.comentario);
+    this.nombreCliente = this.ventaEditar!.cliente;
   }
 
   guardar(){
     if (this.formEditar.invalid){
       return this.formEditar.markAllAsTouched();
     }    
+   // console.log(this.formEditar.value);
 
-    console.log(this.formEditar.value);
-
-
-    const {nombre, email, nombreContacto, telefonosContacto, direccion} = this.formEditar.value;
+   const {cantidadPropiedades, cantidadFotos, tipoServicio, montoVenta, comentario, checkEditarComprobante} = this.formEditar.value;
 
     this.mostrarOverlay = true;
     this.mostrarLoading = true;
+    const comprobante: File | null = checkEditarComprobante === true ? (document.getElementById('fileComprobantePagoEditar') as HTMLInputElement).files![0] : null;
 
-    // this.clientesService.editarCliente(this.clienteEditar!.idx, nombre.trim(), email.trim(), nombreContacto.trim(), telefonosContacto.trim(),direccion.trim()
-    //   ).subscribe((resp: GeneralResponse) => {
-    //     console.log('RESP: ', resp);
-      
-    //     this.mostrarLoading = false;
+    this.ventasService.editarVenta(this.codVentaEditar, cantidadPropiedades, cantidadFotos, tipoServicio, montoVenta, checkEditarComprobante,
+      comprobante, comentario)
+    .subscribe((resp: GeneralResponse) => {
+      //console.log('RESP: ', resp);
+    
+      this.mostrarLoading = false;
 
-    //     if(resp.tieneError){
-    //       this.mostrarLoading = false;
-    //       this.mostrarInfoGeneral = true;
-    //       this.textoOverlay = resp.message;
-    //     }else{
+      if(resp.tieneError){
+        this.mostrarLoading = false;
+        this.mostrarInfoGeneral = true;
+        this.textoOverlay = resp.message;
+      }else{
 
-    //       this.mostrarLoading = false;
-    //       this.mostrarInfoGeneral = false;
-    //       this.textoOverlay = "";
-    //       this.mostrarFormularioPrincipal = false;
-    //       this.mostrarOverlay = false;
-    //       this.mostrarOpcionesPosteriores = true;
-    //       this.textoOpcionesPosterior = "Cliente editado exitosamente";
+        this.mostrarLoading = false;
+        this.mostrarInfoGeneral = false;
+        this.textoOverlay = "";
+        this.mostrarFormularioPrincipal = false;
+        this.mostrarOverlay = false;
+        this.mostrarOpcionesPosteriores = true;
+        this.textoOpcionesPosterior = "Venta editada exitosamente";
 
-    //     }
+      }
 
-    //   }, (err) => {
+    }, (err) => {
 
-    //     console.warn("ERR: ", err);
-    //     this.mostrarOverlay = false;
-    //     this.mostrarLoading = false;
-    //   })
+      console.warn("ERR: ", err);
 
+      this.mostrarOverlay = false;
+      this.mostrarLoading = false;
+    });
 
 
   }

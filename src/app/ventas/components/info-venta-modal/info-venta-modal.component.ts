@@ -42,7 +42,7 @@ export class InfoVentaModalComponent implements OnInit {
     this.mostrarDetalles = false;
     $(this.mdlInfoVentaView.nativeElement).modal('show');
 
-    this.ventasService.obtenerVenta(codigoX).subscribe((resp: GeneralResponse) => 
+    this.ventasService.obtenerInfoVenta(codigoX).subscribe((resp: GeneralResponse) => 
     {
       this.cargando = false;
 

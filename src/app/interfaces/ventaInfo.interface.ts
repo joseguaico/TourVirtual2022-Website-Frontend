@@ -3,6 +3,7 @@ export interface VentaInfo{
     idx: string,
     cliente: string,
     tipoServicio: string,
+    codTipoServicio: string,
     fechaVenta: string,
     propiedades: number,
     fotos: string,

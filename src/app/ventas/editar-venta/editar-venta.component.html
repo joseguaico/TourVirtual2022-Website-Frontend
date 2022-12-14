@@ -30,18 +30,27 @@
 
         <!-- Info cliente -->        
         <div class="card w-100 mt-2 p-2 flex-xl-shrink-1 justify-content-center flex-column" style="width: 100% !important; margin-bottom: 0 !important;">
-            <div class="d-flex justify-content-center" style="width: 100% !important;">
+           
+            <div *ngIf="this.cargando" class="w-100 text-center">
+                <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline; height:16px; margin-right:2px;" />
+                <p style="display: inline;">Obteniedo datos...</p>
+            </div>
+           
+            <div class="d-flex justify-content-center" style="width: 100% !important;" *ngIf="!this.cargando">
                 <label class="text-black w-100">Cliente</label>
             </div>
             <div class="d-flex justify-content-start row-container-busqueda" style="width: 100% !important;">
                 <div class="edicion-container d-flex flex-column justify-content-center pl-3 pr-3 pb-2 pt-1">
-                   {{this.ventaEditar?.cliente}}
+                   <p style="color: #5a5a5a;">{{this.nombreCliente}}</p>
                 </div>
 
             </div>
         </div>
 
-        <div id="divDetalle" class="card w-100 mt-2 p-2 flex-xl-shrink-1 justify-content-center flex-column" style="width: 100% !important; margin-bottom: 0 !important; padding-bottom:0px !important;">
+        <div class="card w-100 mt-2 p-2 flex-xl-shrink-1 justify-content-center flex-column" 
+            style="width: 100% !important; margin-bottom: 0 !important; padding-bottom:0px !important;"
+            *ngIf="!this.cargando">
+            
             <div class="d-flex justify-content-center" style="width: 100% !important;">
                 <label class="text-black w-100">Detalle venta</label>
             </div>
@@ -108,12 +117,13 @@
                     </div>
                     <div class="m-0">
                         <label class="text-black mb-0 mt-1">Comentario</label>
-                        <input id="txtComentario" 
+                        <input 
                             name="txtComentario" 
                             type="text" 
                             class="form-control form-control-sm w-100" 
                             placeholder="Comentario" 
                             maxlength="2000"
+                            formControlName="comentario"
                             >
                     </div>
                     <div class="m-0 mb-1">
@@ -124,8 +134,8 @@
                     </div>
                     <div class="m-0" *ngIf="this.mostrarInputFoto">
                         <label class="text-black mb-0 mt-1">Comprobante pago</label>
-                        <input id="fileComprobantePago" 
-                            name="fileComprobantePago" 
+                        <input id="fileComprobantePagoEditar" 
+                            name="fileComprobantePagoEditar" 
                             type="file" 
                             class="form-control form-control-sm w-100"
                             accept="image/jpeg,image/jpg, image/png"
