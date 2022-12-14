@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, mergeMap } from 'rxjs';
 import { Imagen360 } from 'src/app/interfaces/imagen360.interface';
@@ -41,9 +41,14 @@ export class EditarFotosComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private imagenes360Service: Imagenes360Service,
-    private sanitizer: DomSanitizer) { }
+    private sanitizer: DomSanitizer,
+    private titleService: Title) { }
 
   ngOnInit(): void {
+
+    this.titleService.setTitle('Editar fotos por propiedad');
+
+
     this.activatedRoute.queryParams.subscribe((params:any) => {
       //console.log(params); 
       this.codPropiedad = params.cod;

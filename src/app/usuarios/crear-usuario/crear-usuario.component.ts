@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Cliente } from 'src/app/interfaces/cliente.interface';
 import { Rol } from 'src/app/interfaces/rol.interface';
@@ -42,10 +43,13 @@ export class CrearUsuarioComponent implements OnInit {
     private router: Router,
     private clientesService: ClientesService,
     private rolesService: RolesService,
-    private usuariosService: UsuariosService) { }
+    private usuariosService: UsuariosService,
+    private titleService: Title) { }
 
 
   ngOnInit(): void {
+
+    this.titleService.setTitle('Crear usuario');
 
     this.clientesService.obtenerClientesAll().subscribe((resp: any) => {
       this.clientes = resp.datos as Cliente[];

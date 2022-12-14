@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { GeneralResponse } from 'src/app/models/generalResponse.class';
 import { AccountService } from 'src/app/services/account.service';
@@ -29,9 +30,14 @@ export class EditarDatosComponent implements OnInit {
   mostrarOpcionesPosteriores = false;
   textoOpcionesPosterior = '';
 
-  constructor(public fb: FormBuilder, private router: Router, public accountService: AccountService) { }
+  constructor(public fb: FormBuilder, 
+    private router: Router, 
+    public accountService: AccountService,
+    private titleService: Title
+    ) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Editar datos de usuario');
     this.setModoInicial();
     this.cargarDatosUsuarioActual();
   }

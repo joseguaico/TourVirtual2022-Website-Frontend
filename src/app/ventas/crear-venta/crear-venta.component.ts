@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Cliente } from 'src/app/interfaces/cliente.interface';
 import { TipoServicio } from 'src/app/interfaces/tipoServicio.interfaces';
@@ -40,9 +41,12 @@ export class CrearVentaComponent implements OnInit {
     private router: Router, 
     private clientesService: ClientesService,
     private tiposServicioService: TiposServicioService,
-    private ventasService: VentasService) { }
+    private ventasService: VentasService,
+    private titleService: Title) { }
 
   ngOnInit(): void {
+
+    this.titleService.setTitle("Crear venta");
 
     this.clientesService.obtenerClientesAll().subscribe(({datos}: any) => {
       this.clientes = datos;

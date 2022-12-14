@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Cliente } from 'src/app/interfaces/cliente.interface';
 import { ClienteWithCount } from 'src/app/interfaces/clienteWithCount.interface';
@@ -45,9 +46,12 @@ export class CrearPropiedadComponent implements OnInit, AfterViewInit {
     private router: Router,
     private regionesService: RegionesService,
     public accountService: AccountService,
-    private clientesService: ClientesService) { }
+    private clientesService: ClientesService,
+    private titleService: Title) { }
 
   ngOnInit(): void {
+
+    this.titleService.setTitle('Crear propiedad');
     
    this.mostrarPanelAdmin = this.accountService.usuario.rol === 'ADMINISTRADOR';
    //this.mostrarPanelCliente = this.accountService.usuario.rol === 'CORREDOR';

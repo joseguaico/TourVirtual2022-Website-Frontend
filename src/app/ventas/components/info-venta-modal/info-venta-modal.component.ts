@@ -52,7 +52,7 @@ export class InfoVentaModalComponent implements OnInit {
           this.mensaje = "";
           this.venta = resp.datos as VentaInfo;
           this.mostrarDetalles = true;
-          console.log(resp);
+          //console.log(resp);
         }
 
     },

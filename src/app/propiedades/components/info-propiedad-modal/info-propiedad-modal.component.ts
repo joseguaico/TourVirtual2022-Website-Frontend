@@ -56,7 +56,7 @@ export class InfoPropiedadModalComponent implements OnInit {
           this.mensaje = "";
           this.propiedad = resp.datos as PropiedadInfo;
           this.mostrarDetalles = true;
-          console.log(resp);
+          //console.log(resp);
         }
 
     },

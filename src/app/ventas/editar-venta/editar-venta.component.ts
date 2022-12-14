@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TipoServicio } from 'src/app/interfaces/tipoServicio.interfaces';
 import { Venta } from 'src/app/interfaces/venta.interface';
@@ -43,9 +44,13 @@ export class EditarVentaComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router, 
     private tiposServicioService: TiposServicioService,
-    private ventasService: VentasService) { }
+    private ventasService: VentasService,
+    private titleService: Title) { }
 
   ngOnInit(): void {
+
+    this.titleService.setTitle('Editar venta');
+
     this.tiposServicio = this.tiposServicioService.obtenerTiposServicio();
 
     this.activatedRoute.queryParams.subscribe((params:any) => {

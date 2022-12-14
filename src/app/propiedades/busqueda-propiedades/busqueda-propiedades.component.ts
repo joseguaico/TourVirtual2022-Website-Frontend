@@ -5,6 +5,7 @@ import { PropiedadTitulo } from 'src/app/interfaces/propiedadTitulo.interface';
 import { PropiedadesService } from 'src/app/services/propiedades.service';
 import { AccountService } from 'src/app/services/account.service';
 import { InfoPropiedadModalComponent } from '../components/info-propiedad-modal/info-propiedad-modal.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-busqueda-propiedades',
@@ -37,9 +38,12 @@ export class BusquedaPropiedadesComponent implements OnInit {
   constructor(public fb: FormBuilder,
     private router: Router,
     private accountService: AccountService,
-    private propiedadesService: PropiedadesService) { }
+    private propiedadesService: PropiedadesService,
+    private titleService: Title) { }
 
   ngOnInit(): void {
+
+    this.titleService.setTitle('Búsqueda de propiedades');
 
     this.mostrarPanelAdmin = this.accountService.rol === 'ADMINISTRADOR';
 

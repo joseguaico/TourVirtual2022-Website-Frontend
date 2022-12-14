@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { GeneralResponse } from 'src/app/models/generalResponse.class';
 import { ClientesService } from 'src/app/services/clientes.service';
@@ -9,7 +10,7 @@ import { ClientesService } from 'src/app/services/clientes.service';
   templateUrl: './crear-cliente.component.html',
   styleUrls: ['./crear-cliente.component.css']
 })
-export class CrearClienteComponent {
+export class CrearClienteComponent implements OnInit {
 
   formCrear: FormGroup = this.fb.group({
     nombre: ['', [Validators.required] ],
@@ -29,8 +30,13 @@ export class CrearClienteComponent {
 
   constructor(public fb: FormBuilder,
     private router: Router, 
-    private clientesService: ClientesService) { 
-    }
+    private clientesService: ClientesService,
+    private titleService: Title) { 
+  }
+
+  ngOnInit(): void {
+    this.titleService.setTitle('Crear cliente');
+  }
 
   campoNoValido(campo: string){
     return this.formCrear.controls[campo].errors && this.formCrear.controls[campo].touched;

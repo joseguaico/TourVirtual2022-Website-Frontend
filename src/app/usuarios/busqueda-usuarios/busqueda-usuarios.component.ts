@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { Router, TitleStrategy } from '@angular/router';
 import { Rol } from 'src/app/interfaces/rol.interface';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
 import { GeneralResponse } from 'src/app/models/generalResponse.class';
@@ -33,9 +34,11 @@ export class BusquedaUsuariosComponent implements OnInit {
 
   constructor(public fb: FormBuilder, private router: Router,
     private usuariosService: UsuariosService,
-    private rolesService: RolesService) { }
+    private rolesService: RolesService,
+    private titleService: Title) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Búsqueda de usuarios');
     this.obtenerRoles();
     this.formBusqueda.get('rol')?.setValue("");
     this.realizarBusqueda();

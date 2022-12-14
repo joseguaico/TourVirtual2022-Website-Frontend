@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Venta } from 'src/app/interfaces/venta.interface';
 import { VentasService } from 'src/app/services/ventas.service';
@@ -35,9 +36,11 @@ export class BusquedaVentasComponent implements OnInit {
 
   constructor(public fb: FormBuilder,
     private router: Router,
-    private ventasService: VentasService) { }
+    private ventasService: VentasService,
+    private titleService: Title) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle("Búsqueda de ventas")
     this.realizarBusqueda();
   }
 

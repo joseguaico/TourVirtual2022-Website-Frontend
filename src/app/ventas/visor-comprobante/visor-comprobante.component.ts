@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ComprobantesService } from 'src/app/services/comprobantes.service';
 
@@ -18,9 +18,12 @@ export class VisorComprobanteComponent implements OnInit {
 
   constructor(private comprobantesService: ComprobantesService,
     private activatedRoute: ActivatedRoute,
-    private sanitizer: DomSanitizer) {}
+    private sanitizer: DomSanitizer,
+    private titleService: Title) {}
 
   ngOnInit(): void {
+
+    this.titleService.setTitle('Ver comprobante de venta');
 
     this.activatedRoute.paramMap.subscribe((params:ParamMap) => {
       //console.log(params); 

@@ -5,8 +5,8 @@ export interface VentaInfo{
     tipoServicio: string,
     fechaVenta: string,
     propiedades: number,
-    fotos: number,
-    monto: number,
+    fotos: string,
+    monto: string,
     extension: string,
     creadoPor: string,
     comentario: string

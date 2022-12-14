@@ -1,17 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { AccountService } from 'src/app/services/account.service';
-
-//import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   formularioLogin: FormGroup = this.formBuilder.group({
     email: ['joseguaico@gmail.com', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
@@ -24,7 +23,13 @@ export class LoginComponent {
 
   constructor(private formBuilder: FormBuilder,
     private accountService: AccountService,
-    private router: Router) { }
+    private router: Router,
+    private titleService: Title) { }
+
+    ngOnInit(): void {
+      this.titleService.setTitle("Iniciar sesión");
+    }
+
 
     campoNoValido(campo: string){
       return this.formularioLogin.controls[campo].errors && this.formularioLogin.controls[campo].touched;

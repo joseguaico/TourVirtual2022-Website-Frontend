@@ -8,6 +8,7 @@ import { ClienteWithCount } from 'src/app/interfaces/clienteWithCount.interface'
 import { ClientesService } from 'src/app/services/clientes.service';
 import { InfoClienteModalComponent } from '../components/info-cliente-modal/info-cliente-modal.component';
 import { CambiarEstadoClienteModalComponent } from '../components/cambiar-estado-cliente-modal/cambiar-estado-cliente-modal.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-busqueda-clientes',
@@ -32,10 +33,12 @@ export class BusquedaClientesComponent implements OnInit {
 
   constructor(public fb: FormBuilder,
     private router: Router,
-    private clientesService: ClientesService) { 
+    private clientesService: ClientesService,
+    private titleService: Title) { 
     }
     
   ngOnInit(): void {
+    this.titleService.setTitle('Búsqueda de clientes');
     registerLocaleData(es);
     this.realizarBusqueda();
   }

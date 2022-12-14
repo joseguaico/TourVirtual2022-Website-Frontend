@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Host, Input, NgZone, OnInit, ViewChild } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, mergeMap } from 'rxjs';
 import { InfoImagen360 } from 'src/app/interfaces/InfoImagen360.interface';
@@ -79,10 +79,13 @@ export class EditarDetalleFotoComponent implements OnInit, AfterViewInit {
     private imagenes360Service: Imagenes360Service,
     private sanitizer: DomSanitizer,
     public element: ElementRef,
-    private ngZone: NgZone) {
+    private ngZone: NgZone,
+    private titleService: Title) {
     }
  
   ngOnInit(): void {
+
+    this.titleService.setTitle('Editar detalles de foto y enlaces');
 
     window.VisorHotspotEdit.OnHotspotClick = (nameHostpot: string) => {
       // Since this function runs outside Angular's zone, we need to get back inside!

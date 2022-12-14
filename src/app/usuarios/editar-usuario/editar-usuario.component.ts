@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, tap } from 'rxjs';
 import { Cliente } from 'src/app/interfaces/cliente.interface';
@@ -54,9 +55,12 @@ export class EditarUsuarioComponent implements OnInit {
     private router: Router, 
     private rolesService: RolesService,
     private clientesService: ClientesService,
-    private usuariosService: UsuariosService) { }
+    private usuariosService: UsuariosService,
+    private titleService: Title) { }
 
   ngOnInit(): void {
+
+    this.titleService.setTitle("Editar usuario");
 
     this.activatedRoute.queryParams.subscribe((params:any) => {
       this.codUsuarioEditar = params.cod;

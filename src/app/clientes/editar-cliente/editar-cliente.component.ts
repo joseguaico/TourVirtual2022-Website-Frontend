@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from 'src/app/interfaces/cliente.interface';
 import { GeneralResponse } from 'src/app/models/generalResponse.class';
@@ -36,9 +37,13 @@ export class EditarClienteComponent implements OnInit {
   constructor(public fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private router: Router, 
-    private clientesService: ClientesService) { }
+    private clientesService: ClientesService,
+    private titleService: Title) { }
 
   ngOnInit(): void {
+
+    this.titleService.setTitle('Editar cliente');
+
     this.activatedRoute.queryParams.subscribe((params:any) => {
         //console.log(params); 
         this.codClienteEditar = params.cod;
