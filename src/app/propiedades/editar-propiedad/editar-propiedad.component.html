@@ -1,0 +1,22 @@
+<div class="row justify-content-center w-100 p-0">
+
+    <!-- Titulo -->
+    <div class="col-lg-12 d-flex flex-row">
+
+        <div class="col-lg-12 d-flex flex-row" *ngIf="!this.mostrarDetalle">
+            <i class="fas fa-angle-double-right fa-sm blue" style="position: relative; top: 10px; margin-right: 3px;"></i>
+            <p class="mb-md-0 font-weight-bold justify-content-start blue">Editar propiedad </p>
+        </div>
+
+        <div class="col-lg-12 d-flex flex-row" *ngIf="this.mostrarDetalle">
+            <i class="fas fa-angle-double-right fa-sm blue" style="position: relative; top: 10px; margin-right: 3px;"></i>
+            <p class="mb-md-0 font-weight-bold justify-content-start blue" style="display: ruby !important;">
+                &nbsp;
+                <span id="spnTitulo" class="mb-md-0 font-weight-bold justify-content-start w-100 warning" style="left: -5px; position:relative;">
+                    Propiedad {{this.propiedadEditar?.titulo}}</span>
+            </p>
+        </div>
+    </div>
+
+
+</div>

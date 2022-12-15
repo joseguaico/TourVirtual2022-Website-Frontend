@@ -108,5 +108,9 @@ export class BusquedaPropiedadesComponent implements OnInit {
     this.modalInfo.realizarBusqueda(codXPropiedad);
   }
 
+  onClickEditarPropiedad(codxPropiedad: string){
+    this.router.navigate(['propiedades/editar-propiedad'],  { queryParams: { cod: codxPropiedad} })
+  }
+
 
 }

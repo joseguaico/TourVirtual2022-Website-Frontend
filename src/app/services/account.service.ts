@@ -85,8 +85,6 @@ export class AccountService {
        
        // console.log("RESP Validar token: ", resp);
 
-       console.log('refreshToken TAP', resp.datos);
-
         const {uid, email, nombres, apellidos, rol, bloqueado,  menu, empresa } = resp.datos;
         const usuario = new UsuarioAccount(uid, email, nombres, apellidos, bloqueado, rol.toUpperCase(), empresa);
 

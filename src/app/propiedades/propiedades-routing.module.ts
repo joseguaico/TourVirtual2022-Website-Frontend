@@ -5,6 +5,7 @@ import { BusquedaPropiedadesComponent } from './busqueda-propiedades/busqueda-pr
 import { CrearPropiedadComponent } from './crear-propiedad/crear-propiedad.component';
 import { EditarFotosComponent } from './editar-fotos/editar-fotos.component';
 import { EditarDetalleFotoComponent } from './editar-detalle-foto/editar-detalle-foto.component';
+import { EditarPropiedadComponent } from './editar-propiedad/editar-propiedad.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,9 @@ const routes: Routes = [
   },
   {
     path: 'crear-propiedad', component: CrearPropiedadComponent
+  },
+  {
+    path: 'editar-propiedad', component: EditarPropiedadComponent
   },
   {
     path: 'editar-fotos', component: EditarFotosComponent
