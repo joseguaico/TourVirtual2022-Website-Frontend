@@ -59,5 +59,82 @@ export class PropiedadesService {
     );;
   }
 
+  crearPropiedadCorredor(titulo: string, descripcion: string, direccion: string, habitaciones: number, banos: number, region: string, comuna: string){
+    var formData = new FormData();
+    formData.append('titulo', titulo.trim());
+    formData.append('Descripcion', descripcion.trim());
+    formData.append('direccion', direccion.trim());
+    formData.append('habitaciones', habitaciones.toString());
+    formData.append('banos', banos.toString());
+    formData.append('region', region.trim());
+    formData.append('comuna', comuna.trim());
+
+    return this.http.post<GeneralResponse>(`${baseUrl}/Propiedades/corr/CrearPropiedad`, formData)
+    .pipe(
+      catchError(err => {
+      
+        // Si tiene errores de validación de la API 
+        const erroresValidacionApi = err.error?.errors;
+        
+        if (erroresValidacionApi !== null && erroresValidacionApi !== undefined){
+          return of(new GeneralResponse(true, erroresApiArrayToString(erroresValidacionApi), {}));
+        }
+
+        // Si tiene un error desde las respuesta de API
+        if (err.error?.message !== null &&  err.error?.message !== undefined){
+          return of(new GeneralResponse(true,  err.error.message, {}));
+        }
+
+        // Si se produce otro error
+        if (err.message !== null && err.message !== undefined){
+          return of(new GeneralResponse(true, err.message, {}));
+        }
+
+        return of(err)
+      })
+
+    );
+
+  }
+
+  crearPropiedadAdministrador(cliente: string, titulo: string, descripcion: string, direccion: string, habitaciones: number, banos: number, region: string, comuna: string){
+    var formData = new FormData();
+    formData.append('cliente', cliente.trim());
+    formData.append('titulo', titulo.trim());
+    formData.append('Descripcion', descripcion.trim());
+    formData.append('direccion', direccion.trim());
+    formData.append('habitaciones', habitaciones.toString());
+    formData.append('banos', banos.toString());
+    formData.append('region', region.trim());
+    formData.append('comuna', comuna.trim());
+
+    return this.http.post<GeneralResponse>(`${baseUrl}/Propiedades/CrearPropiedad`, formData)
+    .pipe(
+      catchError(err => {
+      
+        // Si tiene errores de validación de la API 
+        const erroresValidacionApi = err.error?.errors;
+        
+        if (erroresValidacionApi !== null && erroresValidacionApi !== undefined){
+          return of(new GeneralResponse(true, erroresApiArrayToString(erroresValidacionApi), {}));
+        }
+
+        // Si tiene un error desde las respuesta de API
+        if (err.error?.message !== null &&  err.error?.message !== undefined){
+          return of(new GeneralResponse(true,  err.error.message, {}));
+        }
+
+        // Si se produce otro error
+        if (err.message !== null && err.message !== undefined){
+          return of(new GeneralResponse(true, err.message, {}));
+        }
+
+        return of(err)
+      })
+
+    );
+
+  }
+
 
 }

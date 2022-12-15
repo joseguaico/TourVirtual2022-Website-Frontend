@@ -7,8 +7,8 @@
         <p class="mb-md-0 font-weight-bold justify-content-start blue w-100">Crear propiedad</p>
     </div>
 
+    <!-- Selección del cliente-->
     <div *ngIf="this.mostrarPanelAdmin" class="d-flex w-100">
-        <!-- Selección del cliente-->
         <div id="divCliente" class="card w-100 mt-2 p-2 flex-xl-shrink-1 justify-content-center flex-column" style="width: 100% !important; margin-bottom: 0 !important;">
 
             <form [formGroup]="this.formCliente">
@@ -39,8 +39,10 @@
         </div>
     </div>
 
-    
-    <div id="divDetalle" class="card w-100 mt-2 p-2 flex-xl-shrink-1 justify-content-center flex-column" style="width: 100% !important; margin-bottom: 0 !important; padding-bottom:0px !important; @displayInicial">
+    <div id="divDetalle" 
+        class="card w-100 mt-2 p-2 flex-xl-shrink-1 justify-content-center flex-column"
+        style="width: 100% !important; margin-bottom: 0 !important; padding-bottom:0px !important;"
+        *ngIf="this.mostrarFormularioPrincipal">
 
         <div id="divInfoCorredor" class="d-flex justify-content-center flex-column alert pt-0 pb-0 mb-0" 
             style="width: 100% !important; text-align: center;" *ngIf="this.mostrarInfoCupo">
@@ -137,7 +139,7 @@
                                     class="form-control form-control-sm form-control-ddl-sm w-100"
                                     formControlName="region"
                                     [class.input-validation-error]="this.campoNoValido('region')"
-                                    (change)="this.onCambiarRegion()">
+                                    (change)="this.onRegionChange()">
                                 <option value="">Seleccione región</option>
                                 <option [value]="reg.id" *ngFor="let reg of this.regiones">{{reg.descripcion}}</option>
                             </select>
@@ -177,6 +179,66 @@
 
         </div>
 
+    </div>
+
+    
+    <!-- Opciones-->
+    <div id="containerOpciones" style="width: 100% !important;" *ngIf="this.mostrarOpcionesPosteriores">
+        <div id="rowWrapperOptions" class="w-100 d-flex justify-content-center">
+
+            <div class="card d-flex w-100 justify-content-center">
+        
+                <div class="card-body d-flex justify-content-center">
+                    <div class="card-block">
+        
+                        <div class="card-title justify-content-center">
+                            <p id="textoOptionsResp" class="blue text-center">{{this.textoOpcionesPosterior}}</p>
+                        </div>
+                        <div class="media justify-content-center">
+                            <div class="media-right wraper-btn-options">
+                                <a (click)="this.redirectToCreate()"
+                                    class="btn btn-sm btn-options btn-outline-light-orange border-black m-2">Crear otra propiedad</a>
+        
+                                <a (click)="this.redirectToBusqueda()"
+                                    class="btn btn-sm btn-options btn-outline-light-orange border-black m-2">Búsqueda de propiedades</a>
+
+                                    <a (click)="this.redirectToFotos()"
+                                    class="btn btn-sm btn-options btn-outline-light-orange border-black m-2">Ir a fotos de propiedad</a>
+                                
+
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+        
+            </div>
+        
+        </div>
+    </div>
+    
+    <!-- Overlay General -->
+    <div id="modalOverlayGeneral" class="d-abslt cBaseCuadranteBloqueo" *ngIf="this.mostrarOverlay"
+            style=" z-index:8; background-color:rgba(180, 180, 180, 0.5); width: 100%; height: 100%; padding-top: 8em;">
+        
+        <!-- Cargando -->
+        <div id="modalOverlayLoadingGeneral" class="modalOverlayLoadingCustom" *ngIf="this.mostrarLoading">
+            <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline; height:16px; margin-right:2px;" />
+            <p style="display: inline;">Actualizando...</p>
+        </div>
+        
+        <!-- Overlay INFO-->
+        <div id="modalOverlayInfoGeneral" class="modalOverlayInfoCustom" *ngIf="this.mostrarInfoGeneral">
+            <button id="btnCerrarOverlayGeneral" (click)="this.ocultarModal()" type="button" class="close modalOverlayCerrarCustom modalOverlayBtnCerrar">
+                <span aria-hidden="true" class="modalOverlayBtnX">&times;</span>
+            </button>
+            
+            <!-- parrafo info -->
+            <p id="textInfoOverlayGeneral" style="display: inline; text-align: center !important;">
+                {{this.textoOverlay}}
+            </p>
+
+        </div>
     </div>
 
 

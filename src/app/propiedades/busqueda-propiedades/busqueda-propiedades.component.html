@@ -120,9 +120,6 @@
                 [class.contenedorLastRowFlex]="i === this.propiedades.length -1">
 
                 <div class="d-flex flex-row customFlex-100 pb-0 contenedorRowFlex">
-    
-                    <!-- <input id="_prop_@aux_currentRow" type="hidden" name="name" value="@p.IdPropiedad" />
-                    <input type="hidden" id="textoProp_@aux_currentRow" value="@p.Titulo" /> -->
 
                     <div class="p-1 celda" style="flex-basis: 20%;" *ngIf="this.mostrarPanelAdmin">
                         <p class=" celda-Texto text-muted font-weight-bold small">Cliente</p>
@@ -186,12 +183,9 @@
                             <a title="Ver el detalle de esta propiedad" (click)="onClickVerDetalle(prop.idx)"><i class="fas fa-info fa-sm"></i></a>
                             
                             <a title="Editar fotos 360" (click)="this.editarFoto(prop.idx)"><i class="far fa-images fa-sm"></i></a>
-
-
-                            <!--
-                            @*
-                            <a title="Editar esta propiedad" asp-controller="propiedades" asp-action="EditarPropiedad" asp-route-codigo="@p.IdPropiedad"><i class="fas fa-pencil-alt fa-sm"></i></a>
-                            *@  -->
+                            
+                            <a title="Editar esta propiedad"  (click)="onClickEditarPropiedad(prop.idx)"><i class="fas fa-pencil-alt fa-sm"></i></a>
+                            
                             <a title="Eliminar este propiedad"><i class="fas fa-times fa-sm"></i></a>
                         </div>
                     </div>
