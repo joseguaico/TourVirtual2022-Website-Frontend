@@ -4,7 +4,6 @@ import { PropiedadesService } from 'src/app/services/propiedades.service';
 import { GeneralResponse } from 'src/app/models/generalResponse.class';
 import { PropiedadInfo } from 'src/app/interfaces/propiedadInfo.interface';
 
-//import * as $ from 'jquery';
 declare let $ : any;
 import * as bootstrap from "bootstrap";
 
@@ -25,6 +24,7 @@ export class InfoPropiedadModalComponent implements OnInit {
   mostrarMensaje = false;
   mensaje = "";
   propiedad: PropiedadInfo | null = null;
+  mostrarLinkPublicacion = false;
 
 
   constructor(private propiedadesService: PropiedadesService) { }
@@ -46,19 +46,18 @@ export class InfoPropiedadModalComponent implements OnInit {
     this.mostrarDetalles = false;
     $(this.mdlInfoPropiedadView.nativeElement).modal('show');
 
-    this.propiedadesService.obtenerPropiedadTitulo(codigoX).subscribe((resp: GeneralResponse) => 
+    this.propiedadesService.obtenerInfoPropiedad(codigoX).subscribe((resp: GeneralResponse) => 
     {
       this.cargando = false;
 
-        if(resp.tieneError){
-          this.mensaje = resp.message;
-        }else{
+        if(resp.tieneError === false){
           this.mensaje = "";
           this.propiedad = resp.datos as PropiedadInfo;
+          this.mostrarLinkPublicacion = this.propiedad.linkPublicacion !== null;
           this.mostrarDetalles = true;
-          //console.log(resp);
+        }else{
+          this.mensaje = resp.message;
         }
-
     },
     (err: any) => {
       const {message, error} = err.error;
@@ -68,4 +67,5 @@ export class InfoPropiedadModalComponent implements OnInit {
     });
   }
 
+  
 }

@@ -1,6 +1,7 @@
 import { Cliente } from "./cliente.interface";
 
 export interface PropiedadInfo{
+    uidx: string,
     codigo: string,
     titulo: string,
     descripcion: string,
@@ -13,5 +14,6 @@ export interface PropiedadInfo{
     codEstado: number,
     fotos: number,
     visitas: number,
-    cliente: Cliente
+    cliente: Cliente,
+    linkPublicacion: string | null
 }

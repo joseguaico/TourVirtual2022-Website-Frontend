@@ -1,4 +1,4 @@
-<div class="row justify-content-center w-100 p-0">
+<div class="row justify-content-center w-100">
 
     <!-- Titulo -->
     <div class="col-lg-12 d-flex flex-row">
@@ -18,5 +18,158 @@
         </div>
     </div>
 
+    <div class="w-100 d-flex justify-content-center p-2 flex-column" style="text-align: center;" *ngIf="!this.mostrarDetalle">
+        <div class="w-100 d-flex justify-content-center">
+            <img src="assets/images/exclamation-64.png" alt="" width="64" height="64" />
+        </div>
+        <span>{{this.mensajeCarga}}</span>
+    </div>
+
+    <!-- Formulario contenido principal -->
+    <div class="w-100" *ngIf="this.mostrarDetalle">
+
+        <div class="card w-100 mt-2 p-2 flex-xl-shrink-1 justify-content-center flex-column" 
+            style="width: 100% !important; margin-bottom: 0 !important; padding-bottom:0px !important;">
+
+            <!-- Lading inicial -->
+            <div *ngIf="this.cargando" class="w-100 text-center pb-3">
+                <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline; height:16px; margin-right:2px;" />
+                <p style="display: inline;">Obteniedo datos...</p>
+            </div>
+        
+            <div *ngIf="this.mostrarFormularioPrincipal">
+
+                <div class="d-flex justify-content-center" style="width: 100% !important;">
+                    <label class="text-black w-100">Detalle de la propiedad </label>
+                </div>
+
+                <form [formGroup]="this.formEditar"  (submit)="this.guardar()">
+
+                    <div class="edicion-container d-flex flex-column justify-content-center pl-3 pr-3 pb-2 pt-1">
+
+                        <div class="m-0">
+                            <label class="text-black mt-2 mb-0">Titulo</label>
+                            <input id="txtTitulo" 
+                                name="txtTitulo" 
+                                type="text" 
+                                class="form-control form-control-sm w-100" 
+                                placeholder="Título" 
+                                maxlength="800"
+                                formControlName="titulo"
+                                [class.input-validation-error]="this.campoNoValido('titulo')">
+                            <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('titulo')">
+                                campo obligatorio
+                            </span>
+
+                        </div>
+                        <div class="m-0">
+                            <label class="text-black mt-2 mb-0">Descripción</label>
+                            <input id="txtDescripcion" 
+                                name="txtDescripcion" 
+                                type="text" 
+                                class="form-control form-control-sm w-100"
+                                placeholder="Descripción" 
+                                maxlength="2000"
+                                formControlName="descripcion"
+                                [class.input-validation-error]="this.campoNoValido('descripcion')">
+                            <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('descripcion')">
+                                campo obligatorio
+                            </span>
+
+                        </div>
+                        <div class="m-0">
+                            <label class="text-black mt-2 mb-0">Dirección</label>
+                            <input id="txtDireccion" 
+                                name="txtDireccion" 
+                                type="text" 
+                                class="form-control form-control-sm w-100" 
+                                placeholder="Dirección" 
+                                maxlength="500"
+                                formControlName="direccion"
+                                [class.input-validation-error]="this.campoNoValido('direccion')">
+                            <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('direccion')">
+                                campo obligatorio
+                            </span>
+
+                        </div>
+                        <div class="m-0">
+                            <label class="text-black mt-2 mb-0">Habitaciones</label>
+                            <input id="txtHabitaciones" digitOnly
+                                name="txtHabitaciones" 
+                                class="form-control form-control-sm" 
+                                placeholder=""
+                                maxlength="2"
+                                formControlName="habitaciones"
+                                [class.input-validation-error]="this.campoNoValido('habitaciones')">
+                            <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('habitaciones')">
+                                campo obligatorio
+                            </span>
+
+                        </div>
+                        <div class="m-0">
+                            <label class="text-black mt-2 mb-0">Baños</label>
+                            <input id="txtBanos" digitOnly
+                                name="txtBanos" 
+                                class="form-control form-control-sm"
+                                placeholder="" 
+                                maxlength="2"
+                                formControlName="banos"
+                                [class.input-validation-error]="this.campoNoValido('banos')">
+                            <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('banos')">
+                                campo obligatorio
+                            </span>
+                        </div>
+                        <div class="m-0">
+                            <label class="text-black mt-2 mb-0">Región</label>
+                            <select id="ddlRegiones"
+                                    class="form-control form-control-sm form-control-ddl-sm w-100"
+                                    formControlName="region"
+                                    [class.input-validation-error]="this.campoNoValido('region')"
+                                    (change)="this.onRegionChange()">
+                                <option value="">Seleccione región</option>
+                                <option [value]="reg.id" *ngFor="let reg of this.regiones">{{reg.descripcion}}</option>
+                            </select>
+                            <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('region')">
+                                campo obligatorio
+                            </span>
+
+                        </div>
+                        <div class="m-0">
+                            <label class="text-black mt-2 mb-0">Comuna</label>
+                            <select id="ddlComunas" 
+                                class="form-control form-control-sm form-control-ddl-sm w-100"
+                                formControlName="comuna"
+                                [class.input-validation-error]="this.campoNoValido('comuna')">
+                                <option value="">Seleccione comuna</option>
+                                <option [value]="reg.id" *ngFor="let reg of this.comunas">{{reg.descripcion}}</option>
+                            </select>
+                            <span class="validation-feedback" style="text-align: left;" *ngIf="this.campoNoValido('comuna')">
+                                campo obligatorio
+                            </span>
+
+                        </div>
+                        <div id="divValidationInfo" class="m-0 input-validation-error" style="text-align: center;">
+
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button id="btnGuardar" type="submit" class="btn btn-sm btn-sm-custom btn-warning" style=" margin-right: 2em !important; margin-bottom: 1em !important;">
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+
+
+
+            
+            </div>
+
+    
+
+        </div>
+
+    </div>
 
 </div>

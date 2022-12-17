@@ -67,7 +67,7 @@ export class EditarFotosComponent implements OnInit {
 
   obtenerInfoPropiedad(descargarFotos: boolean){
 
-    this.propiedadesService.obtenerPropiedadTitulo(this.codPropiedad.trim()).subscribe((resp: GeneralResponse) => {
+    this.propiedadesService.obtenerInfoPropiedad(this.codPropiedad.trim()).subscribe((resp: GeneralResponse) => {
      
       //console.log('RESP: ', resp);
 

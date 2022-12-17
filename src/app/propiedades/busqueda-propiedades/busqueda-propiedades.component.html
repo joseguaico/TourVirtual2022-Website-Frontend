@@ -107,6 +107,9 @@
      <!-- Grid principal -->
      <div class="row w-100 justify-content-center p-0">
 
+        <app-alert-mensaje></app-alert-mensaje>
+
+
         <div id="rowLoading" class="w-100" *ngIf="this.cargando">
             <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline;" />
             <p id="textInfoEnvio" style="display: inline;" class="ml-2">Actualizando...</p>
@@ -163,22 +166,17 @@
                         <p class="celda-Texto text-muted font-weight-bold small">Opciones</p>
                         <div class="p-0 d-flex flex-row celda-Contenido rounded-buttons-icons">
                             
-                            <!--
-                            ESTADO 2: Disponible, ESTADO 4: Suspendida *@
-                            @if ((p.IdEstado == 1 && p.CountFotos > 0) || (p.IdEstado == 4 && p.CountFotos > 0))
-                            {-->
-                                <a title="Publicar esta propiedad"
-                                    *ngIf="(prop.codEstado === 1 && prop.fotos > 0) || (prop.codEstado === 4 && prop.fotos > 0)"><i class="far fa-share-square fa-sm"></i></a>
-                            <!--}
-                            *@-->
-    
-                            <!--
-                            @* ESTADO 3: Publicado *@
-                            @*
-                            @if (p.IdEstado == 3)
-                            {-->
-                                <a title="Suspender esta propiedad" *ngIf="(prop.codEstado === 3)"><i class="fas fa-ban fa-sm"></i></a>
-                            <!--}-->
+                            <a title="Publicar esta propiedad"
+                                *ngIf="(prop.codEstado === 1 && prop.fotos > 0) || (prop.codEstado === 4 && prop.fotos > 0)"
+                                (click)="this.onClickPublicarPropiedad(prop.idx, prop.id, prop.titulo)">
+                                <i class="far fa-share-square fa-sm"></i>
+                            </a>                           
+
+                            <a title="Suspender esta propiedad" 
+                               *ngIf="(prop.codEstado === 3)"
+                               (click)="this.onClickCancelarPropiedad(prop.idx, prop.id, prop.titulo)">
+                               <i class="fas fa-ban fa-sm"></i>
+                            </a>
     
                             <a title="Ver el detalle de esta propiedad" (click)="onClickVerDetalle(prop.idx)"><i class="fas fa-info fa-sm"></i></a>
                             
@@ -194,8 +192,6 @@
     
             </div>
 
-
-
         </div>
 
         <div class="d-flex p-1 m-1 justify-content-center" *ngIf="this.textoRespuestaBusqueda.length > 0">
@@ -205,5 +201,11 @@
 
     <!-- Modal info propiedad -->
     <app-info-propiedad-modal class="zindex-a"></app-info-propiedad-modal>
+
+    <!-- Modal publicar propiedad -->
+    <app-publicar-propiedad (onPropiedadPublicada)="this.onPropiedadPublicada($event.propiedad)" class="zindex-a"></app-publicar-propiedad>
+
+    <!-- Modal publicar propiedad -->
+    <app-cancelar-publicacion-propiedad (onPropiedadCancelada)="this.onPropiedadCancelada($event.propiedad)"></app-cancelar-publicacion-propiedad>
     
 </div>

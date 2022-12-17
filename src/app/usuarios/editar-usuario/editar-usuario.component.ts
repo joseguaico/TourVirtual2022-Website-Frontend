@@ -137,7 +137,7 @@ export class EditarUsuarioComponent implements OnInit {
 
  cargarUsuarioEnFormulario(){
 
-  console.log(this.usuarioEditar);
+  //console.log(this.usuarioEditar);
 
   if(this.usuarioEditar !== null){
 

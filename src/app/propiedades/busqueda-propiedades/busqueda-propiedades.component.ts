@@ -6,6 +6,10 @@ import { PropiedadesService } from 'src/app/services/propiedades.service';
 import { AccountService } from 'src/app/services/account.service';
 import { InfoPropiedadModalComponent } from '../components/info-propiedad-modal/info-propiedad-modal.component';
 import { Title } from '@angular/platform-browser';
+import { PublicarPropiedadComponent } from '../components/publicar-propiedad/publicar-propiedad.component';
+import { AlertMensajeComponent } from 'src/app/shared/components/alert-mensaje/alert-mensaje.component';
+import { CancelarPublicacionPropiedadComponent } from '../components/cancelar-publicacion-propiedad/cancelar-publicacion-propiedad.component';
+import { PropiedadInfo } from 'src/app/interfaces/propiedadInfo.interface';
 
 @Component({
   selector: 'app-busqueda-propiedades',
@@ -22,6 +26,9 @@ export class BusquedaPropiedadesComponent implements OnInit {
   public textoRespuestaBusqueda = '';
 
   @ViewChild(InfoPropiedadModalComponent) modalInfo!: InfoPropiedadModalComponent;
+  @ViewChild(PublicarPropiedadComponent) modalPublicar!: PublicarPropiedadComponent;
+  @ViewChild(CancelarPublicacionPropiedadComponent) modalCancelarPropiedad!: CancelarPublicacionPropiedadComponent;
+  @ViewChild(AlertMensajeComponent) alertMensaje!: AlertMensajeComponent;
 
   formBusquedaAdm: FormGroup = this.fb.group({
     cliente: ['',],
@@ -104,12 +111,47 @@ export class BusquedaPropiedadesComponent implements OnInit {
   }
 
   onClickVerDetalle(codXPropiedad: string){
-    //console.log(codXPropiedad);
     this.modalInfo.realizarBusqueda(codXPropiedad);
   }
 
   onClickEditarPropiedad(codxPropiedad: string){
     this.router.navigate(['propiedades/editar-propiedad'],  { queryParams: { cod: codxPropiedad} })
+  }
+
+  onClickPublicarPropiedad(codxPropiedad: string, codigoPropiedad: number, tituloPropiedad: string){
+    this.modalPublicar.mostrarModal(codxPropiedad, codigoPropiedad, tituloPropiedad);
+  }
+
+  onClickCancelarPropiedad(codxPropiedad: string, codigoPropiedad: number, tituloPropiedad: string){
+    this.modalCancelarPropiedad.mostrarModal(codxPropiedad, codigoPropiedad, tituloPropiedad);
+  }
+
+
+
+  onPropiedadPublicada(propiedad: PropiedadInfo){
+    this.alertMensaje.mostrarAlert(`Propiedad código ${propiedad.uidx} publicada exitosamente.`);
+    this.actualizarPropiedadEnArray(propiedad);
+    // TODO: crear código para actualizar la propiedad en el listado this.propiedades.
+    // TODO: refrescar elemento en grilla.
+  }
+
+
+  onPropiedadCancelada(propiedad: PropiedadInfo){    
+    this.alertMensaje.mostrarAlert(`Propiedad código ${propiedad.uidx} suspendida exitosamente.`);
+    this.actualizarPropiedadEnArray(propiedad);
+    // TODO: crear código para actualizar la propiedad en el listado this.propiedades.
+    // TODO: refrescar elemento en grilla.
+  }
+
+  actualizarPropiedadEnArray(propiedad: PropiedadInfo){
+    for(let i=0; i<this.propiedades.length; i++){
+      if(this.propiedades[i].id.toString() === propiedad.uidx){
+        this.propiedades[i].codEstado = propiedad.codEstado;
+        this.propiedades[i].estado = propiedad.estado;
+        this.propiedades[i].vistas = propiedad.visitas
+        break;
+      }
+    }
   }
 
 

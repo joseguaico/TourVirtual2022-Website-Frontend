@@ -4,7 +4,6 @@ import { catchError, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DescargaPropiedades } from '../interfaces/descargaPropiedades.interface';
 import { PropiedadInfo } from '../interfaces/propiedadInfo.interface';
-import { PropiedadTitulo } from '../interfaces/propiedadTitulo.interface';
 import { GeneralResponse } from '../models/generalResponse.class';
 import { erroresApiArrayToString } from '../shared/functions/customErrorsFunctions';
 
@@ -29,7 +28,7 @@ export class PropiedadesService {
       return this.http.get<DescargaPropiedades>(`${baseUrl}/Propiedades/GetAllPaged`, { params });
   }
 
-  obtenerPropiedadTitulo(codx: string)  : Observable<GeneralResponse>{
+  obtenerInfoPropiedad(codx: string)  : Observable<GeneralResponse>{
     const params = new HttpParams()
       .set('codPropiedad', codx);
 
@@ -135,6 +134,131 @@ export class PropiedadesService {
     );
 
   }
+
+  obtenerInfoPropiedadEditar(codx: string)  : Observable<GeneralResponse>{
+    const params = new HttpParams()
+      .set('codPropiedad', codx);
+
+    return this.http.get<PropiedadInfo>(`${baseUrl}/Propiedades/GetInfoEdicion`, { params })
+    .pipe(
+      catchError(err => {
+
+        // Si tiene errores de validación de la API 
+        const erroresValidacionApi = err.error?.errors;
+        
+        if (erroresValidacionApi !== null && erroresValidacionApi !== undefined){
+          return of(new GeneralResponse(true, erroresApiArrayToString(erroresValidacionApi), {}));
+        }
+
+        // Si tiene un error desde las respuesta de API
+        if (err.error?.message !== null &&  err.error?.message !== undefined){
+          return of(new GeneralResponse(true,  err.error.message, {}));
+        }
+
+        // Si se produce otro error
+        if (err.message !== null && err.message !== undefined){
+          return of(new GeneralResponse(true, err.message, {}));
+        }
+
+        return of(err)
+      })
+    );;
+  }
+
+  editarPropiedad(codxPropiedad: string, titulo: string, descripcion: string, direccion: string, habitaciones: number, banos: number, region: string, comuna: string){
+    var formData = new FormData();
+    formData.append('codigoPropiedad', codxPropiedad);
+    formData.append('titulo', titulo.trim());
+    formData.append('Descripcion', descripcion.trim());
+    formData.append('direccion', direccion.trim());
+    formData.append('habitaciones', habitaciones.toString());
+    formData.append('banos', banos.toString());
+    formData.append('region', region.trim());
+    formData.append('comuna', comuna.trim());
+
+    return this.http.put<GeneralResponse>(`${baseUrl}/Propiedades/EditarPropiedad`, formData)
+    .pipe(
+      catchError(err => {
+      
+        // Si tiene errores de validación de la API 
+        const erroresValidacionApi = err.error?.errors;
+        
+        if (erroresValidacionApi !== null && erroresValidacionApi !== undefined){
+          return of(new GeneralResponse(true, erroresApiArrayToString(erroresValidacionApi), {}));
+        }
+
+        // Si tiene un error desde las respuesta de API
+        if (err.error?.message !== null &&  err.error?.message !== undefined){
+          return of(new GeneralResponse(true,  err.error.message, {}));
+        }
+
+        // Si se produce otro error
+        if (err.message !== null && err.message !== undefined){
+          return of(new GeneralResponse(true, err.message, {}));
+        }
+        return of(err)
+      })
+    );
+  }
+
+  publicarPropiedad(codxPropiedad: string){
+    var formData = new FormData();
+    formData.append('codigoPropiedad', codxPropiedad);
+
+    return this.http.put<GeneralResponse>(`${baseUrl}/Propiedades/PublicarPropiedad`, formData)
+    .pipe(
+      catchError(err => {
+      
+        // Si tiene errores de validación de la API 
+        const erroresValidacionApi = err.error?.errors;
+        
+        if (erroresValidacionApi !== null && erroresValidacionApi !== undefined){
+          return of(new GeneralResponse(true, erroresApiArrayToString(erroresValidacionApi), {}));
+        }
+
+        // Si tiene un error desde las respuesta de API
+        if (err.error?.message !== null &&  err.error?.message !== undefined){
+          return of(new GeneralResponse(true,  err.error.message, {}));
+        }
+
+        // Si se produce otro error
+        if (err.message !== null && err.message !== undefined){
+          return of(new GeneralResponse(true, err.message, {}));
+        }
+        return of(err)
+      })
+    );
+  }
+
+  cancelarPublicacion(codxPropiedad: string){
+    var formData = new FormData();
+    formData.append('codigoPropiedad', codxPropiedad);
+
+    return this.http.put<GeneralResponse>(`${baseUrl}/Propiedades/SuspenderPublicacionPropiedad`, formData)
+    .pipe(
+      catchError(err => {
+      
+        // Si tiene errores de validación de la API 
+        const erroresValidacionApi = err.error?.errors;
+        
+        if (erroresValidacionApi !== null && erroresValidacionApi !== undefined){
+          return of(new GeneralResponse(true, erroresApiArrayToString(erroresValidacionApi), {}));
+        }
+
+        // Si tiene un error desde las respuesta de API
+        if (err.error?.message !== null &&  err.error?.message !== undefined){
+          return of(new GeneralResponse(true,  err.error.message, {}));
+        }
+
+        // Si se produce otro error
+        if (err.message !== null && err.message !== undefined){
+          return of(new GeneralResponse(true, err.message, {}));
+        }
+        return of(err)
+      })
+    );
+  }
+
 
 
 }

@@ -27,6 +27,14 @@
                     <tbody style="width: 100% !important;">
                         <tr class="d-flex w-100">
                             <td class="colLabel">
+                                <label id="lblCliente_pre" class="col">Código propiedad</label>
+                            </td>
+                            <td class="col colTexto">
+                                <span id="lblCliente">{{this.propiedad?.uidx}}</span>
+                            </td>
+                        </tr>
+                        <tr class="d-flex w-100">
+                            <td class="colLabel">
                                 <label id="lblCliente_pre" class="col">Propietario</label>
                             </td>
                             <td class="col colTexto">
@@ -105,12 +113,12 @@
                                 <span id="lblBanos" class="col colTexto">{{this.propiedad?.banos}}</span>
                             </td>
                         </tr>
-                        <tr id="trLink" class="d-flex w-100" style="display: none !important;">
+                        <tr class="d-flex w-100" *ngIf="this.mostrarLinkPublicacion">
                             <td class="colLabel">
                                 <label class="col labelViewInfo colLabel">Link</label>
                             </td>
                             <td>
-                                <a id="lblLinkPublicacion" href="#" target="_blank">Click aquí para ver la publicación</a>
+                                <a [href]="this.propiedad?.linkPublicacion" target="_blank">Click aquí para ver la publicación</a>
                             </td>
                         </tr>
                         <tr class="d-flex w-100">
