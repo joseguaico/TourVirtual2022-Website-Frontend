@@ -2,10 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'jquery';
-import { concat, concatAll, forkJoin, Observable, switchMap, tap, toArray } from 'rxjs';
-import { Cliente } from 'src/app/interfaces/cliente.interface';
-import { ClienteWithCount } from 'src/app/interfaces/clienteWithCount.interface';
+import { concat, Observable, tap, toArray } from 'rxjs';
 import { Comuna } from 'src/app/interfaces/comuna.interface';
 import { PropiedadInfo } from 'src/app/interfaces/propiedadInfo.interface';
 import { PropiedadInfoEditar } from 'src/app/interfaces/propiedadInfoEditar.interface';
@@ -25,7 +22,7 @@ export class EditarPropiedadComponent implements OnInit {
 
   cargando = true;
   codPropiedadEditar: string = '';
-  codComunaAux: number = 13;
+  codRegionAux: number = 0;
   mensajeCarga: string = '';
 
   mostrarDetalle = true;
@@ -57,13 +54,13 @@ export class EditarPropiedadComponent implements OnInit {
   textoOverlay = ''; // Acá también registrar mensajes de repuesta desde la API
   mostrarOpcionesPosteriores = false;
   textoOpcionesPosterior = '';
+  mostrarMensajeCarga = false;
 
   constructor(public fb: FormBuilder, 
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private regionesService: RegionesService,
     public accountService: AccountService,
-    private clientesService: ClientesService,
     private propiedadesService: PropiedadesService,
     private titleService: Title) { }
 
@@ -81,11 +78,12 @@ export class EditarPropiedadComponent implements OnInit {
         //-->this.setModoInicial();
         this.mostrarFormularioPrincipal = false;
         this.prepararDatos();
-      
+        this.mostrarMensajeCarga = false;
       }else{
         this.cargando = false;
         this.mostrarDetalle = false;
         this.mensajeCarga = "El enlace para editar la propiedad no es válido.";
+        this.mostrarMensajeCarga = true;
       }
     });
   }
@@ -121,14 +119,17 @@ export class EditarPropiedadComponent implements OnInit {
 
     this.cargando = true;
 
-    concat(this.obtenerRegiones(), this.obtenerInfoPropiedad(), this.obtenerComunas(this.codComunaAux)) 
+    concat(this.obtenerRegiones(), this.obtenerInfoPropiedad()) 
       .pipe(
         toArray()
       )   
       .subscribe((resp: any) => {
         //console.log('Posterior: ', resp);
 
-        this.cargarPropiedadEnFormulario();
+        this.obtenerComunas(this.codRegionAux).subscribe((resp: any) => {
+          this.cargarPropiedadEnFormulario();
+        })
+       
         
       }, (err) => {
         console.error(err);
@@ -138,15 +139,18 @@ export class EditarPropiedadComponent implements OnInit {
 
 
   obtenerInfoPropiedad() : Observable<any>{
+    //console.log('obtenerInfoPropiedad()');
     return this.propiedadesService.obtenerInfoPropiedadEditar(this.codPropiedadEditar)
       .pipe(
         tap((resp: any) => {
-         // console.log('Info Propiedad TAP: ', resp.datos as PropiedadInfo);
+          //console.log('Info Propiedad TAP: ', resp.datos as PropiedadInfo);
           this.propiedadEditar = resp.datos as PropiedadInfoEditar;
+          this.codRegionAux = this.propiedadEditar?.codRegion;
         }),
       );
   }
   obtenerRegiones(): Observable<Region[]>{
+    //console.log('obtenerRegiones()');
     return this.regionesService.obtenerRegiones()
     .pipe(
       tap((resp: any) => {
@@ -167,9 +171,6 @@ export class EditarPropiedadComponent implements OnInit {
 
   cargarPropiedadEnFormulario(){
 
-    console.log('Propiedad Editar', this.propiedadEditar);
-
-
     if(this.propiedadEditar !== null){
 
       this.formEditar.get('titulo')?.setValue(this.propiedadEditar!.titulo);
@@ -185,42 +186,59 @@ export class EditarPropiedadComponent implements OnInit {
     }
   }
 
+  ocultarModal(){
+    this.mostrarInfoGeneral = false;
+    this.mostrarOverlay = false;
+  }
+
+  redirectToCreate(){
+    this.router.navigate(['propiedades/crear-propiedad']);
+  }
+
+  redirectToBusqueda(){
+    this.router.navigate(['propiedades/busqueda']);
+  }
 
    guardar(){
     if (this.formEditar.invalid){
       return this.formEditar.markAllAsTouched();      
     }    
 
-
     this.mostrarOverlay = true;
     this.mostrarLoading = true;
 
-    // this.enviarDatos().subscribe((resp: GeneralResponse) => {
-    //   this.mostrarLoading = false;
+    const { titulo, descripcion, direccion, habitaciones, banos, region, comuna} = this.formEditar.value;
 
-    //   if(resp.tieneError){
-    //     this.mostrarLoading = false;
-    //     this.mostrarInfoGeneral = true;
-    //     this.textoOverlay = resp.message;
-    //   }else{
-    //     this.mostrarLoading = false;
-    //     this.mostrarInfoGeneral = false;
-    //     this.textoOverlay = "";
-    //     this.mostrarFormularioPrincipal = false;
-    //     this.mostrarOverlay = false;
-    //     this.mostrarOpcionesPosteriores = true;
-    //     this.textoOpcionesPosterior = "Propiedad creada exitosamente";
-    //     const {codigo} = resp.datos as PropiedadInfo;
-    //     this.codPropiedadNueva = codigo;
+    this.propiedadesService.editarPropiedad(this.propiedadEditar!.codigo, titulo, descripcion, direccion, habitaciones, banos, region, comuna)
+    .subscribe((resp: GeneralResponse) => {
+      //console.log('RESP: ', resp);
+    
+      this.mostrarLoading = false;
 
-    //     this.mostrarPanelAdmin = false;
-    //   }
+      if(resp.tieneError){
+        this.mostrarLoading = false;
+        this.mostrarInfoGeneral = true;
+        this.textoOverlay = resp.message;
+      }else{
 
-    // }, (err) => {
-    //   console.warn("ERR: ", err);
-    //   this.mostrarOverlay = false;
-    //   this.mostrarLoading = false;
-    // });
+        this.mostrarLoading = false;
+        this.mostrarInfoGeneral = false;
+        this.textoOverlay = "";
+        this.mostrarFormularioPrincipal = false;
+        this.mostrarOverlay = false;
+        this.mostrarOpcionesPosteriores = true;
+        this.mostrarDetalle = false;
+        this.textoOpcionesPosterior = "Propiedad editada exitosamente";
+
+      }
+
+    }, (err) => {
+
+      console.warn("ERR: ", err);
+
+      this.mostrarOverlay = false;
+      this.mostrarLoading = false;
+    });
    
   }
 
