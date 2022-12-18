@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 import { InfoUsuarioModalComponent } from './components/info-usuario-modal/info-usuario-modal.component';
+import { BorrarUsuarioModalComponent } from './components/borrar-usuario-modal/borrar-usuario-modal.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { InfoUsuarioModalComponent } from './components/info-usuario-modal/info-
     BusquedaUsuariosComponent,
     CrearUsuarioComponent,
     EditarUsuarioComponent,
-    InfoUsuarioModalComponent
+    InfoUsuarioModalComponent,
+    BorrarUsuarioModalComponent
   ],
   imports: [
     CommonModule,

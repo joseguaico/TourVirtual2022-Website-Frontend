@@ -4,9 +4,10 @@ import { Title } from '@angular/platform-browser';
 import { Router, TitleStrategy } from '@angular/router';
 import { Rol } from 'src/app/interfaces/rol.interface';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
-import { GeneralResponse } from 'src/app/models/generalResponse.class';
 import { RolesService } from 'src/app/services/roles.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { AlertMensajeComponent } from 'src/app/shared/components/alert-mensaje/alert-mensaje.component';
+import { BorrarUsuarioModalComponent } from '../components/borrar-usuario-modal/borrar-usuario-modal.component';
 import { InfoUsuarioModalComponent } from '../components/info-usuario-modal/info-usuario-modal.component';
 
 @Component({
@@ -31,6 +32,9 @@ export class BusquedaUsuariosComponent implements OnInit {
   public textoRespuestaBusqueda = '';
 
   @ViewChild(InfoUsuarioModalComponent) modalInfo!: InfoUsuarioModalComponent;
+  @ViewChild(BorrarUsuarioModalComponent) modalBorrarUsuario!: BorrarUsuarioModalComponent;
+  @ViewChild(AlertMensajeComponent) alertMensaje!: AlertMensajeComponent;
+
 
   constructor(public fb: FormBuilder, private router: Router,
     private usuariosService: UsuariosService,
@@ -86,8 +90,17 @@ export class BusquedaUsuariosComponent implements OnInit {
   onClickEditar(idUsuario: string){
     this.router.navigate(['usuarios/editar-usuario'],  { queryParams: { cod: idUsuario} })
   }
-  onClickEliminar(idUsuario: string){
+  onClickEliminar(usuario: Usuario){
+    this.modalBorrarUsuario.mostrarModal(usuario.uid, `${usuario.nombres.trim()} ${usuario.apellidos.trim()}` , usuario.email.trim());
+  }
 
+  onUsuarioBorrado(idUsuario: string, nombreCompleto: string, email: string){
+    this.alertMensaje.mostrarAlert(`Usuario "${nombreCompleto}" borrado exitosamente.`);
+    this.removerUsuarioDelArray(idUsuario);
+  }
+
+  removerUsuarioDelArray(idUsuario: string){
+    this.usuarios = this.usuarios.filter(f => f.uid.trim().toLowerCase() !== idUsuario.trim().toLowerCase());
   }
 
 

@@ -53,6 +53,8 @@
     <!-- Grid principal -->
     <div class="row w-100 justify-content-center p-0">
 
+        <app-alert-mensaje></app-alert-mensaje>
+
         <div id="rowLoading" class="w-100" *ngIf="this.cargando">
             <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline;" />
             <p id="textInfoEnvio" style="display: inline;" class="ml-2">Actualizando...</p>
@@ -95,7 +97,7 @@
                         <div class="p-0 d-flex flex-row celda-Contenido rounded-buttons-icons">
                             <a title="Ver el detalle de este usuario" (click)="this.onClickVerDetalle(usr.uid)"><i class="fas fa-info fa-sm"></i></a>
                             <a title="Editar este usuario" (click)="this.onClickEditar(usr.uid)"><i class="fas fa-pencil-alt fa-sm"></i></a>
-                            <a title="Eliminar este usuario" (click)="this.onClickEliminar(usr.uid)"><i class="fas fa-times fa-sm"></i></a>
+                            <a title="Eliminar este usuario" (click)="this.onClickEliminar(usr)"><i class="fas fa-times fa-sm"></i></a>
                         </div>
                     </div>
                 </div>
@@ -107,8 +109,14 @@
     
         </div>
 
-        <!-- Modal info cliente -->
+        <!-- Modal info usuario -->
         <app-info-usuario-modal class="zindex-a"></app-info-usuario-modal>
+
+        <!-- Modal borrar usuario -->
+        <app-borrar-usuario-modal 
+            (onUsuarioBorrado)="this.onUsuarioBorrado($event.idUsuario, $event.nombreCompleto, $event.email)" 
+            class="zindex-a">
+        </app-borrar-usuario-modal>
 
     </div>
 
