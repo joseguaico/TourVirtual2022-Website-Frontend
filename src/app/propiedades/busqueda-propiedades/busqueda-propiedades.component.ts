@@ -10,6 +10,7 @@ import { PublicarPropiedadComponent } from '../components/publicar-propiedad/pub
 import { AlertMensajeComponent } from 'src/app/shared/components/alert-mensaje/alert-mensaje.component';
 import { CancelarPublicacionPropiedadComponent } from '../components/cancelar-publicacion-propiedad/cancelar-publicacion-propiedad.component';
 import { PropiedadInfo } from 'src/app/interfaces/propiedadInfo.interface';
+import { BorrarPropiedadModalComponent } from '../components/borrar-propiedad-modal/borrar-propiedad-modal.component';
 
 @Component({
   selector: 'app-busqueda-propiedades',
@@ -28,6 +29,7 @@ export class BusquedaPropiedadesComponent implements OnInit {
   @ViewChild(InfoPropiedadModalComponent) modalInfo!: InfoPropiedadModalComponent;
   @ViewChild(PublicarPropiedadComponent) modalPublicar!: PublicarPropiedadComponent;
   @ViewChild(CancelarPublicacionPropiedadComponent) modalCancelarPropiedad!: CancelarPublicacionPropiedadComponent;
+  @ViewChild(BorrarPropiedadModalComponent) modalBorrarPropiedad!: BorrarPropiedadModalComponent;
   @ViewChild(AlertMensajeComponent) alertMensaje!: AlertMensajeComponent;
 
   formBusquedaAdm: FormGroup = this.fb.group({
@@ -126,26 +128,29 @@ export class BusquedaPropiedadesComponent implements OnInit {
     this.modalCancelarPropiedad.mostrarModal(codxPropiedad, codigoPropiedad, tituloPropiedad);
   }
 
-
-
   onPropiedadPublicada(propiedad: PropiedadInfo){
-    this.alertMensaje.mostrarAlert(`Propiedad código ${propiedad.uidx} publicada exitosamente.`);
+    this.alertMensaje.mostrarAlert(`Propiedad código ${propiedad.codigo} publicada exitosamente.`);
     this.actualizarPropiedadEnArray(propiedad);
-    // TODO: crear código para actualizar la propiedad en el listado this.propiedades.
-    // TODO: refrescar elemento en grilla.
   }
 
+  onClickBorrarPropiedad(propiedad: PropiedadTitulo){
+    this.modalBorrarPropiedad.mostrarModal(propiedad.idx, propiedad.id, propiedad.titulo);
+  }
 
   onPropiedadCancelada(propiedad: PropiedadInfo){    
-    this.alertMensaje.mostrarAlert(`Propiedad código ${propiedad.uidx} suspendida exitosamente.`);
+    this.alertMensaje.mostrarAlert(`Propiedad código ${propiedad.codigo} suspendida exitosamente.`);
     this.actualizarPropiedadEnArray(propiedad);
-    // TODO: crear código para actualizar la propiedad en el listado this.propiedades.
-    // TODO: refrescar elemento en grilla.
   }
+
+  onPropiedadBorrada(codigoPropiedad: number, codxPropiedad: string){
+    this.alertMensaje.mostrarAlert(`Propiedad código ${codigoPropiedad} borrada exitosamente.`);
+    this.removerPropiedadDelArray(codxPropiedad);
+  }
+
 
   actualizarPropiedadEnArray(propiedad: PropiedadInfo){
     for(let i=0; i<this.propiedades.length; i++){
-      if(this.propiedades[i].id.toString() === propiedad.uidx){
+      if(this.propiedades[i].id.toString() === propiedad.codigo){
         this.propiedades[i].codEstado = propiedad.codEstado;
         this.propiedades[i].estado = propiedad.estado;
         this.propiedades[i].vistas = propiedad.visitas
@@ -154,5 +159,8 @@ export class BusquedaPropiedadesComponent implements OnInit {
     }
   }
 
+  removerPropiedadDelArray(codxPropiedad: string){
+    this.propiedades = this.propiedades.filter(f => f.idx.trim().toLowerCase() !== codxPropiedad.trim().toLowerCase());
+  }
 
 }

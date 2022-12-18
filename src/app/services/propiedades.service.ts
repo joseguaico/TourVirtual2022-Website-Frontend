@@ -259,6 +259,40 @@ export class PropiedadesService {
     );
   }
 
+  eliminarPropiedad(codxPropiedad: string) : Observable<GeneralResponse>{
+    const options = {
+      body: {
+        codigoPropiedad: codxPropiedad,
+      },
+    };
+    
+    return this.http.delete<GeneralResponse>(`${baseUrl}/Propiedades/BorrarPropiedad`, options )
+    .pipe(
 
+      //tap((datos: any) => console.log('TAP: ', datos)),
+
+      catchError(err => {
+      
+        // Si tiene errores de validación de la API 
+        const erroresValidacionApi = err.error?.errors;
+        
+        if (erroresValidacionApi !== null && erroresValidacionApi !== undefined){
+          return of(new GeneralResponse(true, erroresApiArrayToString(erroresValidacionApi), {}));
+        }
+
+        // Si tiene un error desde las respuesta de API
+        if (err.error?.message !== null &&  err.error?.message !== undefined){
+          return of(new GeneralResponse(true,  err.error.message, {}));
+        }
+
+        // Si se produce otro error
+        if (err.message !== null && err.message !== undefined){
+          return of(new GeneralResponse(true, err.message, {}));
+        }
+
+        return of(err)
+      })
+    );
+  }
 
 }

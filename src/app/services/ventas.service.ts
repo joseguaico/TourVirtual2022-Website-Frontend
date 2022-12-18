@@ -174,9 +174,7 @@ export class VentasService {
 
         return of(err)
       })
-
     );
-
   }
 
 }

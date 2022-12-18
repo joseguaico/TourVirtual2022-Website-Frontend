@@ -21,6 +21,7 @@ import { BorrarHotspotModalComponent } from './components/borrar-hotspot-modal/b
 import { EditarPropiedadComponent } from './editar-propiedad/editar-propiedad.component';
 import { PublicarPropiedadComponent } from './components/publicar-propiedad/publicar-propiedad.component';
 import { CancelarPublicacionPropiedadComponent } from './components/cancelar-publicacion-propiedad/cancelar-publicacion-propiedad.component';
+import { BorrarPropiedadModalComponent } from './components/borrar-propiedad-modal/borrar-propiedad-modal.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { CancelarPublicacionPropiedadComponent } from './components/cancelar-pub
     EditarPropiedadComponent,
     PublicarPropiedadComponent,
     CancelarPublicacionPropiedadComponent,
+    BorrarPropiedadModalComponent,
   ],
   imports: [
     CommonModule,
