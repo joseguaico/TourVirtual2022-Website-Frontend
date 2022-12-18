@@ -4,7 +4,9 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Venta } from 'src/app/interfaces/venta.interface';
 import { VentasService } from 'src/app/services/ventas.service';
+import { AlertMensajeComponent } from 'src/app/shared/components/alert-mensaje/alert-mensaje.component';
 import { environment } from 'src/environments/environment';
+import { BorrarVentaModalComponent } from '../components/borrar-venta-modal/borrar-venta-modal.component';
 import { InfoVentaModalComponent } from '../components/info-venta-modal/info-venta-modal.component';
 
 const baseUrl: string = environment.baseUrl;
@@ -31,6 +33,8 @@ export class BusquedaVentasComponent implements OnInit {
   public textoRespuestaBusqueda = '';
 
   @ViewChild(InfoVentaModalComponent) modalInfo!: InfoVentaModalComponent;
+  @ViewChild(BorrarVentaModalComponent) modalBorrarVenta!: BorrarVentaModalComponent;
+  @ViewChild(AlertMensajeComponent) alertMensaje!: AlertMensajeComponent;
 
   public urlVerFoto = baseUrl + '/Ventas/GetComprobanteVenta?codVenta=';
 
@@ -126,7 +130,6 @@ export class BusquedaVentasComponent implements OnInit {
   
   
   onClickVerDetalle(codXVenta: string){
-   // console.log(codXVenta);
     this.modalInfo.realizarBusqueda(codXVenta);
   }
 
@@ -134,5 +137,17 @@ export class BusquedaVentasComponent implements OnInit {
     this.router.navigate(['ventas/editar-venta'],  { queryParams: { cod: codXVenta} })
   }
 
+  onClickBorrarVenta(venta: Venta){
+    this.modalBorrarVenta.mostrarModal(venta.idx, venta.id, venta.cliente);
+  }
+
+  onVentaBorrada(codigoVenta: number, codxVenta: string){
+    this.alertMensaje.mostrarAlert(`Venta código "${codigoVenta}" borrada exitosamente.`);
+    this.removerVentaDelArray(codxVenta);
+  }
+
+  removerVentaDelArray(codxVenta: string){
+    this.ventas = this.ventas.filter(f => f.idx.trim().toLowerCase() !== codxVenta.trim().toLowerCase());
+  }
 
 }

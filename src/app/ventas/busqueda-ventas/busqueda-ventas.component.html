@@ -9,6 +9,8 @@
     <!-- Filtros de búsqueda -->
     <div class="row w-100 mt-0 justify-content-center">
 
+        <app-alert-mensaje></app-alert-mensaje>
+
         <div class="col-lg-12">
 
             <form id="formBusquedaAdmin" [formGroup]="this.formBusqueda" class="form-inline" method="post" style="width: 100% !important;">
@@ -140,7 +142,7 @@
                             <a title="Ver el detalle de esta venta" (click)="this.onClickVerDetalle(vt.idx)"><i class="fas fa-info fa-sm"></i></a>
                             <a title="Editar este venta" (click)="this.onClickEditarVenta(vt.idx)"><i class="fas fa-pencil-alt fa-sm"></i></a>
     
-                            <a title="Eliminar este venta"><i class="fas fa-times fa-sm"></i></a>
+                            <a title="Eliminar este venta" (click)="this.onClickBorrarVenta(vt)"><i class="fas fa-times fa-sm"></i></a>
                         </div>
                     </div>
     
@@ -159,5 +161,9 @@
 
     <!-- Modal info venta -->
     <app-info-venta-modal class="zindex-a"></app-info-venta-modal >
+
+    <!-- Modal borrar venta -->
+    <app-borrar-venta-modal (onVentaBorrada)="this.onVentaBorrada($event.codigoVenta, $event.codxVenta)"
+        class="zindex-a"></app-borrar-venta-modal>
 
 </div>

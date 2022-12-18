@@ -12,6 +12,7 @@ import { CrearVentaComponent } from './crear-venta/crear-venta.component';
 import { VisorComprobanteComponent } from './visor-comprobante/visor-comprobante.component';
 import { InfoVentaModalComponent } from './components/info-venta-modal/info-venta-modal.component';
 import { EditarVentaComponent } from './editar-venta/editar-venta.component';
+import { BorrarVentaModalComponent } from './components/borrar-venta-modal/borrar-venta-modal.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { EditarVentaComponent } from './editar-venta/editar-venta.component';
     CrearVentaComponent,
     VisorComprobanteComponent,
     InfoVentaModalComponent,
-    EditarVentaComponent
+    EditarVentaComponent,
+    BorrarVentaModalComponent
   ],
   imports: [
     CommonModule,

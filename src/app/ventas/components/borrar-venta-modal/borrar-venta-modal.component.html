@@ -1,4 +1,4 @@
-<div #mdlUsuarioBorrar 
+<div #mdlVentaBorrar 
     class="modal fade in"    
     aria-labelledby="mdlItemizadoTitle" 
     data-backdrop="false"
@@ -18,8 +18,8 @@
                 style="padding-top: 5px; padding-bottom: 5px;width: 100% !important;">
                 <!-- <p class="w-100 text-center">{{this.contenidoPublicar}}</p> -->
                 <div class="w-100 text-center p-3">
-                    El usuario "<span class="">{{this.nombreCompleto}}</span>"", Email: "
-                    <span class="">{{this.email}}</span>" y toda su información relacionada será borrada.
+                    La venta código "<span class="">{{this.codigoVenta}}</span>"", para el cliente: "
+                    <span class="">{{this.nombreCliente}}</span>" y será borrada.
                 </div>
                 <br>
                 <br>
@@ -32,7 +32,7 @@
                 <button type="button" class="btn btn-sm btn-sm-custom btn-light" (click)="this.cerrarModal()" >Cancelar</button>
                 <button id="btnGuardarHotspot" 
                     class="btn btn-sm btn-sm-custom btn-danger" 
-                    (click)="this.enviarBorrarUsuario()">Borrar</button>
+                    (click)="this.enviarBorrarVenta()">Borrar</button>
             </div>
         </div>
     </div>

@@ -141,5 +141,42 @@ export class VentasService {
 
   }
 
+  eliminarVenta(codxVenta: string) : Observable<GeneralResponse>{
+    const options = {
+      body: {
+        codigoVenta: codxVenta,
+      },
+    };
+    
+    return this.http.delete<GeneralResponse>(`${baseUrl}/Ventas/BorrarVenta`, options )
+    .pipe(
+
+      //tap((datos: any) => console.log('TAP: ', datos)),
+
+      catchError(err => {
+      
+        // Si tiene errores de validación de la API 
+        const erroresValidacionApi = err.error?.errors;
+        
+        if (erroresValidacionApi !== null && erroresValidacionApi !== undefined){
+          return of(new GeneralResponse(true, erroresApiArrayToString(erroresValidacionApi), {}));
+        }
+
+        // Si tiene un error desde las respuesta de API
+        if (err.error?.message !== null &&  err.error?.message !== undefined){
+          return of(new GeneralResponse(true,  err.error.message, {}));
+        }
+
+        // Si se produce otro error
+        if (err.message !== null && err.message !== undefined){
+          return of(new GeneralResponse(true, err.message, {}));
+        }
+
+        return of(err)
+      })
+
+    );
+
+  }
 
 }
