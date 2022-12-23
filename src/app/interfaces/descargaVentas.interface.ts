@@ -7,5 +7,11 @@ export interface DescargaVentas{
     pageNumber: number,
     pageSize: number,
     totalPages: number,
-    totalRecords: number
+    totalRecords: number,
+
+    showPagination: boolean,
+    showFirst: boolean,
+    showPrevious: boolean,
+    showNext: boolean,
+    showLast: boolean,
 }

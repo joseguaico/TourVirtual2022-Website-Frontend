@@ -99,10 +99,6 @@ export class CrearClienteComponent implements OnInit {
     this.router.navigate(['clientes/busqueda']);
   }
 
-  redirectoTo360Images(){
-    // TODO: Agregar redirección a pantalla de imágenes 
-  }
-
   setModoInicial(){
     this.formCrear.reset();
     this.mostrarOverlay = false;

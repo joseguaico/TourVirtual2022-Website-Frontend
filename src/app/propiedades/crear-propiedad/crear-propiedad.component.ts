@@ -177,8 +177,8 @@ export class CrearPropiedadComponent implements OnInit, AfterViewInit {
         this.mostrarOverlay = false;
         this.mostrarOpcionesPosteriores = true;
         this.textoOpcionesPosterior = "Propiedad creada exitosamente";
-        const {codigo} = resp.datos as PropiedadInfo;
-        this.codPropiedadNueva = codigo;
+        const {uidx} = resp.datos as PropiedadInfo;
+        this.codPropiedadNueva = uidx;
 
         this.mostrarPanelAdmin = false;
       }

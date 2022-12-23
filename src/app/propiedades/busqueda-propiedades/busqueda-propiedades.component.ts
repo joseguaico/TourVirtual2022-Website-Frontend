@@ -11,6 +11,7 @@ import { AlertMensajeComponent } from 'src/app/shared/components/alert-mensaje/a
 import { CancelarPublicacionPropiedadComponent } from '../components/cancelar-publicacion-propiedad/cancelar-publicacion-propiedad.component';
 import { PropiedadInfo } from 'src/app/interfaces/propiedadInfo.interface';
 import { BorrarPropiedadModalComponent } from '../components/borrar-propiedad-modal/borrar-propiedad-modal.component';
+import { PaginationSizes } from 'src/app/shared/lists/paginationSizes';
 
 @Component({
   selector: 'app-busqueda-propiedades',
@@ -21,8 +22,17 @@ export class BusquedaPropiedadesComponent implements OnInit {
 
   mostrarPanelAdmin = true;
   propiedades: PropiedadTitulo[] = [];
-  private pageNumber: number = 1;
-  private pageSize: number = 10;
+  
+  currentPage: number = 1;
+  pageSize: number = 10;
+  pagesCount: number = 1;
+  paginationSizes: number[] = PaginationSizes;
+  showPagination: boolean = false;
+  showFirst: boolean = false;
+  showPrevious: boolean = false;
+  showNext: boolean = false;
+  showLast: boolean = false;
+
   public cargando = false;
   public textoRespuestaBusqueda = '';
 
@@ -35,12 +45,12 @@ export class BusquedaPropiedadesComponent implements OnInit {
   formBusquedaAdm: FormGroup = this.fb.group({
     cliente: ['',],
     titulo: ['',],
-    conFotos: [true,]
+    conFotos: [-1,]
   });
 
   formBusquedaProp: FormGroup = this.fb.group({
     titulo: ['',],
-    conFotos: [true,]
+    conFotos: [-1,]
   });
 
 
@@ -85,10 +95,10 @@ export class BusquedaPropiedadesComponent implements OnInit {
     }
   }
 
-  realizarBusqueda(cliente: string, titulo: string, conFotos: boolean){
+  realizarBusqueda(cliente: string, titulo: string, conFotos: number){
 
     this.cargando = true;
-    this.propiedadesService.obtenerPropiedadesTitulo(cliente, titulo, conFotos, this.pageNumber, this.pageSize)
+    this.propiedadesService.obtenerPropiedadesTitulo(cliente, titulo, conFotos, this.currentPage, this.pageSize)
       .subscribe(({datos}: any) => 
       {
         this.propiedades = datos;

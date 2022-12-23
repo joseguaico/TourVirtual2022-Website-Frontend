@@ -16,7 +16,7 @@ export class PropiedadesService {
 
   constructor(private http: HttpClient) { }
 
-  obtenerPropiedadesTitulo(cliente: string, titulo: string, conFotos: boolean, pageNumber: number, pageSize: number){
+  obtenerPropiedadesTitulo(cliente: string, titulo: string, conFotos: number, pageNumber: number, pageSize: number){
 
     const params = new HttpParams()
       .set('cliente', cliente)
