@@ -42,7 +42,6 @@ export class BusquedaUsuariosComponent implements OnInit {
     ddlPageSize: [this.pageSize]
   });
 
-
   roles: Rol[] = [];
   usuarios: Usuario[] = [];
   

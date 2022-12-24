@@ -9,6 +9,7 @@ import { ClientesService } from 'src/app/services/clientes.service';
 import { InfoClienteModalComponent } from '../components/info-cliente-modal/info-cliente-modal.component';
 import { CambiarEstadoClienteModalComponent } from '../components/cambiar-estado-cliente-modal/cambiar-estado-cliente-modal.component';
 import { Title } from '@angular/platform-browser';
+import { PaginationSizes } from 'src/app/shared/lists/paginationSizes';
 
 @Component({
   selector: 'app-busqueda-clientes',
@@ -17,14 +18,29 @@ import { Title } from '@angular/platform-browser';
 })
 export class BusquedaClientesComponent implements OnInit {
 
+  currentPage: number = 1;
+  pageSize: number = 10;
+  pagesCount: number = 1;
+  paginationSizes: number[] = PaginationSizes;
+  showPagination: boolean = false;
+  showFirst: boolean = false;
+  showPrevious: boolean = false;
+  showNext: boolean = false;
+  showLast: boolean = false;
+
+  auxNombresPrev: string = '';
+  auxEmailPrev: string = '';
+
   formBusqueda: FormGroup = this.fb.group({
     nombres: ['',],
     email: ['',]
   });
+  
+  formPaginator: FormGroup = this.fb.group({
+    ddlPageSize: [this.pageSize]
+  });
 
   public clientes: ClienteWithCount[] = [];
-  private pageNumber: number = 1;
-  private pageSize: number = 10;
   public cargando = false;
   public textoRespuestaBusqueda = '';
 
@@ -40,7 +56,8 @@ export class BusquedaClientesComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle('Búsqueda de clientes');
     registerLocaleData(es);
-    this.realizarBusqueda();
+    const {nombres, email} = this.formBusqueda.value;
+    this.realizarBusqueda(nombres, email);
   }
 
   crearClick(){
@@ -48,21 +65,28 @@ export class BusquedaClientesComponent implements OnInit {
   }
 
   buscarClick(){
-    this.realizarBusqueda();
+    const {nombres, email} = this.formBusqueda.value;
+    this.realizarBusqueda(nombres, email);
   }
 
-  realizarBusqueda(){
-    const {nombres, email} = this.formBusqueda.value;
+  realizarBusqueda(nombres: string, email: string){
+    this.auxNombresPrev = nombres;
+    this.auxEmailPrev = email;
 
     this.cargando = true;
 
-    this.clientesService.obtenerClientesWithCount(nombres, email, this.pageNumber, this.pageSize)
-      .subscribe(resp => {
-        //console.log("RESP: ", resp);
-
+    this.clientesService.obtenerClientesWithCount(nombres, email, this.currentPage, this.pageSize)
+      .subscribe((resp: any) => {
         this.clientes = resp.datos;
+        this.showFirst = resp.showFirst;
+        this.showPrevious = resp.showPrevious;
+        this.showNext = resp.showNext;
+        this.showLast = resp.showLast;
+        this.showPagination = resp.showPagination;
+        this.pagesCount = resp.totalPages;
+
         this.cargando = false;
-      this.textoRespuestaBusqueda = this.clientes.length === 0 ? 'No se encontraron datos' : '';
+        this.textoRespuestaBusqueda = this.clientes.length === 0 ? 'No se encontraron datos' : '';
 
       },
       (err: any) => {
@@ -72,6 +96,20 @@ export class BusquedaClientesComponent implements OnInit {
         this.textoRespuestaBusqueda = message;
         this.clientes = [];
       });
+  }
+
+  onDdlPageSizeChange(){
+    this.pageSize = this.formPaginator.get('ddlPageSize')?.value;
+    this.currentPage = 1;
+    this.paginarBusquedaPageSize();
+  }
+
+  paginarBusquedaPageSize(){
+    this.realizarBusqueda(this.auxNombresPrev, this.auxEmailPrev);
+  }
+  paginarBusqueda(newPage: number){
+    this.currentPage = newPage;
+    this.paginarBusquedaPageSize();
   }
 
 
@@ -93,8 +131,8 @@ export class BusquedaClientesComponent implements OnInit {
 
   }
 
-  recargarBusquedaClientes(){
-   this.realizarBusqueda();
+  onRecargarBusquedaClientes(){
+    this.paginarBusqueda(1);
   }
 
 }
