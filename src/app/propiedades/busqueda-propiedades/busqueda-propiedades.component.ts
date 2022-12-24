@@ -182,6 +182,7 @@ export class BusquedaPropiedadesComponent implements OnInit {
   onPropiedadCancelada(propiedad: PropiedadInfo){    
     this.alertMensaje.mostrarAlert(`Propiedad código ${propiedad.codigo} suspendida exitosamente.`);
     this.actualizarPropiedadEnArray(propiedad);
+    this.paginarBusqueda(1);
   }
 
   onPropiedadBorrada(codigoPropiedad: number, codxPropiedad: string){

@@ -7,6 +7,7 @@ import { Usuario } from 'src/app/interfaces/usuario.interface';
 import { RolesService } from 'src/app/services/roles.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { AlertMensajeComponent } from 'src/app/shared/components/alert-mensaje/alert-mensaje.component';
+import { PaginationSizes } from 'src/app/shared/lists/paginationSizes';
 import { BorrarUsuarioModalComponent } from '../components/borrar-usuario-modal/borrar-usuario-modal.component';
 import { InfoUsuarioModalComponent } from '../components/info-usuario-modal/info-usuario-modal.component';
 
@@ -17,17 +18,34 @@ import { InfoUsuarioModalComponent } from '../components/info-usuario-modal/info
 })
 export class BusquedaUsuariosComponent implements OnInit {
 
+  currentPage: number = 1;
+  pageSize: number = 10;
+  pagesCount: number = 1;
+  paginationSizes: number[] = PaginationSizes;
+  showPagination: boolean = false;
+  showFirst: boolean = false;
+  showPrevious: boolean = false;
+  showNext: boolean = false;
+  showLast: boolean = false;
+
+  auxEmailPrev: string = '';
+  auxNombresPrev: string = '';
+  auxRolPrev: string = '';
+
   formBusqueda: FormGroup = this.fb.group({
     email: ['',],
     nombres: ['',],
     rol: ['',]
   });
 
+  formPaginator: FormGroup = this.fb.group({
+    ddlPageSize: [this.pageSize]
+  });
+
+
   roles: Rol[] = [];
   usuarios: Usuario[] = [];
-
-  private pageNumber: number = 1;
-  private pageSize: number = 10;
+  
   public cargando = false;
   public textoRespuestaBusqueda = '';
 
@@ -45,11 +63,13 @@ export class BusquedaUsuariosComponent implements OnInit {
     this.titleService.setTitle('Búsqueda de usuarios');
     this.obtenerRoles();
     this.formBusqueda.get('rol')?.setValue("");
-    this.realizarBusqueda();
+    const { email, nombres, rol} = this.formBusqueda.value;
+    this.realizarBusqueda(email, nombres, rol);
   }
 
   buscarClick(){
-    this.realizarBusqueda();
+    const { email, nombres, rol} = this.formBusqueda.value;
+    this.realizarBusqueda(email, nombres, rol);
   }
 
   obtenerRoles(){
@@ -59,14 +79,24 @@ export class BusquedaUsuariosComponent implements OnInit {
   }
 
 
-  realizarBusqueda(){
-    const { email, nombres, rol} = this.formBusqueda.value;
+  realizarBusqueda(email: string, nombres: string, rol: string){
+    
+    this.auxEmailPrev = email;
+    this.auxNombresPrev = nombres;
+    this.auxRolPrev = rol;
 
     this.cargando = true;
 
-    this.usuariosService.obtenerUsuarios(email, nombres, rol, this.pageNumber, this.pageSize)
+    this.usuariosService.obtenerUsuarios(email, nombres, rol, this.currentPage, this.pageSize)
       .subscribe((resp: any) => {
         this.usuarios = resp.datos;
+        this.showFirst = resp.showFirst;
+        this.showPrevious = resp.showPrevious;
+        this.showNext = resp.showNext;
+        this.showLast = resp.showLast;
+        this.showPagination = resp.showPagination;
+        this.pagesCount = resp.totalPages;
+
         this.cargando = false;
         this.textoRespuestaBusqueda = this.usuarios.length === 0 ? 'No se encontraron datos' : '';
 
@@ -77,6 +107,21 @@ export class BusquedaUsuariosComponent implements OnInit {
         this.textoRespuestaBusqueda = message;
         this.usuarios = [];
       });
+  }
+
+
+  onDdlPageSizeChange(){
+    this.pageSize = this.formPaginator.get('ddlPageSize')?.value;
+    this.currentPage = 1;
+    this.paginarBusquedaPageSize();
+  }
+
+  paginarBusquedaPageSize(){
+    this.realizarBusqueda(this.auxEmailPrev, this.auxNombresPrev, this.auxRolPrev);
+  }
+  paginarBusqueda(newPage: number){
+    this.currentPage = newPage;
+    this.paginarBusquedaPageSize();
   }
 
 
@@ -97,6 +142,7 @@ export class BusquedaUsuariosComponent implements OnInit {
   onUsuarioBorrado(idUsuario: string, nombreCompleto: string, email: string){
     this.alertMensaje.mostrarAlert(`Usuario "${nombreCompleto}" borrado exitosamente.`);
     this.removerUsuarioDelArray(idUsuario);
+    this.paginarBusqueda(1);
   }
 
   removerUsuarioDelArray(idUsuario: string){
