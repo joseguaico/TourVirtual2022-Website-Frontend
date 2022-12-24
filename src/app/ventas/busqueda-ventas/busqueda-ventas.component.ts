@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Venta } from 'src/app/interfaces/venta.interface';
 import { VentasService } from 'src/app/services/ventas.service';
 import { AlertMensajeComponent } from 'src/app/shared/components/alert-mensaje/alert-mensaje.component';
+import { PaginationSizes } from 'src/app/shared/lists/paginationSizes';
 import { environment } from 'src/environments/environment';
 import { BorrarVentaModalComponent } from '../components/borrar-venta-modal/borrar-venta-modal.component';
 import { InfoVentaModalComponent } from '../components/info-venta-modal/info-venta-modal.component';
@@ -18,6 +19,21 @@ const baseUrl: string = environment.baseUrl;
 })
 export class BusquedaVentasComponent implements OnInit {
 
+  currentPage: number = 1;
+  pageSize: number = 10;
+  pagesCount: number = 1;
+  paginationSizes: number[] = PaginationSizes;
+  showPagination: boolean = false;
+  showFirst: boolean = false;
+  showPrevious: boolean = false;
+  showNext: boolean = false;
+  showLast: boolean = false;
+
+  auxClientePrev: string = '';
+  auxDesdePrev: string = '';
+  auxHastaPrev: string = '';
+  auxCreadoPorPrev: string = '';
+
   formBusqueda: FormGroup = this.fb.group({
     cliente: ['',],
     desde: ['',],
@@ -25,9 +41,12 @@ export class BusquedaVentasComponent implements OnInit {
     creadoPor: ['',]
   });
 
+  formPaginator: FormGroup = this.fb.group({
+    ddlPageSize: [this.pageSize]
+  });
+
   ventas: Venta[] = [];
-  private pageNumber: number = 1;
-  private pageSize: number = 10;
+
   public cargando = false;
   public textoValidacionFecha = '';
   public textoRespuestaBusqueda = '';
@@ -45,7 +64,8 @@ export class BusquedaVentasComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle("Búsqueda de ventas")
-    this.realizarBusqueda();
+    const { cliente, desde, hasta, creadoPor} = this.formBusqueda.value;
+    this.realizarBusqueda(cliente, desde, hasta, creadoPor);
   }
 
   
@@ -57,17 +77,30 @@ export class BusquedaVentasComponent implements OnInit {
 
     if(this.compararFechasBusqueda() === false) return;
 
-    this.realizarBusqueda();
+    const { cliente, desde, hasta, creadoPor} = this.formBusqueda.value;
+    this.realizarBusqueda(cliente, desde, hasta, creadoPor);
   }
 
-  realizarBusqueda(){
-
+  realizarBusqueda(cliente: string, desde: string, hasta: string, creadoPor: string){
     this.cargando = true;
-    const { cliente, desde, hasta, creadoPor} = this.formBusqueda.value;
 
-    this.ventasService.obtenerVentas(cliente, desde, hasta, creadoPor, this.pageNumber, this.pageSize).subscribe(({datos, error}: any) => 
+    this.auxClientePrev = cliente;
+    this.auxDesdePrev = desde;
+    this.auxHastaPrev = hasta;
+    this.auxCreadoPorPrev = creadoPor;
+
+
+    this.ventasService.obtenerVentas(cliente, desde, hasta, creadoPor, this.currentPage, this.pageSize).subscribe((resp: any) => 
     {
-      this.ventas = datos;
+      this.ventas = resp.datos;
+
+      this.showFirst = resp.showFirst;
+      this.showPrevious = resp.showPrevious;
+      this.showNext = resp.showNext;
+      this.showLast = resp.showLast;
+      this.showPagination = resp.showPagination;
+      this.pagesCount = resp.totalPages;
+      
       this.cargando = false;
       this.textoRespuestaBusqueda = this.ventas.length === 0 ? 'No se encontraron datos' : '';
 
@@ -127,6 +160,20 @@ export class BusquedaVentasComponent implements OnInit {
     } catch (e) { }
     return ret;
   }
+
+  onDdlPageSizeChange(){
+    this.pageSize = this.formPaginator.get('ddlPageSize')?.value;
+    this.currentPage = 1;
+    this.paginarBusquedaPageSize();
+  }
+
+  paginarBusquedaPageSize(){
+    this.realizarBusqueda(this.auxClientePrev, this.auxDesdePrev, this.auxHastaPrev, this.auxCreadoPorPrev);
+  }
+  paginarBusqueda(newPage: number){
+    this.currentPage = newPage;
+    this.paginarBusquedaPageSize();
+  }
   
   
   onClickVerDetalle(codXVenta: string){
@@ -144,6 +191,7 @@ export class BusquedaVentasComponent implements OnInit {
   onVentaBorrada(codigoVenta: number, codxVenta: string){
     this.alertMensaje.mostrarAlert(`Venta código "${codigoVenta}" borrada exitosamente.`);
     this.removerVentaDelArray(codxVenta);
+    this.paginarBusqueda(1);
   }
 
   removerVentaDelArray(codxVenta: string){
