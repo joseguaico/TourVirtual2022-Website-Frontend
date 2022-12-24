@@ -5,7 +5,7 @@ import { PropiedadTitulo } from 'src/app/interfaces/propiedadTitulo.interface';
 import { PropiedadesService } from 'src/app/services/propiedades.service';
 import { AccountService } from 'src/app/services/account.service';
 import { InfoPropiedadModalComponent } from '../components/info-propiedad-modal/info-propiedad-modal.component';
-import { Title } from '@angular/platform-browser';
+import { provideProtractorTestingSupport, Title } from '@angular/platform-browser';
 import { PublicarPropiedadComponent } from '../components/publicar-propiedad/publicar-propiedad.component';
 import { AlertMensajeComponent } from 'src/app/shared/components/alert-mensaje/alert-mensaje.component';
 import { CancelarPublicacionPropiedadComponent } from '../components/cancelar-publicacion-propiedad/cancelar-publicacion-propiedad.component';
@@ -33,6 +33,10 @@ export class BusquedaPropiedadesComponent implements OnInit {
   showNext: boolean = false;
   showLast: boolean = false;
 
+  auxClientePrev: string = '';
+  auxTituloPrev: string = '';
+  auxConFotosPrev: number = -1;
+
   public cargando = false;
   public textoRespuestaBusqueda = '';
 
@@ -51,6 +55,10 @@ export class BusquedaPropiedadesComponent implements OnInit {
   formBusquedaProp: FormGroup = this.fb.group({
     titulo: ['',],
     conFotos: [-1,]
+  });
+
+  formPaginator: FormGroup = this.fb.group({
+    ddlPageSize: [this.pageSize]
   });
 
 
@@ -83,8 +91,6 @@ export class BusquedaPropiedadesComponent implements OnInit {
 
       const {cliente, titulo, conFotos} = this.formBusquedaAdm.value;
 
-     // console.log(this.formBusquedaAdm.value);
-
       this.realizarBusqueda(cliente, titulo, conFotos);
 
     }else if (this.accountService.rol === 'CORREDOR'){
@@ -97,11 +103,22 @@ export class BusquedaPropiedadesComponent implements OnInit {
 
   realizarBusqueda(cliente: string, titulo: string, conFotos: number){
 
+    this.auxClientePrev = cliente;
+    this.auxTituloPrev = titulo;
+    this.auxConFotosPrev = conFotos;
+
     this.cargando = true;
     this.propiedadesService.obtenerPropiedadesTitulo(cliente, titulo, conFotos, this.currentPage, this.pageSize)
-      .subscribe(({datos}: any) => 
+      .subscribe((resp: any) => 
       {
-        this.propiedades = datos;
+        this.propiedades = resp.datos as PropiedadTitulo[];
+        this.showFirst = resp.showFirst;
+        this.showPrevious = resp.showPrevious;
+        this.showNext = resp.showNext;
+        this.showLast = resp.showLast;
+        this.showPagination = resp.showPagination;
+        this.pagesCount = resp.totalPages;
+        
         this.cargando = false;
         this.textoRespuestaBusqueda = this.propiedades.length === 0 ? 'No se encontraron datos' : '';
   
@@ -121,6 +138,21 @@ export class BusquedaPropiedadesComponent implements OnInit {
   editarFoto(codX: string){
     this.router.navigate(['propiedades/editar-fotos'],  { queryParams: { cod: codX} })
   }
+
+  onDdlPageSizeChange(){
+    this.pageSize = this.formPaginator.get('ddlPageSize')?.value;
+    this.currentPage = 1;
+    this.paginarBusquedaPageSize();
+  }
+
+  paginarBusquedaPageSize(){
+    this.realizarBusqueda(this.auxClientePrev, this.auxTituloPrev, this.auxConFotosPrev);
+  }
+  paginarBusqueda(newPage: number){
+    this.currentPage = newPage;
+    this.paginarBusquedaPageSize();
+  }
+
 
   onClickVerDetalle(codXPropiedad: string){
     this.modalInfo.realizarBusqueda(codXPropiedad);
@@ -155,6 +187,7 @@ export class BusquedaPropiedadesComponent implements OnInit {
   onPropiedadBorrada(codigoPropiedad: number, codxPropiedad: string){
     this.alertMensaje.mostrarAlert(`Propiedad código ${codigoPropiedad} borrada exitosamente.`);
     this.removerPropiedadDelArray(codxPropiedad);
+    this.paginarBusqueda(1);
   }
 
 
@@ -172,5 +205,8 @@ export class BusquedaPropiedadesComponent implements OnInit {
   removerPropiedadDelArray(codxPropiedad: string){
     this.propiedades = this.propiedades.filter(f => f.idx.trim().toLowerCase() !== codxPropiedad.trim().toLowerCase());
   }
+
+
+
 
 }
