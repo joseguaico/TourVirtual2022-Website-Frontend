@@ -150,4 +150,37 @@ export class AccountService {
     );
   }
 
+  solicitarRecuperarPassword(email: string){
+
+    var formData = new FormData();
+    formData.append('email', email);
+
+    console.log('formData:', formData);
+
+
+    return this.http.post(`${baseUrl}/account/forgotPassword`, formData)
+    .pipe(
+      catchError(err => {
+      
+        // Si tiene errores de validación de la API 
+        const erroresValidacionApi = err.error?.errors;
+        
+        if (erroresValidacionApi !== null && erroresValidacionApi !== undefined){
+          return of(new GeneralResponse(true, erroresApiArrayToString(erroresValidacionApi), {}));
+        }
+
+        // Si tiene un error desde las respuesta de API
+        if (err.error?.message !== null &&  err.error?.message !== undefined){
+          return of(new GeneralResponse(true,  err.error.message, {}));
+        }
+
+        // Si se produce otro error
+        if (err.message !== null && err.message !== undefined){
+          return of(new GeneralResponse(true, err.message, {}));
+        }
+        return of(err)
+      })
+    );
+  }
+
 }
