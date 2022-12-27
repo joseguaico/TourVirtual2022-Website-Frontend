@@ -7,6 +7,7 @@ import { BaseClientesComponent } from './clientes/base-clientes/base-clientes.co
 import { AuthJwtExpiryGuard } from './guards/auth-jwt-expiry.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { BaseComponent } from './home/base/base.component';
+import { BasePreviewComponent } from './previews/base-preview/base-preview.component';
 import { BasePropiedadesComponent } from './propiedades/base-propiedades/base-propiedades.component';
 import { BaseUsuariosComponent } from './usuarios/base-usuarios/base-usuarios.component';
 import { BaseVentasComponent } from './ventas/base-ventas/base-ventas.component';
@@ -61,6 +62,12 @@ const routes: Routes = [
         canLoad: [AuthJwtExpiryGuard],
         path: 'visor-comprobante/:codigo', component: VisorComprobanteComponent
        
+    },
+    {
+        canActivate: [AuthJwtExpiryGuard],
+        canLoad: [AuthJwtExpiryGuard],
+        path: 'preview', component: BasePreviewComponent,
+        loadChildren: () => import('./previews/previews.module').then(m => m.PreviewsModule)        
     }
 ];
 

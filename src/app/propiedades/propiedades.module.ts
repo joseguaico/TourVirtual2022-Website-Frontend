@@ -40,7 +40,7 @@ import { BorrarPropiedadModalComponent } from './components/borrar-propiedad-mod
     EditarPropiedadComponent,
     PublicarPropiedadComponent,
     CancelarPublicacionPropiedadComponent,
-    BorrarPropiedadModalComponent,
+    BorrarPropiedadModalComponent
   ],
   imports: [
     CommonModule,

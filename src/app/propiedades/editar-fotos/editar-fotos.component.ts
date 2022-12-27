@@ -191,6 +191,18 @@ export class EditarFotosComponent implements OnInit {
     this.router.navigate(['propiedades/editar-detalle-foto'],  { queryParams: { foto: codxFoto, propiedad: this.codPropiedad} })
   }
 
+  onClickPreviewTour(){
+    //this.router.navigate(['propiedades/preview-tour'],  { queryParams: { propiedad: this.codPropiedad} })
+
+    const host: string =  location.origin;
+    const url: string = host + '/' + String(this.router.createUrlTree(['preview/preview-tour'],  { queryParams: { propiedad: this.codPropiedad} }));
+
+    console.log(url);
+    window.open(url, '_blank');
+
+  }
+
+
   onPostCrearFoto(mensaje: string){
     this.alertMensaje.mostrarAlert(mensaje);
     this.obtenerInfoPropiedad(true);
