@@ -46,6 +46,8 @@
     <!-- Grid principal -->
     <div class="row w-100 justify-content-center p-0">
 
+        <app-alert-mensaje></app-alert-mensaje>
+
         <div id="rowLoading" class="w-100" *ngIf="this.cargando">
             <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline;" />
             <p id="textInfoEnvio" style="display: inline;" class="ml-2">Actualizando...</p>
@@ -113,13 +115,13 @@
                             <a title="Ver el detalle de este cliente" (click)="this.onClickVerDetalle(cli.idx)"><i class="fas fa-info fa-sm"></i></a>
                           
                                 <a title="Cambiar a estado 'Vigente'" *ngIf="cli.estado === 'suspendido'" 
-                                    (click)="this.cambiarEstado(cli.idx)" ><i class="fas fa-user-slash fa-sm"></i>
+                                    (click)="this.onClickCambiarEstado(cli.idx)" ><i class="fas fa-user-slash fa-sm"></i>
                                 </a>
                                 <a title="Cambiar a estado 'Suspendido'" *ngIf="cli.estado === 'vigente'" 
-                                    (click)="this.cambiarEstado(cli.idx)" ><i class="fas fa-user-slash fa-sm"></i></a>
+                                    (click)="this.onClickCambiarEstado(cli.idx)" ><i class="fas fa-user-slash fa-sm"></i></a>
     
-                            <a title="Editar este cliente" (click)="this.editar(cli)"><i class="fas fa-pencil-alt fa-sm"></i></a>
-                            <a title="Eliminar este cliente" (click)="this.eliminar()"><i class="fas fa-times fa-sm"></i></a>
+                            <a title="Editar este cliente" (click)="this.onClickEditar(cli)"><i class="fas fa-pencil-alt fa-sm"></i></a>
+                            <a title="Eliminar este cliente" (click)="this.onClickBorrar(cli)"><i class="fas fa-times fa-sm"></i></a>
                         </div>
                     </div>
     
@@ -183,5 +185,9 @@
 
     <!-- Modal cambiar estado cliente -->
     <app-cambiar-estado-cliente-modal class="zindex-a" (recargarBusqueda)="this.onRecargarBusquedaClientes()"></app-cambiar-estado-cliente-modal>
+
+    <!-- Modal eliminar cliente -->
+    <app-borrar-cliente-modal class="zindex-a" (onClienteBorrado)="this.onClienteBorrado($event.codxCliente, $event.nombreCliente)"></app-borrar-cliente-modal>
+
 
 </div>

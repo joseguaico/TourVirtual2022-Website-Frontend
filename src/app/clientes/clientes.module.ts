@@ -11,6 +11,7 @@ import { CrearClienteComponent } from './crear-cliente/crear-cliente.component';
 import { EditarClienteComponent } from './editar-cliente/editar-cliente.component';
 import { InfoClienteModalComponent } from './components/info-cliente-modal/info-cliente-modal.component';
 import { CambiarEstadoClienteModalComponent } from './components/cambiar-estado-cliente-modal/cambiar-estado-cliente-modal.component';
+import { BorrarClienteModalComponent } from './components/borrar-cliente-modal/borrar-cliente-modal.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CambiarEstadoClienteModalComponent } from './components/cambiar-estado-
     CrearClienteComponent,
     EditarClienteComponent,
     InfoClienteModalComponent,
-    CambiarEstadoClienteModalComponent
+    CambiarEstadoClienteModalComponent,
+    BorrarClienteModalComponent
   ],
   imports: [
     CommonModule,

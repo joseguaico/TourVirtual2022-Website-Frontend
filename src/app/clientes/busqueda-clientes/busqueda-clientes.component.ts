@@ -10,6 +10,8 @@ import { InfoClienteModalComponent } from '../components/info-cliente-modal/info
 import { CambiarEstadoClienteModalComponent } from '../components/cambiar-estado-cliente-modal/cambiar-estado-cliente-modal.component';
 import { Title } from '@angular/platform-browser';
 import { PaginationSizes } from 'src/app/shared/lists/paginationSizes';
+import { BorrarClienteModalComponent } from '../components/borrar-cliente-modal/borrar-cliente-modal.component';
+import { AlertMensajeComponent } from 'src/app/shared/components/alert-mensaje/alert-mensaje.component';
 
 @Component({
   selector: 'app-busqueda-clientes',
@@ -46,6 +48,9 @@ export class BusquedaClientesComponent implements OnInit {
 
   @ViewChild(InfoClienteModalComponent) modalInfo!: InfoClienteModalComponent;
   @ViewChild(CambiarEstadoClienteModalComponent) modalCambiarEstado!: CambiarEstadoClienteModalComponent;
+  @ViewChild(BorrarClienteModalComponent) modalBorrarCliente!: BorrarClienteModalComponent;
+  @ViewChild(AlertMensajeComponent) alertMensaje!: AlertMensajeComponent;
+
 
   constructor(public fb: FormBuilder,
     private router: Router,
@@ -115,24 +120,35 @@ export class BusquedaClientesComponent implements OnInit {
 
 
   onClickVerDetalle(codXCliente: string){
-    //console.log(codXCliente);
     this.modalInfo.realizarBusqueda(codXCliente);
   }
 
-  cambiarEstado(codXCliente: string){
+  onClickCambiarEstado(codXCliente: string){
     this.modalCambiarEstado.obtenerDatosCliente(codXCliente);
   }
 
-  editar(cliente: ClienteWithCount){
+  onClickEditar(cliente: ClienteWithCount){
     this.router.navigate(['clientes/editar-cliente'],  { queryParams: { cod: cliente.idx} })
   }
 
-  eliminar(){
-
+  onClickBorrar(cliente: ClienteWithCount){
+    this.modalBorrarCliente.mostrarModal(cliente.idx, cliente.nombre);
   }
 
   onRecargarBusquedaClientes(){
     this.paginarBusqueda(1);
   }
+
+  onClienteBorrado(codxCliente: string, nombreCliente: string){
+    this.alertMensaje.mostrarAlert(`Cliente "${nombreCliente}" borrada exitosamente.`);
+    this.removerClienteDelArray(codxCliente);
+    this.paginarBusqueda(1);
+  }
+
+
+  removerClienteDelArray(codxCliente: string){
+    this.clientes = this.clientes.filter(f => f.idx.trim().toLowerCase() !== codxCliente.trim().toLowerCase());
+  }
+
 
 }

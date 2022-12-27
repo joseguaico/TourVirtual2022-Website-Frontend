@@ -9,8 +9,6 @@
     <!-- Filtros de búsqueda -->
     <div class="row w-100 mt-0 justify-content-center">
 
-        <app-alert-mensaje></app-alert-mensaje>
-
         <div class="col-lg-12">
 
             <form id="formBusquedaAdmin" [formGroup]="this.formBusqueda" class="form-inline" method="post" style="width: 100% !important;">
@@ -74,6 +72,8 @@
 
     <!-- Grid principal -->
     <div class="row w-100 justify-content-center p-0">
+
+        <app-alert-mensaje></app-alert-mensaje>
 
         <div id="rowLoading" class="w-100" *ngIf="this.cargando">
             <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline;" />
