@@ -1,5 +1,6 @@
 export interface Menu {
     titulo: string,
     url: string,
-    imagen: string
+    imagen: string,
+    selected: boolean
 }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BaseAccountComponent } from './account/base-account/base-account.component';
 
 import { AuthRoutingModule } from './auth/auth.routing';
 import { BaseClientesComponent } from './clientes/base-clientes/base-clientes.component';
@@ -52,7 +53,7 @@ const routes: Routes = [
     {
         canActivate: [AuthJwtExpiryGuard],
         canLoad: [AuthJwtExpiryGuard],
-        path: 'account', component: BaseUsuariosComponent,
+        path: 'account', component: BaseAccountComponent,
         loadChildren: () => import('./account/account.module').then(m => m.AccountModule)
     },
     {
