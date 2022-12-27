@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthRoutingModule } from './auth.routing';
 import { SharedModule } from '../shared/shared.module';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { CrearNuevaPasswordComponent } from './crear-nueva-password/crear-nueva-password.component';
 
 
 
@@ -15,7 +16,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
   declarations: [
     HomeAuthComponent,
     LoginComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    CrearNuevaPasswordComponent
   ],
   imports: [
     CommonModule,

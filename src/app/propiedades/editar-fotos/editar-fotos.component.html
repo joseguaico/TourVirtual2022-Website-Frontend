@@ -22,7 +22,7 @@
         <div class="w-100 d-flex justify-content-center">
             <img src="assets/images/exclamation-64.png" alt="" width="64" height="64" />
         </div>
-        <span>{{this.mensajeCarga}}</span>
+        <span class="texto-black">{{this.mensajeCarga}}</span>
     </div>
 
     <div class="w-100" *ngIf="this.mostrarDetalle">
@@ -34,7 +34,7 @@
 
             <div *ngIf="this.cargando" class="w-100 text-center">
                 <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline; height:16px; margin-right:2px;" />
-                <p style="display: inline;">Obteniedo datos...</p>
+                <p style="display: inline;">Obteniendo datos...</p>
             </div>
                 
             <!-- Botones opciones -->

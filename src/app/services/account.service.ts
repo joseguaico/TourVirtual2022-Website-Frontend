@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 
 import { LoginForm } from '../interfaces/loginForm.interface';
 import { GeneralResponse } from '../models/generalResponse.class';
+import { RecuperarPasswordResponse } from '../models/recuperarPasswordResponse.class';
 import { UsuarioAccount } from '../models/usuarioAccount.class';
 import { erroresApiArrayToString } from '../shared/functions/customErrorsFunctions';
 import { StorageService } from './storage.service';
@@ -155,9 +156,6 @@ export class AccountService {
     var formData = new FormData();
     formData.append('email', email);
 
-    console.log('formData:', formData);
-
-
     return this.http.post(`${baseUrl}/account/forgotPassword`, formData)
     .pipe(
       catchError(err => {
@@ -182,5 +180,38 @@ export class AccountService {
       })
     );
   }
+
+  obtenerInfoSolicitudPassword(email: string, token: string){
+
+    var formData = new FormData();
+    formData.append('email', email);
+    formData.append('token', token);
+
+    return this.http.post(`${baseUrl}/account/obtenerStatusSolicitud`, formData)
+    .pipe(
+      catchError(err => {
+      
+        // Si tiene errores de validación de la API 
+        const erroresValidacionApi = err.error?.errors;
+        
+        if (erroresValidacionApi !== null && erroresValidacionApi !== undefined){
+          return of(new RecuperarPasswordResponse(true, erroresApiArrayToString(erroresValidacionApi), {}, false));
+        }
+
+        // Si tiene un error desde las respuesta de API
+        if (err.error?.message !== null &&  err.error?.message !== undefined){
+          return of(new RecuperarPasswordResponse(true,  err.error.message, {}, err.error.tokenExpirado));
+        }
+
+        // Si se produce otro error
+        if (err.message !== null && err.message !== undefined){
+          return of(new RecuperarPasswordResponse(true, err.message, {}, err.error.tokenExpirado));
+        }
+        return of(err)
+      })
+    );
+  }
+
+
 
 }

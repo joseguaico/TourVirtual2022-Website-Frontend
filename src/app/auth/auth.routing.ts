@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeAuthComponent } from './home-auth/home-auth.component';
 import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { CrearNuevaPasswordComponent } from './crear-nueva-password/crear-nueva-password.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
     children: [
       { path: 'login', component: LoginComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
+      { path: 'crear-nueva-password', component: CrearNuevaPasswordComponent },
       { path: '', redirectTo: 'login', pathMatch: 'full'}
     ]
   }
