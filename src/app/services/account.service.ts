@@ -212,6 +212,39 @@ export class AccountService {
     );
   }
 
+  crearNuevaPassword(email: string, password: string, confirmPassword: string, token: string){
+
+    var formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('confirmarPassword', confirmPassword);
+    formData.append('token', token);
+
+    return this.http.post(`${baseUrl}/account/CrearNuevaPassword`, formData)
+    .pipe(
+      catchError(err => {
+      
+        // Si tiene errores de validación de la API 
+        const erroresValidacionApi = err.error?.errors;
+        
+        if (erroresValidacionApi !== null && erroresValidacionApi !== undefined){
+          return of(new RecuperarPasswordResponse(true, erroresApiArrayToString(erroresValidacionApi), {}, false));
+        }
+
+        // Si tiene un error desde las respuesta de API
+        if (err.error?.message !== null &&  err.error?.message !== undefined){
+          return of(new RecuperarPasswordResponse(true,  err.error.message, {}, err.error.tokenExpirado));
+        }
+
+        // Si se produce otro error
+        if (err.message !== null && err.message !== undefined){
+          return of(new RecuperarPasswordResponse(true, err.message, {}, err.error.tokenExpirado));
+        }
+        return of(err)
+      })
+    );
+  }
+
 
 
 }

@@ -50,7 +50,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.formForgotPassword.disable();
     this.accountService.solicitarRecuperarPassword(this.formForgotPassword.get('email')?.value.trim()).subscribe((resp: any) =>  {
   
-      console.log('RESP recuperar password: ', resp);
+      
 
       if (resp.tieneError === false){
 
