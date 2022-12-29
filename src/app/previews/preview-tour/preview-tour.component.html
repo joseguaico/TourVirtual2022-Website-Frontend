@@ -1,1 +1,69 @@
-<p>preview-tour works!</p>
+<div class="d-flex w-100 flex-column">
+    
+    <div id="pano"></div>
+
+    <div class="w-100" style="min-width: 100%; width: 100%;" *ngIf="!this.cargando">
+
+        <div id="divPropiedad" class="card w-100 mt-2 p-2 flex-xl-shrink-1 justify-content-center flex-column" style="width: 100% !important; margin-bottom: 0 !important;">
+
+            <div id="divInfoPropiedad" class="d-flex justify-content-center row-container-busqueda" style="width: 100% !important;">
+
+                <div class="p-1 celdaObras" style="flex-basis: 45% !important;">
+                    <p class="text-muted font-weight-bold small celdaObrasTexto label-titulo">Descripción</p>
+                    <div class="p-0 celdaObrasContenido celdaObrasMT">
+                        <p class="text-muted small">{{this.publicacion?.descripcion}}</p>
+                    </div>
+                </div>
+                <div class="p-1 celdaObras" style="flex-basis: 35% !important;">
+                    <p class="text-muted font-weight-bold small celdaObrasTexto label-titulo">Dirección</p>
+                    <div class="p-0 celdaObrasContenido celdaObrasMT">
+                        <p class="text-muted small">{{this.publicacion?.direccion}}</p>
+                        <p class="text-muted small">{{this.publicacion?.region}}, {{this.publicacion?.comuna}}</p>
+                    </div>
+                </div>
+                <div class="p-1 celdaObras" style="flex-basis: 10% !important;">
+                    <p class="text-muted font-weight-bold small celdaObrasTexto label-titulo">Habitaciones</p>
+                    <div class="p-0 celdaObrasContenido celdaObrasMT">
+                        <p class="text-muted small">{{this.publicacion?.habitaciones}}</p>
+                    </div>
+                </div>
+                <div class="p-1 celdaObras" style="flex-basis: 10% !important;">
+                    <p class="text-muted font-weight-bold small celdaObrasTexto label-titulo">Baños</p>
+                    <div class="p-0 celdaObrasContenido celdaObrasMT">
+                        <p class="text-muted small">{{this.publicacion?.banos}}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="divCorredor" class="card w-100 mt-2 p-2 flex-xl-shrink-1 justify-content-center flex-column"
+         style="width: 100% !important; margin-bottom: 0 !important;" *ngIf="!this.cargando">
+
+            <div id="divInfoCorredor" class="d-flex justify-content-center row-container-busqueda" style="width: 100% !important;">
+                <div class="p-1 celdaObras" style="flex-basis: 30% !important;">
+                    <p class="text-muted font-weight-bold small celdaObrasTexto label-titulo">Publicado por</p>
+                    <div class="p-0 celdaObrasContenido celdaObrasMT">
+                        <p class="text-muted small">{{this.publicacion?.cliente?.nombre}}</p>
+                    </div>
+                </div>
+                <div class="p-1 celdaObras" style="flex-basis: 30% !important;">
+                    <p class="text-muted font-weight-bold small celdaObrasTexto label-titulo">Teléfono de contacto</p>
+                    <div class="p-0 celdaObrasContenido celdaObrasMT">
+                        <p class="text-muted small">{{this.publicacion?.cliente?.telefonosContacto}}</p>
+                    </div>
+                </div>
+                <div class="p-1 celdaObras" style="flex-basis: 20% !important;">
+                    <p class="text-muted font-weight-bold small celdaObrasTexto label-titulo">Email</p>
+                    <div class="p-0 celdaObrasContenido celdaObrasMT">
+                        <p class="text-muted small">{{this.publicacion?.cliente?.email}}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
