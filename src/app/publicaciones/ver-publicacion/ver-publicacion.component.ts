@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Imagen360Publicada } from 'src/app/interfaces/imagen360Publicada.interface';
 import { Publicacion } from 'src/app/interfaces/publicacion.interface';
 import { GeneralResponse } from 'src/app/models/generalResponse.class';
@@ -24,6 +24,10 @@ export class VerPublicacionComponent implements OnInit {
   krpano: any = null;
   scenes: any = null;
 
+  mostrarMensajeCarga = false;
+  mensajeCarga = '';
+  mostrarDetalle = false;
+
   constructor(private publicacionesService: PublicacionesService,
     private route: ActivatedRoute) { }
 
@@ -35,9 +39,9 @@ export class VerPublicacionComponent implements OnInit {
       if(this.codigoPublicacion !== undefined && this.codigoPublicacion !== ''){
         this.obtenerInfoPublicacion();
       }else{
-        // TODO: Ocultar loading.
-        // TODO: Mostrar mensaje de error en parámetro
-        // TODO: Ocultar contenido principal
+        this.cargando = false;
+        this.mensajeCarga = 'El enlace de la publicación no es válido';
+        this.mostrarMensajeCarga = true;
       }
     })
 
@@ -49,26 +53,29 @@ export class VerPublicacionComponent implements OnInit {
     subscribe((resp: GeneralResponse) => {
 
       if(!resp.tieneError){
-        // this.mostrarDetalle = true;
-        // this.mensajeCarga = '';
+        this.mostrarDetalle = true;
+        this.mensajeCarga = '';
+        this.mostrarMensajeCarga = false;
 
         this.publicacion = resp.datos as Publicacion;
-        
-        console.log(this.publicacion);
         
         this.InicializarKrObjects();
         this.cargando = false;
 
-
-        // this.cargarDatosEditar();
       }else{
-        // this.mostrarDetalle = false;
-        // this.mensajeCarga = resp.message;
-        // this.mostrarFormularioPrincipal = false;
+        this.mostrarDetalle = false;
+        this.mensajeCarga = resp.message;
+        this.mostrarMensajeCarga = true;
+        this.cargando = false;
       }
 
     }, (err) => {
       console.warn("ERR: ", err);
+      this.cargando = false;
+      this.mostrarDetalle = false;
+      this.mensajeCarga = 'Se produjo un error en la comunicación con el servidor';
+      this.mostrarMensajeCarga = true;
+      
     });
   }
 
@@ -76,11 +83,6 @@ export class VerPublicacionComponent implements OnInit {
 
     InicializarKrObjects() {
       if (this.publicacion!.imagenes !== null) {
-
-        // if (this.auxKrPanoCargado){
-        //     document.getElementById('pano')!.innerHTML = '';
-        // }
-        // this.mostrarOverlay = true;
 
       var settings: any = {};
       settings["onstart"] = "loadxml('" + this.getXmlString() + "')";
@@ -226,9 +228,7 @@ export class VerPublicacionComponent implements OnInit {
       }
     }
     sceneContent += '</scene>';
-
-    console.log('SCENE: ', sceneContent);
-
+    //console.log('SCENE: ', sceneContent);
     return sceneContent;
   }
 

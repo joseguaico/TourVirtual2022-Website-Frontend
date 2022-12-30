@@ -1,15 +1,15 @@
-:host {
+/* :host {
     width: 100% !important;
     padding-right: 10px;
     padding-left: 10px;
     margin-right: auto !important;
     margin-left: auto !important;
-}
+} */
 
-#pano {
+.panoClass {
     width: 100%;
-    height: 95vh;
-    min-height: 95vh;
+    height: 85vh;
+    min-height: 85vh;
     border: solid 1px gray;
     margin-left: 0px !important;
 }

@@ -1,12 +1,26 @@
 <div class="d-flex w-100 flex-column mt-0">
     
-    <!-- <div  class="w-100" style="min-width: 100%; width: 100%;">
-      {{this.publicacion?.titulo}}
-    </div> -->
+    <div class="w-100 d-flex justify-content-center p-2 flex-column" style="text-align: center;" *ngIf="this.mostrarMensajeCarga">
+        <div class="w-100 d-flex justify-content-center">
+            <img src="assets/images/exclamation-64.png" alt="" width="64" height="64" />
+        </div>
+        <span>{{this.mensajeCarga}}</span>
+    </div>
 
-    <div id="pano"></div>
 
-    <div class="w-100" style="min-width: 100%; width: 100%;" *ngIf="!this.cargando">
+    <div *ngIf="this.cargando" class="w-100 text-center">
+        <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline; height:16px; margin-right:2px;" />
+        <p style="display: inline;">Obteniendo datos...</p>
+    </div>
+
+
+    <div  class="w-100" style="min-width: 100%; width: 100%;" *ngIf="this.mostrarDetalle">
+      <p class="text-center label-titulo">{{this.publicacion?.titulo}}</p> 
+    </div>
+
+    <div id="pano" [class.panoClass]="this.mostrarDetalle"></div>
+
+    <div class="w-100" style="min-width: 100%; width: 100%;" *ngIf="this.mostrarDetalle">
 
         <div id="divPropiedad" class="card w-100 mt-2 p-2 flex-xl-shrink-1 justify-content-center flex-column" style="width: 100% !important; margin-bottom: 0 !important;">
 
