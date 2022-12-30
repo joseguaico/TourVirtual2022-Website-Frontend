@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PreviewTourComponent } from './preview-tour/preview-tour.component';
 import { BasePreviewComponent } from './base-preview/base-preview.component';
-import { PreviewRoutingModule } from './preview-routing.routing';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
-
+import { PreviewsRoutingModule } from './previews.routing';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     HttpClientModule,
     RouterModule,
-    PreviewRoutingModule
+    PreviewsRoutingModule
   ]
 })
 export class PreviewsModule { }

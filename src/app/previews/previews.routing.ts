@@ -14,4 +14,4 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ]
 })
-export class PreviewRoutingModule { }
+export class PreviewsRoutingModule { }

@@ -1,6 +1,5 @@
 import { Cliente } from "./cliente.interface"
-import { Hotspot } from "./hotspot.interface"
-import { Imagen360 } from "./imagen360.interface"
+import { Imagen360Publicada } from "./imagen360Publicada.interface"
 
 export interface Publicacion{
     codigo: string,
@@ -14,7 +13,5 @@ export interface Publicacion{
 
     cliente: Cliente,
 
-    imagenes: Imagen360[],
-
-    hotspots: Hotspot[]
+    imagenes: Imagen360Publicada[],
 }
