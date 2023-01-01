@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, catchError, filter, Observable, switchMap, take, throwError } from 'rxjs';
 
 import { StorageService } from '../services/storage.service';
@@ -18,8 +18,9 @@ export class HttpCustomInterceptor implements HttpInterceptor {
     private router: Router) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    
-    let authRequest = request;
+
+    let authRequest = request.clone({
+    });
     const token = this.storage.getToken();
 
     if (token !== ''){
@@ -41,7 +42,12 @@ export class HttpCustomInterceptor implements HttpInterceptor {
   }
 
   private addTokenHeader(request: HttpRequest<any>, token: string){
-    return request.clone({ headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token)});
+
+    let clonado = request.clone({ 
+      headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token)});
+
+    console.log('CLONADO: ', clonado.headers);
+    return clonado;
   }
 
   private handle401Error(request: HttpRequest<any>, next: HttpHandler){

@@ -1,8 +1,26 @@
-<div class="d-flex w-100 flex-column">
+<div class="d-flex w-100 flex-column mt-0">
     
-    <div id="pano"></div>
+    <div class="w-100 d-flex justify-content-center p-2 flex-column" style="text-align: center;" *ngIf="this.mostrarMensajeCarga">
+        <div class="w-100 d-flex justify-content-center">
+            <img src="assets/images/exclamation-64.png" alt="" width="64" height="64" />
+        </div>
+        <span>{{this.mensajeCarga}}</span>
+    </div>
 
-    <div class="w-100" style="min-width: 100%; width: 100%;" *ngIf="!this.cargando">
+
+    <div *ngIf="this.cargando" class="w-100 text-center">
+        <img alt="Enviando ..." src="assets/images/loadings/loading1-16x16.gif" style="display: inline; height:16px; margin-right:2px;" />
+        <p style="display: inline;">Obteniendo datos...</p>
+    </div>
+
+
+    <div  class="w-100" style="min-width: 100%; width: 100%;" *ngIf="this.mostrarDetalle">
+      <p class="text-center label-titulo">{{this.previewTour?.titulo}}</p> 
+    </div>
+
+    <div id="pano" [class.panoClass]="this.mostrarDetalle"></div>
+
+    <div class="w-100" style="min-width: 100%; width: 100%;" *ngIf="this.mostrarDetalle">
 
         <div id="divPropiedad" class="card w-100 mt-2 p-2 flex-xl-shrink-1 justify-content-center flex-column" style="width: 100% !important; margin-bottom: 0 !important;">
 
@@ -11,26 +29,26 @@
                 <div class="p-1 celdaObras" style="flex-basis: 45% !important;">
                     <p class="text-muted font-weight-bold small celdaObrasTexto label-titulo">Descripción</p>
                     <div class="p-0 celdaObrasContenido celdaObrasMT">
-                        <p class="text-muted small">{{this.publicacion?.descripcion}}</p>
+                        <p class="text-muted small">{{this.previewTour?.descripcion}}</p>
                     </div>
                 </div>
                 <div class="p-1 celdaObras" style="flex-basis: 35% !important;">
                     <p class="text-muted font-weight-bold small celdaObrasTexto label-titulo">Dirección</p>
                     <div class="p-0 celdaObrasContenido celdaObrasMT">
-                        <p class="text-muted small">{{this.publicacion?.direccion}}</p>
-                        <p class="text-muted small">{{this.publicacion?.region}}, {{this.publicacion?.comuna}}</p>
+                        <p class="text-muted small">{{this.previewTour?.direccion}}</p>
+                        <p class="text-muted small">{{this.previewTour?.region}}, {{this.previewTour?.comuna}}</p>
                     </div>
                 </div>
                 <div class="p-1 celdaObras" style="flex-basis: 10% !important;">
                     <p class="text-muted font-weight-bold small celdaObrasTexto label-titulo">Habitaciones</p>
                     <div class="p-0 celdaObrasContenido celdaObrasMT">
-                        <p class="text-muted small">{{this.publicacion?.habitaciones}}</p>
+                        <p class="text-muted small">{{this.previewTour?.habitaciones}}</p>
                     </div>
                 </div>
                 <div class="p-1 celdaObras" style="flex-basis: 10% !important;">
                     <p class="text-muted font-weight-bold small celdaObrasTexto label-titulo">Baños</p>
                     <div class="p-0 celdaObrasContenido celdaObrasMT">
-                        <p class="text-muted small">{{this.publicacion?.banos}}</p>
+                        <p class="text-muted small">{{this.previewTour?.banos}}</p>
                     </div>
                 </div>
             </div>
@@ -44,19 +62,19 @@
                 <div class="p-1 celdaObras" style="flex-basis: 30% !important;">
                     <p class="text-muted font-weight-bold small celdaObrasTexto label-titulo">Publicado por</p>
                     <div class="p-0 celdaObrasContenido celdaObrasMT">
-                        <p class="text-muted small">{{this.publicacion?.cliente?.nombre}}</p>
+                        <p class="text-muted small">{{this.previewTour?.cliente?.nombre}}</p>
                     </div>
                 </div>
                 <div class="p-1 celdaObras" style="flex-basis: 30% !important;">
                     <p class="text-muted font-weight-bold small celdaObrasTexto label-titulo">Teléfono de contacto</p>
                     <div class="p-0 celdaObrasContenido celdaObrasMT">
-                        <p class="text-muted small">{{this.publicacion?.cliente?.telefonosContacto}}</p>
+                        <p class="text-muted small">{{this.previewTour?.cliente?.telefonosContacto}}</p>
                     </div>
                 </div>
                 <div class="p-1 celdaObras" style="flex-basis: 20% !important;">
                     <p class="text-muted font-weight-bold small celdaObrasTexto label-titulo">Email</p>
                     <div class="p-0 celdaObrasContenido celdaObrasMT">
-                        <p class="text-muted small">{{this.publicacion?.cliente?.email}}</p>
+                        <p class="text-muted small">{{this.previewTour?.cliente?.email}}</p>
                     </div>
                 </div>
             </div>
@@ -64,6 +82,5 @@
         </div>
 
     </div>
-
 
 </div>

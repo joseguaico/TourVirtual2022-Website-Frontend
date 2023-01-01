@@ -193,9 +193,11 @@ export class EditarFotosComponent implements OnInit {
 
   onClickPreviewTour(){
     //this.router.navigate(['propiedades/preview-tour'],  { queryParams: { propiedad: this.codPropiedad} })
-
+    const codigoBase64 =  btoa(this.codPropiedad.trim());
     const host: string =  location.origin;
-    const url: string = host + '/' + String(this.router.createUrlTree(['preview/preview-tour'],  { queryParams: { propiedad: this.codPropiedad} }));
+    const url: string = host + String(this.router.createUrlTree([`preview/preview-tour/${codigoBase64}`],  { }));
+
+    console.log('URL: ', url);
 
     console.log(url);
     window.open(url, '_blank');

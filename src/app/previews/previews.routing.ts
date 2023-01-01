@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'preview-tour', component: PreviewTourComponent
+    path: 'preview-tour/:propiedad', component: PreviewTourComponent
   }
 ];
 
