@@ -45,8 +45,7 @@ export class HttpCustomInterceptor implements HttpInterceptor {
 
     let clonado = request.clone({ 
       headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token)});
-
-    console.log('CLONADO: ', clonado.headers);
+    
     return clonado;
   }
 

@@ -5,13 +5,17 @@ import { forkJoin, mergeMap } from 'rxjs';
 import { Imagen360 } from 'src/app/interfaces/imagen360.interface';
 import { PropiedadTitulo } from 'src/app/interfaces/propiedadTitulo.interface';
 import { GeneralResponse } from 'src/app/models/generalResponse.class';
+import { AccountService } from 'src/app/services/account.service';
 import { Imagenes360Service } from 'src/app/services/imagenes360.service';
 import { PropiedadesService } from 'src/app/services/propiedades.service';
 import { AlertMensajeComponent } from 'src/app/shared/components/alert-mensaje/alert-mensaje.component';
+import { environment } from 'src/environments/environment';
 import { AgregarFotoModalComponent } from '../components/agregar-foto-modal/agregar-foto-modal.component';
 import { BorrarFotoModalComponent } from '../components/borrar-foto-modal/borrar-foto-modal.component';
 import { EditarFotoModalComponent } from '../components/editar-foto-modal/editar-foto-modal.component';
 import { InfoPropiedadModalComponent } from '../components/info-propiedad-modal/info-propiedad-modal.component';
+
+const baseUrl: string = environment.baseUrl;
 
 @Component({
   selector: 'app-editar-fotos',
@@ -42,7 +46,8 @@ export class EditarFotosComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private imagenes360Service: Imagenes360Service,
     private sanitizer: DomSanitizer,
-    private titleService: Title) { }
+    private titleService: Title,
+    public accountService: AccountService) { }
 
   ngOnInit(): void {
 
@@ -50,9 +55,7 @@ export class EditarFotosComponent implements OnInit {
 
 
     this.activatedRoute.queryParams.subscribe((params:any) => {
-      //console.log(params); 
       this.codPropiedad = params.cod;
-      //console.log(this.codPropiedad); // 
 
       if(this.codPropiedad !== undefined && this.codPropiedad !== ''){
         this.cargando = true;
@@ -77,6 +80,8 @@ export class EditarFotosComponent implements OnInit {
 
         this.propiedad = resp.datos as PropiedadTitulo;
         
+        //console.log('propiedad: ', this.propiedad);
+
         if(descargarFotos){
           this.obtenerImagenes360();
         }
@@ -99,7 +104,10 @@ export class EditarFotosComponent implements OnInit {
         this.mensajeCarga = '';
 
         this.imagenes = resp.datos.imagenes as Imagen360[];
-        this.prepareImages(this.imagenes);
+
+        console.log('IMAGENES: ', this.imagenes);
+        //this.prepareImages(this.imagenes);
+        this.generarUrlParaImagenes(this.imagenes);
 
 
         this.usoFotos = resp.datos.usoFotos;
@@ -138,6 +146,14 @@ export class EditarFotosComponent implements OnInit {
         reject();
       }
     });
+  }
+
+  generarUrlParaImagenes(imgs: Imagen360[]){
+    const emailBase64 = btoa(this.accountService.usuario?.email);
+    for(let i=0; i<imgs.length; i++){
+      const imgBase64 =  btoa(imgs[i].id);
+      imgs[i].imageSrc = `${baseUrl}/Imagenes/reserved/bkt/GetThumbnail/${imgBase64}/${emailBase64}`;
+    }
   }
 
   prepareImages(posts: Imagen360[]) {
