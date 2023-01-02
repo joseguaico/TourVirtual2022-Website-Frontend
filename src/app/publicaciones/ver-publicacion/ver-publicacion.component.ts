@@ -62,6 +62,8 @@ export class VerPublicacionComponent implements OnInit {
         this.InicializarKrObjects();
         this.cargando = false;
 
+        this.agregarVisita();
+
       }else{
         this.mostrarDetalle = false;
         this.mensajeCarga = resp.message;
@@ -78,6 +80,19 @@ export class VerPublicacionComponent implements OnInit {
       
     });
   }
+
+  agregarVisita(){
+    try{
+      this.publicacionesService.agregarVisita(this.codigoPublicacion.trim())
+      .subscribe(resp => {
+        //console.log(resp);
+      });
+
+    }catch(err){
+      //console.error(err);
+    }
+  }
+
 
     //#region KrPano 
 

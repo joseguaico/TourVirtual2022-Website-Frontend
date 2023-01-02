@@ -191,6 +191,9 @@ export class BusquedaPropiedadesComponent implements OnInit {
     this.paginarBusqueda(1);
   }
 
+  onInfoPropiedadRecibida(propiedadInfo: PropiedadInfo){
+    this.actualizarPropiedadEnArray(propiedadInfo);
+  }
 
   actualizarPropiedadEnArray(propiedad: PropiedadInfo){
     for(let i=0; i<this.propiedades.length; i++){

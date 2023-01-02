@@ -245,7 +245,7 @@
     </div>
 
     <!-- Modal info propiedad -->
-    <app-info-propiedad-modal class="zindex-a"></app-info-propiedad-modal>
+    <app-info-propiedad-modal class="zindex-a" (onInfoPropiedadRecibida)="this.onInfoPropiedadRecibida($event.propiedad)"></app-info-propiedad-modal>
 
     <!-- Modal publicar propiedad -->
     <app-publicar-propiedad (onPropiedadPublicada)="this.onPropiedadPublicada($event.propiedad)" class="zindex-a"></app-publicar-propiedad>

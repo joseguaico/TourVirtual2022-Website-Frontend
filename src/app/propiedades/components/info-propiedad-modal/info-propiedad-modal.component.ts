@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { PropiedadesService } from 'src/app/services/propiedades.service';
 
 import { GeneralResponse } from 'src/app/models/generalResponse.class';
@@ -16,6 +16,9 @@ export class InfoPropiedadModalComponent implements OnInit {
 
 
   @ViewChild('mdlInfoPropiedadView') mdlInfoPropiedadView!: ElementRef;
+
+  @Output('onInfoPropiedadRecibida') onInfoPropiedadRecibida: EventEmitter<any> = new EventEmitter();
+
 
   cargando = true;
   mostrarDetalles = true;
@@ -50,14 +53,19 @@ export class InfoPropiedadModalComponent implements OnInit {
     {
       this.cargando = false;
 
-        if(resp.tieneError === false){
-          this.mensaje = "";
-          this.propiedad = resp.datos as PropiedadInfo;
-          this.mostrarLinkPublicacion = this.propiedad.linkPublicacion !== null;
-          this.mostrarDetalles = true;
-        }else{
-          this.mensaje = resp.message;
-        }
+      //console.log(resp);  
+
+      if(resp.tieneError === false){
+        this.mensaje = "";
+        this.propiedad = resp.datos as PropiedadInfo;
+        this.mostrarLinkPublicacion = this.propiedad.linkPublicacion !== null;
+        this.mostrarDetalles = true;
+
+        this.onInfoPropiedadRecibida.emit({propiedad: this.propiedad});
+
+      }else{
+        this.mensaje = resp.message;
+      }
     },
     (err: any) => {
       const {message, error} = err.error;
