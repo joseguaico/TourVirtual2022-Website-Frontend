@@ -12,9 +12,15 @@ import { AccountService } from 'src/app/services/account.service';
 })
 export class LoginComponent implements OnInit {
 
+  /*
   formularioLogin: FormGroup = this.formBuilder.group({
     email: ['joseguaico@gmail.com', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
     password: ['jose2022', [Validators.required] ]
+  });*/
+
+  formularioLogin: FormGroup = this.formBuilder.group({
+    email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+    password: ['', [Validators.required] ]
   });
 
   cargando: boolean = false;

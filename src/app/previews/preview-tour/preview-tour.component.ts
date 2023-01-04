@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Imagen360Publicada } from 'src/app/interfaces/imagen360Publicada.interface';
 import { PreviewTour } from 'src/app/interfaces/preview-tour.interface';
@@ -31,12 +32,15 @@ export class PreviewTourComponent implements OnInit {
 
   constructor(private previewService: PreviewService,
     private route: ActivatedRoute,
-    public accountService: AccountService) { }
+    public accountService: AccountService,
+    private titleService: Title) { }
 
   ngOnInit(): void {
 
+    this.titleService.setTitle('Previsualizar tour');
+
     this.route.paramMap.subscribe((params: any) => {
-      this.codigoPropiedad = params.get("propiedad")
+      this.codigoPropiedad = params.get("propiedad");
 
       //console.log('Codigo propiedad: ', this.codigoPropiedad);
 
@@ -53,7 +57,7 @@ export class PreviewTourComponent implements OnInit {
   }
 
   obtenerPreviewTour(){
-    this.previewService.obtenerPreviewTour(this.codigoPropiedad.trim()).
+    this.previewService.obtenerPreviewTour(this.codigoPropiedad.replace('*','=').trim()).
     subscribe((resp: GeneralResponse) => {
 
       if(!resp.tieneError){

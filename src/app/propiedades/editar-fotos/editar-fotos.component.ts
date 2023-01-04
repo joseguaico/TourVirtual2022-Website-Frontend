@@ -16,6 +16,7 @@ import { EditarFotoModalComponent } from '../components/editar-foto-modal/editar
 import { InfoPropiedadModalComponent } from '../components/info-propiedad-modal/info-propiedad-modal.component';
 
 const baseUrl: string = environment.baseUrl;
+const baseSistema = environment.baseSistema;
 
 @Component({
   selector: 'app-editar-fotos',
@@ -208,16 +209,10 @@ export class EditarFotosComponent implements OnInit {
   }
 
   onClickPreviewTour(){
-    //this.router.navigate(['propiedades/preview-tour'],  { queryParams: { propiedad: this.codPropiedad} })
-    const codigoBase64 =  btoa(this.codPropiedad.trim());
-    const host: string =  location.origin;
-    const url: string = host + String(this.router.createUrlTree([`preview/preview-tour/${codigoBase64}`],  { }));
-
-    console.log('URL: ', url);
-
-    console.log(url);
-    window.open(url, '_blank');
-
+    //const codigoBase64 =  btoa(this.codPropiedad.trim());
+    //const url = baseSistema + `/preview/preview-tour/${codigoBase64}`;
+    console.log('LINK PREVIEW: ', this.propiedad?.linkPreview);
+    window.open(''+this.propiedad?.linkPreview, '_blank');
   }
 
 

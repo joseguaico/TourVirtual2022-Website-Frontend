@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
-  //baseUrl: 'https://localhost:7237/api'
-  baseUrl: 'https://localhost:3600/api'
+  baseUrl: 'http://54.237.23.29/TourVirtual2023API/api',
+  //baseUrl: 'https://localhost:3600/api'
+  baseSistema: 'http://54.237.23.29/TourVirtual2023Website'
 };

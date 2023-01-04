@@ -6,5 +6,7 @@ export interface PropiedadTitulo{
     codEstado: number,
     estado: string,
     fotos: number,
-    vistas: number
+    vistas: number,
+
+    linkPreview: string | null
 };

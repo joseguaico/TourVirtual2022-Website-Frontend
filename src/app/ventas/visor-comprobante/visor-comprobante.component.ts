@@ -36,7 +36,7 @@ export class VisorComprobanteComponent implements OnInit {
           let objectURL = URL.createObjectURL(blob);
           this.contenidoArchivo = this.sanitizer.bypassSecurityTrustUrl(objectURL);
 
-          console.log("CONTENIDO",  this.contenidoArchivo);
+          //console.log("CONTENIDO",  this.contenidoArchivo);
 
           this.cargando = false;
           this.mostrarMensaje = false;

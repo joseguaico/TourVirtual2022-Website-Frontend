@@ -131,12 +131,16 @@
 
                             <div *ngIf="vt.extension === '.pdf'">
                                 <a title="Ver el comprobante de esta venta"
-                                target="_blank" [routerLink]="['/visor-comprobante',vt.idx]"><i class="far fa-file-pdf fa-sm"></i></a>
+                                target="_blank" [href]="this.baseSistemaWeb + '/visor-comprobante/' + vt.idx"><i class="far fa-file-pdf fa-sm"></i></a>
+                                <!-- <a title="Ver el comprobante de esta venta"
+                                target="_blank" [routerLink]="['/visor-comprobante',vt.idx]"><i class="far fa-file-pdf fa-sm"></i></a> -->
                             </div>
 
                             <div *ngIf="vt.extension === '.jpeg' || vt.extension === '.jpg' || vt.extension === '.png'">
+                                <!-- <a title="Ver el comprobante de esta venta"
+                                target="_blank" [routerLink]="['/visor-comprobante',vt.idx]"><i class="far fa-file-image fa-sm"></i></a> -->
                                 <a title="Ver el comprobante de esta venta"
-                                target="_blank" [routerLink]="['/visor-comprobante',vt.idx]"><i class="far fa-file-image fa-sm"></i></a>
+                                target="_blank" [href]="this.baseSistemaWeb + '/visor-comprobante/' + vt.idx"><i class="far fa-file-image fa-sm"></i></a>
                             </div>
 
                             <a title="Ver el detalle de esta venta" (click)="this.onClickVerDetalle(vt.idx)"><i class="fas fa-info fa-sm"></i></a>

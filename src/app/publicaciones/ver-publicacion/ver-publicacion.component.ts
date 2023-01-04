@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Imagen360Publicada } from 'src/app/interfaces/imagen360Publicada.interface';
 import { Publicacion } from 'src/app/interfaces/publicacion.interface';
@@ -29,9 +30,12 @@ export class VerPublicacionComponent implements OnInit {
   mostrarDetalle = false;
 
   constructor(private publicacionesService: PublicacionesService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private titleService: Title) { }
 
   ngOnInit(): void {
+
+    this.titleService.setTitle('Ver publicación');
 
     this.route.paramMap.subscribe((params: any) => {
       this.codigoPublicacion = params.get("code")
@@ -49,7 +53,7 @@ export class VerPublicacionComponent implements OnInit {
   }
 
   obtenerInfoPublicacion(){
-    this.publicacionesService.obtenerPublicacion(this.codigoPublicacion.trim()).
+    this.publicacionesService.obtenerPublicacion(this.codigoPublicacion.replace('*','=').trim()).
     subscribe((resp: GeneralResponse) => {
 
       if(!resp.tieneError){

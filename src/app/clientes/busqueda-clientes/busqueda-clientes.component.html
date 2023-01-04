@@ -184,10 +184,9 @@
     <app-info-cliente-modal class="zindex-a"></app-info-cliente-modal>
 
     <!-- Modal cambiar estado cliente -->
-    <app-cambiar-estado-cliente-modal class="zindex-a" (recargarBusqueda)="this.onRecargarBusquedaClientes()"></app-cambiar-estado-cliente-modal>
+    <app-cambiar-estado-cliente-modal class="zindex-a" (onEstadoCambiadoCliente)="this.onEstadoCambiadoCliente($event.mensaje)"></app-cambiar-estado-cliente-modal>
 
     <!-- Modal eliminar cliente -->
     <app-borrar-cliente-modal class="zindex-a" (onClienteBorrado)="this.onClienteBorrado($event.codxCliente, $event.nombreCliente)"></app-borrar-cliente-modal>
-
 
 </div>

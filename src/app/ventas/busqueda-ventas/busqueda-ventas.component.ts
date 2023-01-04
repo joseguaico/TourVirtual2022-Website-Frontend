@@ -11,6 +11,7 @@ import { BorrarVentaModalComponent } from '../components/borrar-venta-modal/borr
 import { InfoVentaModalComponent } from '../components/info-venta-modal/info-venta-modal.component';
 
 const baseUrl: string = environment.baseUrl;
+const baseSistema = environment.baseSistema;
 
 @Component({
   selector: 'app-busqueda-ventas',
@@ -18,6 +19,8 @@ const baseUrl: string = environment.baseUrl;
   styleUrls: ['./busqueda-ventas.component.css']
 })
 export class BusquedaVentasComponent implements OnInit {
+
+  baseSistemaWeb = baseSistema;
 
   currentPage: number = 1;
   pageSize: number = 10;

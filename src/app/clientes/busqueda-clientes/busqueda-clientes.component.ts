@@ -135,7 +135,12 @@ export class BusquedaClientesComponent implements OnInit {
     this.modalBorrarCliente.mostrarModal(cliente.idx, cliente.nombre);
   }
 
-  onRecargarBusquedaClientes(){
+  // onRecargarBusquedaClientes(){
+  //   this.paginarBusqueda(1);
+  // }
+
+  onEstadoCambiadoCliente(mensaje: string){
+    this.alertMensaje.mostrarAlert(mensaje);
     this.paginarBusqueda(1);
   }
 

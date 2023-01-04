@@ -12,7 +12,8 @@ declare let $ : any;
 })
 export class CambiarEstadoClienteModalComponent implements OnInit {
 
-  @Output('recargarBusqueda') recargarBusquedaEmmiter: EventEmitter<any> = new EventEmitter();
+  //@Output('recargarBusqueda') recargarBusquedaEmmiter: EventEmitter<any> = new EventEmitter();
+  @Output('onEstadoCambiadoCliente') onEstadoCambiadoCliente: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('mdlCambiarEstado') mdlCambiarEstado!: ElementRef;
   cargando = false;
@@ -114,17 +115,19 @@ export class CambiarEstadoClienteModalComponent implements OnInit {
     {
       this.actualizando = false;
 
-      console.log(resp);
+      //console.log(resp);
 
-        if(resp.tieneError == true){
+        if(resp.tieneError === true){
           this.textoPosteriorCambio = resp.message;
           this.mostrarCerrarOverlay = true;
         }else{
-          this.textoPosteriorCambio = resp.message;
-          this.mostrarCerrarAll = true;
+          //this.textoPosteriorCambio = resp.message;
+          //this.mostrarCerrarAll = true;
 
-          this.recargarBusquedaEmmiter.emit();
+          //this.recargarBusquedaEmmiter.emit();
 
+          this.onEstadoCambiadoCliente.emit({mensaje: resp.message});
+          this.cerrarModalAll();
         }
         this.mostrarInfoCambioEstado = true;
     },
